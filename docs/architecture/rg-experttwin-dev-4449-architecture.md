@@ -29,6 +29,14 @@ The application runs as one Python FastAPI container on Azure Container Apps Con
 
 ![ExpertTwin Azure architecture](ExpertTwin-Azure-Architecture.png)
 
+## Layman Data-Ingestion Flow
+
+![How ExpertTwin turns work into trusted guidance](ExpertTwin-Data-Ingestion-Flow.png)
+
+Everyday work enters the system as recordings, documents, review comments, meeting transcripts, engineering chats, incidents, ADRs, and retrospectives. Audio is converted to a transcript, while files are converted to clean text. The current demonstration uses supplied synthetic transcripts and files; a production implementation can add Azure AI Speech and approved enterprise connectors.
+
+ExpertTwin keeps the speaker or author, source, timestamp, document location, and discussion thread attached to each passage. Azure OpenAI then extracts decisions, rationale, alternatives, risks, trade-offs, and observed outcomes. These records form the evidence library and Engineering Decision Fingerprint. When a user asks a question or starts a War Room, relevant evidence is retrieved first, and the generated response includes citations or states that evidence is missing.
+
 ```mermaid
 graph LR
     USERS["Engineers and hackathon reviewers"]
