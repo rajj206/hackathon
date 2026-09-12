@@ -1,0 +1,103 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Vishwas Srivastava",
+  "evidence_role": "Principal Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Set an architecture boundary around external adapters.",
+      "decision": "Set an architecture boundary around external adapters.",
+      "choice": "Use ports for storage, clock, and fictional weather dependencies",
+      "alternatives": [
+        "Call vendor-shaped clients from domain handlers"
+      ],
+      "rationale": [
+        "Ports keep the core deterministic and make offline testing possible"
+      ],
+      "constraints": [
+        "No network dependency is required for the demo"
+      ],
+      "risks": [
+        "Too many abstractions can slow a small implementation"
+      ],
+      "outcome": "Synthetic offline integration coverage increased from 62% to 93%.",
+      "tags": [
+        "architecture",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Threat-model the command path before finalizing it.",
+      "decision": "Threat-model the command path before finalizing it.",
+      "choice": "Require authentication, explicit authorization, replay defense, and audit fields",
+      "alternatives": [
+        "Rely on a private demo network"
+      ],
+      "rationale": [
+        "Layered controls address distinct command-path risks"
+      ],
+      "constraints": [
+        "All identities and events are fictional"
+      ],
+      "risks": [
+        "Control complexity can delay the demo if not scoped"
+      ],
+      "outcome": "Synthetic threat tests passed 48 of 48 abuse cases.",
+      "tags": [
+        "security",
+        "architecture"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Define a reliability budget.",
+      "decision": "Define a reliability budget.",
+      "choice": "Allocate the two-second p95 budget across ingress, queue, storage, and projection",
+      "alternatives": [
+        "Optimize only after end-to-end latency fails"
+      ],
+      "rationale": [
+        "Budgets turn a broad target into measurable component constraints"
+      ],
+      "constraints": [
+        "25,000 synthetic events per minute peak"
+      ],
+      "risks": [
+        "Local optimization may not improve the critical path"
+      ],
+      "outcome": "Synthetic end-to-end p95 improved from 3.4 seconds to 1.6 seconds.",
+      "tags": [
+        "reliability",
+        "performance"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Prefer reversible technology choices for the hackathon.",
+      "decision": "Prefer reversible technology choices for the hackathon.",
+      "choice": "Use SQLite and adapter interfaces instead of introducing a remote platform",
+      "alternatives": [
+        "Add a managed distributed store immediately"
+      ],
+      "rationale": [
+        "The fictional scale fits local storage and the adapter preserves an evolution path"
+      ],
+      "constraints": [
+        "Single-node demo",
+        "No Azure calls or token use"
+      ],
+      "risks": [
+        "SQLite is not the intended answer for a future distributed deployment"
+      ],
+      "outcome": "Synthetic setup time fell from an estimated 45 minutes to 6 minutes while all 32 integration tests passed.",
+      "tags": [
+        "architecture",
+        "risk"
+      ]
+    }
+  ]
+}

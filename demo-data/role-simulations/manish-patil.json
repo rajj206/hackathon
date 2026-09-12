@@ -1,0 +1,102 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Manish Patil",
+  "evidence_role": "Senior Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Define a circuit breaker for the fictional weather adapter.",
+      "decision": "Define a circuit breaker for the fictional weather adapter.",
+      "choice": "Open the breaker after five failures and serve last-known synthetic status",
+      "alternatives": [
+        "Block every request on the adapter"
+      ],
+      "rationale": [
+        "Graceful degradation keeps the primary coordination flow available"
+      ],
+      "constraints": [
+        "Cached status must show its age"
+      ],
+      "risks": [
+        "Stale context could be mistaken for current data"
+      ],
+      "outcome": "Synthetic adapter outages preserved 99.8% core-route availability.",
+      "tags": [
+        "reliability",
+        "architecture"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Make migrations backward compatible.",
+      "decision": "Make migrations backward compatible.",
+      "choice": "Use expand-migrate-contract for the station status field",
+      "alternatives": [
+        "Rename the column in one step"
+      ],
+      "rationale": [
+        "Two compatible versions can run during the demo deployment"
+      ],
+      "constraints": [
+        "Migration must finish within five minutes"
+      ],
+      "risks": [
+        "Temporary dual fields add code complexity"
+      ],
+      "outcome": "Synthetic rolling deployment completed with 0 failed requests across 20,000 calls.",
+      "tags": [
+        "architecture",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Cap request fan-out.",
+      "decision": "Cap request fan-out.",
+      "choice": "Batch station lookups into one repository query",
+      "alternatives": [
+        "Issue one query per station card"
+      ],
+      "rationale": [
+        "Bounded queries keep latency predictable as the synthetic roster grows"
+      ],
+      "constraints": [
+        "Dashboard shows at most 100 stations"
+      ],
+      "risks": [
+        "Larger result sets use more memory"
+      ],
+      "outcome": "Synthetic dashboard p95 improved from 2.9 seconds to 620 milliseconds.",
+      "tags": [
+        "performance",
+        "architecture"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Test failure paths as first-class behavior.",
+      "decision": "Test failure paths as first-class behavior.",
+      "choice": "Add fault-injection tests for timeout, duplicate, and stale-version cases",
+      "alternatives": [
+        "Test only happy-path acceptance"
+      ],
+      "rationale": [
+        "The main risks occur at unreliable boundaries"
+      ],
+      "constraints": [
+        "Tests must be deterministic and offline"
+      ],
+      "risks": [
+        "Mocks can diverge from adapter behavior"
+      ],
+      "outcome": "Synthetic release confidence suite covered 18 failure modes and passed 18 of 18.",
+      "tags": [
+        "testing",
+        "reliability"
+      ]
+    }
+  ]
+}

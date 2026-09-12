@@ -1,0 +1,57 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Project Northstar and all messages, tradeoffs, metrics, and decisions are fictional.
+
+[2026-09-12 09:05] Hrishikesh Mohile (Principal Software Engineering Manager): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Protect the critical path with a scope freeze at hour 30.
+I prefer Freeze nonessential features after hour 30 rather than Continue accepting features until demo time.
+Constraint: Core beacon flow must remain demonstrable. Risk: Scope churn may reduce recovery confidence.
+
+[2026-09-12 09:08] Amrita Shanbhag (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Separate validation from persistence.
+I prefer Validate event envelopes before opening a database transaction rather than Validate fields during each persistence call.
+Constraint: Schema version must be present. Risk: Strict validation may reject older simulated clients.
+
+[2026-09-12 09:11] Devarakonda Sathish (Data Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Quarantine bad records instead of dropping the batch.
+I prefer Route invalid events to a synthetic quarantine table with reason codes rather than Reject the full batch; Silently discard invalid rows.
+Constraint: No sensitive data is present. Risk: Quarantine growth can mask a producer defect.
+
+[2026-09-12 09:14] Kumar Ritesh (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Expose health by dependency.
+I prefer Publish separate readiness checks for database and projection worker rather than Return one unconditional health response.
+Constraint: Checks must complete in 200 milliseconds. Risk: Overly strict readiness can cause restart loops.
+
+[2026-09-12 09:17] Manish Patil (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Make migrations backward compatible.
+I prefer Use expand-migrate-contract for the station status field rather than Rename the column in one step.
+Constraint: Migration must finish within five minutes. Risk: Temporary dual fields add code complexity.
+
+[2026-09-12 09:20] Nishikant Lambat (Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Build table-driven validator tests.
+I prefer Cover every required field and boundary value in parameterized tests rather than Use one representative valid and invalid event.
+Constraint: Tests run without network access. Risk: Too many overlapping cases can obscure intent.
+
+[2026-09-12 09:23] Rajendra Kalepu (Senior Data Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Publish data quality service-level indicators.
+I prefer Track contract validity, freshness, uniqueness, and reconciliation rates rather than Track pipeline success only.
+Constraint: Metrics use synthetic records only. Risk: Thresholds may need tuning during the hackathon.
+
+[2026-09-12 09:26] Satyajit Sahu (Software Engineering): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Keep the station card component state explicit.
+I prefer Model loading, ready, stale, empty, and error states separately rather than Use one nullable data state.
+Constraint: No external UI libraries added. Risk: More states require more tests.
+
+[2026-09-12 09:29] Siya Sharma (Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Add boundary tests for beacon age.
+I prefer Test 59, 60, and 61 seconds around the stale threshold rather than Test only a clearly fresh and clearly stale event.
+Constraint: Use a frozen synthetic clock. Risk: Production clock behavior is outside the simulation.
+
+[2026-09-12 09:32] Tulika (Software Engineer II): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Make shutdown drain predictable.
+I prefer Stop intake and drain for up to ten seconds before checkpointing rather than Terminate immediately; Wait indefinitely.
+Constraint: Unfinished messages remain replayable. Risk: A long-running item may be retried.
+
+[2026-09-12 09:35] Vishwas Srivastava (Principal Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Threat-model the command path before finalizing it.
+I prefer Require authentication, explicit authorization, replay defense, and audit fields rather than Rely on a private demo network.
+Constraint: All identities and events are fictional. Risk: Control complexity can delay the demo if not scoped.

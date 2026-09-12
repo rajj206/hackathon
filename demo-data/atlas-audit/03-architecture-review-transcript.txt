@@ -1,0 +1,30 @@
+SYNTHETIC FICTIONAL HACKATHON DATA — This AtlasAudit meeting and all participants,
+statements, metrics, and decisions are invented solely for a software demonstration.
+
+[00:00] Maya Rao (Engineering Manager): We are deciding the six-week pilot architecture,
+not a permanent enterprise standard. The workload is 25,000 sustained and 80,000 burst
+events per second. Our gates are measurable reliability, integrity, cost, and delivery risk.
+
+[00:24] Priya Nair (Senior SWE): ADX best matches the high-ingest Kusto investigation
+workflow. Synapse is stronger when broad warehouse joins dominate. I recommend keeping
+the event contract portable, but avoiding two operational write paths.
+
+[00:48] Daniel Kim (Senior SWE): The immutable archive must be independently verifiable.
+Each hourly Parquet batch needs its source sequence range, record count, previous-manifest
+hash, and current hash. Reconciliation must detect gaps and duplicates.
+
+[01:14] Luis Martinez (SWE II): Operations will alert on searchable latency, ingestion
+rejections, Event Hubs backlog, oldest unexported batch, hash mismatch, and dead-letter
+growth. Runbooks will name the first diagnostic query and safe replay procedure.
+
+[01:39] Aisha Khan (SWE II): Fourteen hot days keeps the common incident window fast and
+reduces retention cost. A 30-day baseline remains in the cost model so the outcome is
+measurable rather than assumed.
+
+[02:01] Ethan Brooks (SWE): Tests will include an 80,000 events-per-second burst, duplicate
+delivery, an export worker restart, a storage throttle, schema evolution, and archive query.
+
+[02:25] Maya Rao: Decision: Event Hubs to ADX is the single hot path; hot retention is
+14 days; immutable export is hourly; Synapse serverless is deferred for core operations.
+We will revisit only with evidence. I accept the observability and integrity controls,
+reject synchronous dual-write, and phase the decision behind pilot gates.

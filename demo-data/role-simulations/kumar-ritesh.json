@@ -1,0 +1,104 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Kumar Ritesh",
+  "evidence_role": "Senior Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Choose a queue between ingestion and projection.",
+      "decision": "Choose a queue between ingestion and projection.",
+      "choice": "Use an in-process durable queue abstraction for beacon projections",
+      "alternatives": [
+        "Write synchronously to every read model"
+      ],
+      "rationale": [
+        "Decoupling isolates dashboard latency from command acceptance"
+      ],
+      "constraints": [
+        "Single-node fictional demo",
+        "Adapter must permit later replacement"
+      ],
+      "risks": [
+        "Queue backlog can make views stale"
+      ],
+      "outcome": "Synthetic burst handling sustained 25,000 events per minute with 1.3-second p95 projection lag.",
+      "tags": [
+        "architecture",
+        "reliability"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Expose health by dependency.",
+      "decision": "Expose health by dependency.",
+      "choice": "Publish separate readiness checks for database and projection worker",
+      "alternatives": [
+        "Return one unconditional health response"
+      ],
+      "rationale": [
+        "Dependency-aware checks prevent routing traffic to a partially ready instance"
+      ],
+      "constraints": [
+        "Checks must complete in 200 milliseconds"
+      ],
+      "risks": [
+        "Overly strict readiness can cause restart loops"
+      ],
+      "outcome": "Synthetic fault drills detected 12 of 12 dependency failures within 3 seconds.",
+      "tags": [
+        "reliability",
+        "telemetry"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Use optimistic concurrency for station state.",
+      "decision": "Use optimistic concurrency for station state.",
+      "choice": "Reject stale updates using a version token",
+      "alternatives": [
+        "Last writer always wins"
+      ],
+      "rationale": [
+        "Version checks surface conflicting offline edits instead of hiding them"
+      ],
+      "constraints": [
+        "Clients receive current version on conflict"
+      ],
+      "risks": [
+        "Users must resolve legitimate concurrent changes"
+      ],
+      "outcome": "Synthetic lost updates fell from 67 to 0 across 1,000 concurrent edits.",
+      "tags": [
+        "architecture",
+        "reliability"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Redact tokens at the logging boundary.",
+      "decision": "Redact tokens at the logging boundary.",
+      "choice": "Apply structured-log redaction before serialization",
+      "alternatives": [
+        "Ask each caller to sanitize strings"
+      ],
+      "rationale": [
+        "Central redaction is consistent and testable"
+      ],
+      "constraints": [
+        "Synthetic tokens only",
+        "Preserve correlation IDs"
+      ],
+      "risks": [
+        "An incomplete field list may miss a new secret-shaped value"
+      ],
+      "outcome": "Synthetic log scans found 0 token leaks in 50,000 records after redaction.",
+      "tags": [
+        "security",
+        "telemetry"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Devarakonda Sathish",
+  "evidence_role": "Data Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Version the beacon event contract.",
+      "decision": "Version the beacon event contract.",
+      "choice": "Use an immutable envelope with schema_version and event_id",
+      "alternatives": [
+        "Infer shape from optional fields"
+      ],
+      "rationale": [
+        "Explicit contracts make replay and compatibility checks deterministic"
+      ],
+      "constraints": [
+        "Support versions 1 and 2 during the demo"
+      ],
+      "risks": [
+        "Producers may send an unknown version"
+      ],
+      "outcome": "Synthetic contract validation identified all 41 malformed events in a 5,000-event batch.",
+      "tags": [
+        "data-contract",
+        "quality"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Quarantine bad records instead of dropping the batch.",
+      "decision": "Quarantine bad records instead of dropping the batch.",
+      "choice": "Route invalid events to a synthetic quarantine table with reason codes",
+      "alternatives": [
+        "Reject the full batch",
+        "Silently discard invalid rows"
+      ],
+      "rationale": [
+        "Quarantine preserves lineage while healthy records continue"
+      ],
+      "constraints": [
+        "No sensitive data is present"
+      ],
+      "risks": [
+        "Quarantine growth can mask a producer defect"
+      ],
+      "outcome": "Synthetic usable-event throughput stayed at 99.2% despite 0.8% malformed input.",
+      "tags": [
+        "data-quality",
+        "lineage"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Track lineage from file to dashboard aggregate.",
+      "decision": "Track lineage from file to dashboard aggregate.",
+      "choice": "Persist source_batch_id through bronze, silver, and aggregate rows",
+      "alternatives": [
+        "Keep lineage only in ingestion logs"
+      ],
+      "rationale": [
+        "Row-level lineage supports deterministic reconciliation"
+      ],
+      "constraints": [
+        "Retention is limited to the fictional exercise"
+      ],
+      "risks": [
+        "Additional columns increase storage slightly"
+      ],
+      "outcome": "Synthetic reconciliation traced 100% of 2,400 aggregates to their input batches.",
+      "tags": [
+        "lineage",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Use event-time watermarks for late beacons.",
+      "decision": "Use event-time watermarks for late beacons.",
+      "choice": "Accept events up to ten minutes late and report later arrivals separately",
+      "alternatives": [
+        "Aggregate only by processing time"
+      ],
+      "rationale": [
+        "A bounded watermark balances completeness and stable dashboard windows"
+      ],
+      "constraints": [
+        "Dashboard refreshes every 30 seconds"
+      ],
+      "risks": [
+        "Events later than the watermark require correction"
+      ],
+      "outcome": "Synthetic window completeness improved from 91% to 99.4%.",
+      "tags": [
+        "data-quality",
+        "architecture"
+      ]
+    }
+  ]
+}

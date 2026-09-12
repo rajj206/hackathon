@@ -1,0 +1,102 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Satyajit Sahu",
+  "evidence_role": "Software Engineering",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Define the API examples before wiring the handler.",
+      "decision": "Define the API examples before wiring the handler.",
+      "choice": "Use executable request and response examples as acceptance fixtures",
+      "alternatives": [
+        "Implement first and document examples later"
+      ],
+      "rationale": [
+        "Examples align the UI and service on edge-case behavior"
+      ],
+      "constraints": [
+        "Fixtures contain fictional data only"
+      ],
+      "risks": [
+        "Examples can lag if not run in tests"
+      ],
+      "outcome": "Synthetic contract fixture pass rate reached 100% across 22 examples.",
+      "tags": [
+        "clarification",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Keep the station card component state explicit.",
+      "decision": "Keep the station card component state explicit.",
+      "choice": "Model loading, ready, stale, empty, and error states separately",
+      "alternatives": [
+        "Use one nullable data state"
+      ],
+      "rationale": [
+        "Explicit states prevent ambiguous rendering"
+      ],
+      "constraints": [
+        "No external UI libraries added"
+      ],
+      "risks": [
+        "More states require more tests"
+      ],
+      "outcome": "Synthetic component tests covered all 5 states with 15 assertions.",
+      "tags": [
+        "implementation",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Debounce dashboard filters.",
+      "decision": "Debounce dashboard filters.",
+      "choice": "Apply filters after 200 milliseconds of idle input",
+      "alternatives": [
+        "Query on every keystroke"
+      ],
+      "rationale": [
+        "Debouncing reduces redundant work without feeling delayed"
+      ],
+      "constraints": [
+        "Keyboard submission remains immediate"
+      ],
+      "risks": [
+        "A long debounce could feel unresponsive"
+      ],
+      "outcome": "Synthetic filter queries fell by 68% in a 30-user interaction replay.",
+      "tags": [
+        "implementation",
+        "performance"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Propagate correlation IDs through errors.",
+      "decision": "Propagate correlation IDs through errors.",
+      "choice": "Display a safe correlation ID in the UI error panel",
+      "alternatives": [
+        "Display full server exception details"
+      ],
+      "rationale": [
+        "The ID supports debugging without exposing internals"
+      ],
+      "constraints": [
+        "Correlation IDs contain no identity data"
+      ],
+      "risks": [
+        "Missing propagation can produce an empty reference"
+      ],
+      "outcome": "Synthetic fault triage located the matching log record in 30 of 30 cases.",
+      "tags": [
+        "telemetry",
+        "security"
+      ]
+    }
+  ]
+}

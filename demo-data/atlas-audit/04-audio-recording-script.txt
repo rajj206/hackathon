@@ -1,0 +1,24 @@
+SYNTHETIC FICTIONAL HACKATHON DATA. Spoken abridgement for AtlasAudit.
+
+Maya Rao, Engineering Manager. We are making a phased pilot decision. The targets are
+twenty-five thousand sustained events per second, eighty thousand burst, and searchable
+latency below ninety seconds.
+
+Daniel Kim, Senior Software Engineer. I recommend hourly immutable exports with hash-chain
+manifests so missing, duplicated, or altered audit batches can be detected.
+
+Priya Nair, Senior Software Engineer. Azure Data Explorer fits the incident-query path.
+Keep the contract portable, but do not add a synchronous Synapse write in phase one.
+
+Luis Martinez, Software Engineer Two. I will monitor ingestion latency, backlog, oldest
+unexported batch age, hash mismatch, and dead-letter growth.
+
+Aisha Khan, Software Engineer Two. Fourteen hot days should control retention cost while
+the immutable archive preserves thirteen months.
+
+Ethan Brooks, Software Engineer. I will test burst load, duplicate delivery, storage
+throttling, export restarts, and archive recovery.
+
+Maya Rao. Accepted: integrity checks, operational alerts, cost measurement, and failure
+tests. Rejected: synchronous dual-write. Refined: fourteen-day hot retention with an
+hourly archive. Synapse serverless remains optional for cross-domain analytics.

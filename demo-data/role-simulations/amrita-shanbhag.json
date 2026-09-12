@@ -1,0 +1,103 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Amrita Shanbhag",
+  "evidence_role": "Senior Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Keep command processing idempotent at the service boundary.",
+      "decision": "Keep command processing idempotent at the service boundary.",
+      "choice": "Require an idempotency key for supply update commands",
+      "alternatives": [
+        "Rely on client retries without deduplication"
+      ],
+      "rationale": [
+        "Intermittent links can replay requests and duplicate state changes"
+      ],
+      "constraints": [
+        "Keys expire after the fictional 24-hour exercise"
+      ],
+      "risks": [
+        "A poorly chosen key could suppress a legitimate update"
+      ],
+      "outcome": "Synthetic duplicate mutations dropped from 143 to 0 in a 10,000-command replay.",
+      "tags": [
+        "architecture",
+        "reliability"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Separate validation from persistence.",
+      "decision": "Separate validation from persistence.",
+      "choice": "Validate event envelopes before opening a database transaction",
+      "alternatives": [
+        "Validate fields during each persistence call"
+      ],
+      "rationale": [
+        "A single validation boundary yields consistent errors and shorter locks"
+      ],
+      "constraints": [
+        "Schema version must be present"
+      ],
+      "risks": [
+        "Strict validation may reject older simulated clients"
+      ],
+      "outcome": "Synthetic invalid-event transaction time fell by 82%.",
+      "tags": [
+        "architecture",
+        "security"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Use bounded retries with jitter.",
+      "decision": "Use bounded retries with jitter.",
+      "choice": "Retry transient writes three times with exponential jitter",
+      "alternatives": [
+        "Retry indefinitely",
+        "Fail immediately"
+      ],
+      "rationale": [
+        "Bounded retries balance recovery with predictable latency"
+      ],
+      "constraints": [
+        "Final p95 must remain below two seconds"
+      ],
+      "risks": [
+        "A brief outage can still exhaust all attempts"
+      ],
+      "outcome": "Synthetic recovery tests succeeded in 97 of 100 injected transient faults.",
+      "tags": [
+        "reliability",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Make authorization deny by default.",
+      "decision": "Make authorization deny by default.",
+      "choice": "Map fictional station roles to explicit command permissions",
+      "alternatives": [
+        "Allow any authenticated demo user"
+      ],
+      "rationale": [
+        "Least privilege limits accidental state changes"
+      ],
+      "constraints": [
+        "No real identities are used"
+      ],
+      "risks": [
+        "Missing role mappings can block a valid demo path"
+      ],
+      "outcome": "Synthetic unauthorized-command tests achieved 100% denial across 36 cases.",
+      "tags": [
+        "security",
+        "testing"
+      ]
+    }
+  ]
+}

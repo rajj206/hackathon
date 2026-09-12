@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ExpertTwin evidence-grounded engineering judgment simulation">
+  <title>ExpertTwin · Engineering Team</title>
+  <link rel="stylesheet" href="/static/style.css?v=team-ui-20260912-7">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar" aria-labelledby="workspaceTitle">
+      <header class="workspace-header">
+        <div class="workspace-avatar" aria-hidden="true">ET</div>
+        <div>
+          <p class="eyebrow">AUTHORIZED ROSTER</p>
+          <h1 id="workspaceTitle">Engineering team</h1>
+          <p>Names and roles only</p>
+        </div>
+      </header>
+
+      <section class="expert-picker">
+        <label for="expertSelect">Selected AI Twin</label>
+        <select id="expertSelect"></select>
+        <p id="selectedExpertDisclaimer">AI Clone</p>
+      </section>
+
+      <section aria-labelledby="peopleTitle">
+        <div class="section-title">
+          <h2 id="peopleTitle">People</h2><span>authorized roster</span>
+        </div>
+        <ul class="people-list">
+          <li class="person manager-person" data-person="hrishikesh mohile">
+            <span class="avatar" style="--avatar-hue:32">HM</span>
+            <span><strong>Hrishikesh Mohile (AI Clone)</strong><small>Principal Software Engineering Manager</small></span>
+          </li>
+          <li class="team-divider">Engineering team</li>
+          <li class="person" data-person="amrita shanbhag">
+            <span class="avatar" style="--avatar-hue:338">AS</span>
+            <span><strong>Amrita Shanbhag</strong><small>Senior Software Engineer</small></span>
+          </li>
+          <li class="person" data-person="devarakonda sathish">
+            <span class="avatar" style="--avatar-hue:24">DS</span>
+            <span><strong>Devarakonda Sathish</strong><small>Data Engineer</small></span>
+          </li>
+          <li class="person" data-person="kumar ritesh">
+            <span class="avatar" style="--avatar-hue:146">KR</span>
+            <span><strong>Kumar Ritesh</strong><small>Senior Software Engineer</small></span>
+          </li>
+          <li class="person" data-person="manish patil">
+            <span class="avatar" style="--avatar-hue:205">MP</span>
+            <span><strong>Manish Patil</strong><small>Senior Software Engineer</small></span>
+          </li>
+          <li class="person" data-person="nishikant lambat">
+            <span class="avatar" style="--avatar-hue:188">NL</span>
+            <span><strong>Nishikant Lambat</strong><small>Software Engineer</small></span>
+          </li>
+          <li class="person" data-person="rajendra kalepu">
+            <span class="avatar" style="--avatar-hue:220">RK</span>
+            <span><strong>Rajendra Kalepu</strong><small>Senior Data Engineer</small></span>
+          </li>
+          <li class="person" data-person="satyajit sahu">
+            <span class="avatar" style="--avatar-hue:273">SS</span>
+            <span><strong>Satyajit Sahu</strong><small>Software Engineering</small></span>
+          </li>
+          <li class="person" data-person="siya sharma">
+            <span class="avatar" style="--avatar-hue:312">SS</span>
+            <span><strong>Siya Sharma</strong><small>Software Engineer</small></span>
+          </li>
+          <li class="person" data-person="tulika">
+            <span class="avatar" style="--avatar-hue:44">TU</span>
+            <span><strong>Tulika</strong><small>Software Engineer II</small></span>
+          </li>
+          <li class="person" data-person="vishwas srivastava">
+            <span class="avatar" style="--avatar-hue:112">VS</span>
+            <span><strong>Vishwas Srivastava</strong><small>Principal Software Engineer</small></span>
+          </li>
+        </ul>
+        <p class="roster-note">
+          The synthetic demo scenario is separate and does not represent statements by this team.
+        </p>
+      </section>
+
+      <section class="sidebar-actions" aria-label="Workspace management">
+        <details>
+          <summary>Upload a source</summary>
+          <form id="uploadForm">
+            <label for="sourceTitle">Title</label>
+            <input id="sourceTitle" placeholder="Optional source title">
+            <label for="sourceType">Type</label>
+            <select id="sourceType">
+              <option value="auto">Auto-detect</option>
+              <option value="document">Document</option>
+              <option value="meeting-transcript">Meeting transcript</option>
+              <option value="meeting-recording">Meeting audio/video</option>
+            </select>
+            <label for="sourceFile">File</label>
+            <input id="sourceFile" type="file" required>
+            <button type="submit">Ingest source</button>
+          </form>
+        </details>
+        <details>
+          <summary>Create another expert</summary>
+          <form id="expertForm">
+            <label for="expertName">Name</label>
+            <input id="expertName" required maxlength="120" placeholder="Full name">
+            <label for="expertDescription">Role or domain</label>
+            <input id="expertDescription" maxlength="1000" placeholder="Engineering role">
+            <button type="submit">Create expert</button>
+          </form>
+        </details>
+        <div id="notice" class="notice" role="status" aria-live="polite"></div>
+      </section>
+    </aside>
+
+    <section class="main-panel" aria-label="ExpertTwin conversation">
+      <header class="twin-header">
+        <span id="twinAvatar" class="avatar large" style="--avatar-hue:248" aria-hidden="true">MR</span>
+        <div>
+          <h2 id="twinName">Selected expert — AI Twin</h2>
+          <p id="twinStatus">Ready for evidence-grounded engineering questions</p>
+        </div>
+        <div id="evidenceStrength" class="evidence-strength">Evidence: waiting</div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="ExpertTwin views">
+        <button class="tab active" id="chatTab" data-tab="chat" role="tab"
+                aria-selected="true" aria-controls="chat">Chat</button>
+        <button class="tab" id="warRoomTab" data-tab="warRoom" role="tab"
+                aria-selected="false" aria-controls="warRoom">War Room</button>
+        <button class="tab" id="fingerprintTab" data-tab="fingerprint" role="tab"
+                aria-selected="false" aria-controls="fingerprint">Decision fingerprint</button>
+        <button class="tab" id="sourcesTab" data-tab="sources" role="tab"
+                aria-selected="false" aria-controls="sources">Sources & decisions</button>
+      </nav>
+
+      <section id="chat" class="view chat-view" role="tabpanel" aria-labelledby="chatTab">
+        <div id="messages" class="messages" role="log" aria-live="polite"></div>
+        <form id="chatForm" class="composer">
+          <label for="question">Ask an engineering decision question</label>
+          <textarea id="question" required maxlength="4000"
+                    placeholder="Ask the selected AI Twin…"></textarea>
+          <div class="composer-actions">
+            <span>Answers distinguish attributed judgment from context.</span>
+            <button type="submit">Ask with evidence</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="warRoom" class="view content-view war-room-view" role="tabpanel"
+               aria-labelledby="warRoomTab" hidden>
+        <header class="content-header">
+          <h2>Engineering War Room</h2>
+          <p>All 11 authorized AI Clones participate. Each run uses exactly one Azure call.</p>
+        </header>
+        <form id="warRoomForm" class="war-room-form">
+          <label for="warRoomTopic">Decision topic or question</label>
+          <textarea id="warRoomTopic" required minlength="5" maxlength="2000"
+                    placeholder="What decision should the engineering panel evaluate?"></textarea>
+          <div class="composer-actions">
+            <span>Evidence is bounded to at most two retrieved decisions per participant.</span>
+            <button type="submit">Start War Room</button>
+          </div>
+        </form>
+        <div id="warRoomResult" class="war-room-result" aria-live="polite"></div>
+      </section>
+
+      <section id="fingerprint" class="view content-view" role="tabpanel"
+               aria-labelledby="fingerprintTab" hidden>
+        <header class="content-header">
+          <h2>Engineering Decision Fingerprint</h2>
+          <p>Built only from evidence explicitly attributed to the selected expert.</p>
+        </header>
+        <div id="fingerprintGrid" class="card-grid"></div>
+      </section>
+
+      <section id="sources" class="view content-view" role="tabpanel"
+               aria-labelledby="sourcesTab" hidden>
+        <header class="content-header">
+          <h2>Sources & decisions</h2>
+          <p>Review ingestion status and extracted evidence provenance.</p>
+        </header>
+        <section class="data-section">
+          <h3>Sources</h3><div id="sourceList"></div>
+        </section>
+        <section class="data-section">
+          <h3>Decisions</h3><div id="decisionList"></div>
+        </section>
+      </section>
+    </section>
+  </main>
+  <script src="/static/app.js?v=team-ui-20260912-7"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Siya Sharma",
+  "evidence_role": "Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Ask whether empty and missing supply counts differ.",
+      "decision": "Ask whether empty and missing supply counts differ.",
+      "choice": "Treat missing as unknown and zero as confirmed empty",
+      "alternatives": [
+        "Coerce both values to zero"
+      ],
+      "rationale": [
+        "Clarifying semantics prevents a dangerous-looking false certainty in the fictional UI"
+      ],
+      "constraints": [
+        "Unknown values display a distinct label"
+      ],
+      "risks": [
+        "Downstream calculations must handle unknowns"
+      ],
+      "outcome": "Synthetic edge-case tests passed 16 of 16 after the distinction was implemented.",
+      "tags": [
+        "clarification",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Add boundary tests for beacon age.",
+      "decision": "Add boundary tests for beacon age.",
+      "choice": "Test 59, 60, and 61 seconds around the stale threshold",
+      "alternatives": [
+        "Test only a clearly fresh and clearly stale event"
+      ],
+      "rationale": [
+        "Boundary cases verify the exact operator-facing rule"
+      ],
+      "constraints": [
+        "Use a frozen synthetic clock"
+      ],
+      "risks": [
+        "Production clock behavior is outside the simulation"
+      ],
+      "outcome": "Synthetic mutation testing killed 7 of 7 threshold mutations.",
+      "tags": [
+        "testing",
+        "reliability"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Keep retry controls accessible.",
+      "decision": "Keep retry controls accessible.",
+      "choice": "Use a labeled button with status text for failed station loads",
+      "alternatives": [
+        "Use an icon-only retry control"
+      ],
+      "rationale": [
+        "A clear control supports keyboard and screen-reader use"
+      ],
+      "constraints": [
+        "No automatic infinite retries"
+      ],
+      "risks": [
+        "Repeated manual retries can still load the service"
+      ],
+      "outcome": "Synthetic accessibility checks reported 0 critical violations on the error state.",
+      "tags": [
+        "implementation",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Sanitize rendered station notes.",
+      "decision": "Sanitize rendered station notes.",
+      "choice": "Render notes as text rather than injecting markup",
+      "alternatives": [
+        "Allow arbitrary HTML formatting"
+      ],
+      "rationale": [
+        "Text rendering prevents script-like synthetic payloads from executing"
+      ],
+      "constraints": [
+        "Basic line breaks are preserved safely"
+      ],
+      "risks": [
+        "Rich formatting is unavailable"
+      ],
+      "outcome": "Synthetic injection suite blocked 25 of 25 hostile markup cases.",
+      "tags": [
+        "security",
+        "testing"
+      ]
+    }
+  ]
+}

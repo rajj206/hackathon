@@ -1,0 +1,35 @@
+SYNTHETIC FICTIONAL HACKATHON DATA — AtlasAudit and every person, message, metric,
+and decision below are invented for demonstration and do not describe real events.
+
+[2026-06-03 09:05] Maya Rao (Engineering Manager): The pilot decision is ADX for the
+searchable audit hot path. We need p95 searchable latency under 90 seconds and query p95
+under 5 seconds at 25,000 sustained events per second.
+
+[2026-06-03 09:08] Daniel Kim (Senior SWE): Fast queries are not enough. If operators can
+alter retained evidence, we have an integrity gap. I recommend immutable hourly exports
+with a hash-chain manifest and reconciliation back to Event Hubs sequence ranges.
+
+[2026-06-03 09:12] Priya Nair (Senior SWE): Should we dual-write every event to ADX and
+Synapse? It could make long-range analytics immediate, but it doubles schema and failure
+coordination during a six-week delivery window.
+
+[2026-06-03 09:15] Maya Rao: I accept Daniel's integrity requirement. I reject synchronous
+dual-write for phase one because partial success creates a harder reliability problem.
+One ingress path will feed ADX; an idempotent export will create the immutable archive.
+
+[2026-06-03 09:19] Aisha Khan (SWE II): Thirty hot days is expensive for data used mostly
+during the first week. Could we retain 14 hot days, export hourly, and use a monthly cost
+cap as the decision gate?
+
+[2026-06-03 09:22] Maya Rao: Refined and accepted: 14-day ADX hot retention, 13-month
+immutable archive, and a cost review after the pilot. Synapse serverless stays an option
+for occasional cross-domain analysis, not a mandatory write target.
+
+[2026-06-03 09:27] Luis Martinez (SWE II): I will add oldest-unexported-batch age, Event
+Hubs backlog, ADX ingestion latency, export failures, and reconciliation mismatch alerts.
+
+[2026-06-03 09:30] Ethan Brooks (SWE): I need pass/fail gates. I propose burst testing at
+80,000 events per second, failure injection on export, and a restore/query drill.
+
+[2026-06-03 09:33] Maya Rao: Accepted. The pilot advances only if latency, integrity,
+recovery, and cost gates are measured. A fast happy-path demo is not enough.

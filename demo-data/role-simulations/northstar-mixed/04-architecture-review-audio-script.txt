@@ -1,0 +1,14 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+Project Northstar synthetic architecture review audio script.
+This recording is fictional and does not describe actual employee behavior.
+Hrishikesh Mohile, Principal Software Engineering Manager. Synthetic decision: Use named risk owners and evidence-based go/no-go review.
+Amrita Shanbhag, Senior Software Engineer. Synthetic decision: Retry transient writes three times with exponential jitter.
+Devarakonda Sathish, Data Engineer. Synthetic decision: Persist source_batch_id through bronze, silver, and aggregate rows.
+Kumar Ritesh, Senior Software Engineer. Synthetic decision: Reject stale updates using a version token.
+Manish Patil, Senior Software Engineer. Synthetic decision: Batch station lookups into one repository query.
+Nishikant Lambat, Software Engineer. Synthetic decision: Show the projection timestamp and warn after 60 seconds.
+Rajendra Kalepu, Senior Data Engineer. Synthetic decision: Compare source, accepted, quarantined, and aggregate counts per batch.
+Satyajit Sahu, Software Engineering. Synthetic decision: Apply filters after 200 milliseconds of idle input.
+Siya Sharma, Software Engineer. Synthetic decision: Use a labeled button with status text for failed station loads.
+Tulika, Software Engineer II. Synthetic decision: Measure queue wait, validation, persistence, and projection latency.
+Vishwas Srivastava, Principal Software Engineer. Synthetic decision: Allocate the two-second p95 budget across ingress, queue, storage, and projection.

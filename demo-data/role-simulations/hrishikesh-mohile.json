@@ -1,0 +1,103 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Hrishikesh Mohile",
+  "evidence_role": "Principal Software Engineering Manager",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Set three release gates before feature work expands.",
+      "decision": "Set three release gates before feature work expands.",
+      "choice": "Use explicit demo gates for correctness, recovery, and operator clarity",
+      "alternatives": [
+        "Ship every proposed feature"
+      ],
+      "rationale": [
+        "A gated scope keeps the fictional demo tied to outcomes rather than activity"
+      ],
+      "constraints": [
+        "48-hour hackathon",
+        "No personal or production data"
+      ],
+      "risks": [
+        "Late integration could hide critical-path failures"
+      ],
+      "outcome": "Synthetic checkpoint pass rate rose from 58% to 96% across 24 scripted runs.",
+      "tags": [
+        "risk",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Protect the critical path with a scope freeze at hour 30.",
+      "decision": "Protect the critical path with a scope freeze at hour 30.",
+      "choice": "Freeze nonessential features after hour 30",
+      "alternatives": [
+        "Continue accepting features until demo time"
+      ],
+      "rationale": [
+        "A stable integration window creates time for rollback and rehearsal"
+      ],
+      "constraints": [
+        "Core beacon flow must remain demonstrable"
+      ],
+      "risks": [
+        "Scope churn may reduce recovery confidence"
+      ],
+      "outcome": "Synthetic rehearsal defects fell from 9 to 2 after the freeze.",
+      "tags": [
+        "reliability",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Assign one owner to each launch risk and require evidence at review.",
+      "decision": "Assign one owner to each launch risk and require evidence at review.",
+      "choice": "Use named risk owners and evidence-based go/no-go review",
+      "alternatives": [
+        "Use an informal team consensus"
+      ],
+      "rationale": [
+        "Clear ownership makes unresolved constraints visible without judging individuals"
+      ],
+      "constraints": [
+        "Decisions must be reversible within the hackathon"
+      ],
+      "risks": [
+        "Unowned risks may be discovered during the final demo"
+      ],
+      "outcome": "All 7 synthetic launch risks had a recorded mitigation before the final gate.",
+      "tags": [
+        "risk",
+        "governance"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Optimize the demo for a measurable operator outcome.",
+      "decision": "Optimize the demo for a measurable operator outcome.",
+      "choice": "Prioritize alert-to-acknowledgement time over feature count",
+      "alternatives": [
+        "Maximize the number of dashboard widgets"
+      ],
+      "rationale": [
+        "The fictional operator outcome is easier to validate and communicate"
+      ],
+      "constraints": [
+        "Use only synthetic events"
+      ],
+      "risks": [
+        "A narrow outcome may omit interesting secondary workflows"
+      ],
+      "outcome": "Median synthetic alert acknowledgement improved from 74 seconds to 21 seconds.",
+      "tags": [
+        "outcomes",
+        "operations"
+      ]
+    }
+  ]
+}

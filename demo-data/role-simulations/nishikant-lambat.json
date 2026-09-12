@@ -1,0 +1,102 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Nishikant Lambat",
+  "evidence_role": "Software Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Clarify duplicate-event behavior before implementation.",
+      "decision": "Clarify duplicate-event behavior before implementation.",
+      "choice": "Document that repeated event_id values return the original acknowledgement",
+      "alternatives": [
+        "Return a new acknowledgement for every retry"
+      ],
+      "rationale": [
+        "The clarified contract makes client tests unambiguous"
+      ],
+      "constraints": [
+        "Only exact event_id matches are duplicates"
+      ],
+      "risks": [
+        "Ambiguous payload changes under one ID need rejection"
+      ],
+      "outcome": "Synthetic acceptance cases increased from 8 to 14 with all duplicate paths covered.",
+      "tags": [
+        "clarification",
+        "testing"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Build table-driven validator tests.",
+      "decision": "Build table-driven validator tests.",
+      "choice": "Cover every required field and boundary value in parameterized tests",
+      "alternatives": [
+        "Use one representative valid and invalid event"
+      ],
+      "rationale": [
+        "Table-driven cases make omissions visible and concise"
+      ],
+      "constraints": [
+        "Tests run without network access"
+      ],
+      "risks": [
+        "Too many overlapping cases can obscure intent"
+      ],
+      "outcome": "Synthetic validator branch coverage increased from 71% to 94%.",
+      "tags": [
+        "testing",
+        "data-contract"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Add a visible stale-data indicator.",
+      "decision": "Add a visible stale-data indicator.",
+      "choice": "Show the projection timestamp and warn after 60 seconds",
+      "alternatives": [
+        "Always show the last value without age"
+      ],
+      "rationale": [
+        "Operators can distinguish degraded data from a live update"
+      ],
+      "constraints": [
+        "Use the fictional clock supplied by the test harness"
+      ],
+      "risks": [
+        "Clock skew could trigger a false warning"
+      ],
+      "outcome": "Synthetic usability checks identified stale state correctly in 20 of 20 trials.",
+      "tags": [
+        "implementation",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Keep error messages actionable.",
+      "decision": "Keep error messages actionable.",
+      "choice": "Return a stable error code plus a concise remediation hint",
+      "alternatives": [
+        "Return the raw exception string"
+      ],
+      "rationale": [
+        "Stable codes support tests and safer UI behavior"
+      ],
+      "constraints": [
+        "Do not expose stack traces"
+      ],
+      "risks": [
+        "Hints can become outdated if contracts change"
+      ],
+      "outcome": "Synthetic support scenarios reached the correct remediation in 92% of 25 trials.",
+      "tags": [
+        "testing",
+        "security"
+      ]
+    }
+  ]
+}

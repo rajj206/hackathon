@@ -1,0 +1,102 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Rajendra Kalepu",
+  "evidence_role": "Senior Data Engineer",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Partition synthetic telemetry by event date and station.",
+      "decision": "Partition synthetic telemetry by event date and station.",
+      "choice": "Use event_date partitions with station clustering",
+      "alternatives": [
+        "Partition by ingestion timestamp only"
+      ],
+      "rationale": [
+        "The layout supports time-window scans and station reconciliation"
+      ],
+      "constraints": [
+        "Small-file compaction runs every five minutes"
+      ],
+      "risks": [
+        "Very small stations can create sparse clusters"
+      ],
+      "outcome": "Synthetic scan volume fell by 76% for the standard 24-hour query.",
+      "tags": [
+        "data-architecture",
+        "performance"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Publish data quality service-level indicators.",
+      "decision": "Publish data quality service-level indicators.",
+      "choice": "Track contract validity, freshness, uniqueness, and reconciliation rates",
+      "alternatives": [
+        "Track pipeline success only"
+      ],
+      "rationale": [
+        "A successful job can still produce unusable data"
+      ],
+      "constraints": [
+        "Metrics use synthetic records only"
+      ],
+      "risks": [
+        "Thresholds may need tuning during the hackathon"
+      ],
+      "outcome": "Synthetic quality alerts caught 9 of 9 injected data defects before dashboard refresh.",
+      "tags": [
+        "data-quality",
+        "telemetry"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Reconcile counts at every layer.",
+      "decision": "Reconcile counts at every layer.",
+      "choice": "Compare source, accepted, quarantined, and aggregate counts per batch",
+      "alternatives": [
+        "Compare only daily totals"
+      ],
+      "rationale": [
+        "Per-batch checks localize loss or duplication quickly"
+      ],
+      "constraints": [
+        "Late events remain explicitly pending"
+      ],
+      "risks": [
+        "Corrections can briefly create expected mismatches"
+      ],
+      "outcome": "Synthetic unexplained count variance dropped from 1.7% to 0% across 60 batches.",
+      "tags": [
+        "lineage",
+        "reliability"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Use deterministic replay checkpoints.",
+      "decision": "Use deterministic replay checkpoints.",
+      "choice": "Checkpoint by source_batch_id and maximum event sequence",
+      "alternatives": [
+        "Checkpoint by worker clock"
+      ],
+      "rationale": [
+        "Data-derived checkpoints make replay repeatable after failure"
+      ],
+      "constraints": [
+        "Sequences are monotonic within a batch"
+      ],
+      "risks": [
+        "A malformed sequence can block progress"
+      ],
+      "outcome": "Synthetic recovery replayed 1.2 million events with 0 duplicates and 0 omissions.",
+      "tags": [
+        "data-architecture",
+        "operations"
+      ]
+    }
+  ]
+}

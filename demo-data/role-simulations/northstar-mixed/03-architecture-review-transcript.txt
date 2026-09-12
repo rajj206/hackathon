@@ -1,0 +1,35 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+This Project Northstar architecture review is wholly fictional.
+
+[00:00] Hrishikesh Mohile (Principal Software Engineering Manager): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Use named risk owners and evidence-based go/no-go review.
+Rationale: Clear ownership makes unresolved constraints visible without judging individuals. Alternative: Use an informal team consensus.
+
+[00:24] Amrita Shanbhag (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Refined: Retry transient writes three times with exponential jitter.
+Rationale: Bounded retries balance recovery with predictable latency. Alternative: Retry indefinitely; Fail immediately.
+
+[00:48] Devarakonda Sathish (Data Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Persist source_batch_id through bronze, silver, and aggregate rows.
+Rationale: Row-level lineage supports deterministic reconciliation. Alternative: Keep lineage only in ingestion logs.
+
+[01:12] Kumar Ritesh (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Reject stale updates using a version token.
+Rationale: Version checks surface conflicting offline edits instead of hiding them. Alternative: Last writer always wins.
+
+[01:36] Manish Patil (Senior Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Rejected: Batch station lookups into one repository query.
+Rationale: Bounded queries keep latency predictable as the synthetic roster grows. Alternative: Issue one query per station card.
+
+[02:00] Nishikant Lambat (Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Refined: Show the projection timestamp and warn after 60 seconds.
+Rationale: Operators can distinguish degraded data from a live update. Alternative: Always show the last value without age.
+
+[02:24] Rajendra Kalepu (Senior Data Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Compare source, accepted, quarantined, and aggregate counts per batch.
+Rationale: Per-batch checks localize loss or duplication quickly. Alternative: Compare only daily totals.
+
+[02:48] Satyajit Sahu (Software Engineering): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Refined: Apply filters after 200 milliseconds of idle input.
+Rationale: Debouncing reduces redundant work without feeling delayed. Alternative: Query on every keystroke.
+
+[03:12] Siya Sharma (Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Use a labeled button with status text for failed station loads.
+Rationale: A clear control supports keyboard and screen-reader use. Alternative: Use an icon-only retry control.
+
+[03:36] Tulika (Software Engineer II): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Accepted: Measure queue wait, validation, persistence, and projection latency.
+Rationale: Stage metrics localize bottlenecks during the hackathon. Alternative: Measure total request time only.
+
+[04:00] Vishwas Srivastava (Principal Software Engineer): SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY. Rejected: Allocate the two-second p95 budget across ingress, queue, storage, and projection.
+Rationale: Budgets turn a broad target into measurable component constraints. Alternative: Optimize only after end-to-end latency fails.

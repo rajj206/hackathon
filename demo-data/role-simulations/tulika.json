@@ -1,0 +1,103 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "simulation_namespace": "northstar-role-sim-v1",
+  "scenario": "Project Northstar",
+  "scenario_summary": "Project Northstar is a fictional 48-hour hackathon to build an offline-tolerant coordination service for imaginary polar research stations. It processes synthetic beacon and supply events, exposes a status dashboard, and contains no real project data.",
+  "evidence_author": "Tulika",
+  "evidence_role": "Software Engineer II",
+  "decisions": [
+    {
+      "sequence": 1,
+      "statement": "Run the projection worker with bounded concurrency.",
+      "decision": "Run the projection worker with bounded concurrency.",
+      "choice": "Process eight messages concurrently and expose backlog depth",
+      "alternatives": [
+        "Create an unbounded task per message"
+      ],
+      "rationale": [
+        "A fixed limit protects memory while keeping the fictional demo responsive"
+      ],
+      "constraints": [
+        "Single-node runtime with 512 MB worker budget"
+      ],
+      "risks": [
+        "A fixed limit may underuse faster machines"
+      ],
+      "outcome": "Synthetic load tests held memory below 310 MB at 25,000 events per minute.",
+      "tags": [
+        "operations",
+        "implementation"
+      ]
+    },
+    {
+      "sequence": 2,
+      "statement": "Make shutdown drain predictable.",
+      "decision": "Make shutdown drain predictable.",
+      "choice": "Stop intake and drain for up to ten seconds before checkpointing",
+      "alternatives": [
+        "Terminate immediately",
+        "Wait indefinitely"
+      ],
+      "rationale": [
+        "Bounded draining reduces duplicate replay without blocking deployment"
+      ],
+      "constraints": [
+        "Unfinished messages remain replayable"
+      ],
+      "risks": [
+        "A long-running item may be retried"
+      ],
+      "outcome": "Synthetic restart tests completed 50 of 50 cycles with no lost events.",
+      "tags": [
+        "reliability",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 3,
+      "statement": "Add structured metrics around each processing stage.",
+      "decision": "Add structured metrics around each processing stage.",
+      "choice": "Measure queue wait, validation, persistence, and projection latency",
+      "alternatives": [
+        "Measure total request time only"
+      ],
+      "rationale": [
+        "Stage metrics localize bottlenecks during the hackathon"
+      ],
+      "constraints": [
+        "Metrics exclude payload content"
+      ],
+      "risks": [
+        "High-cardinality labels could increase overhead"
+      ],
+      "outcome": "Synthetic diagnosis time for an injected slowdown fell from 18 minutes to 4 minutes.",
+      "tags": [
+        "telemetry",
+        "operations"
+      ]
+    },
+    {
+      "sequence": 4,
+      "statement": "Automate the local recovery drill.",
+      "decision": "Automate the local recovery drill.",
+      "choice": "Provide one offline command that corrupts a copy, restores, and verifies counts",
+      "alternatives": [
+        "Document manual recovery steps only"
+      ],
+      "rationale": [
+        "Automation makes the fictional operational check repeatable"
+      ],
+      "constraints": [
+        "Never touch the active database during the drill"
+      ],
+      "risks": [
+        "The drill may not represent every failure mode"
+      ],
+      "outcome": "Synthetic recovery verification completed in 43 seconds with 100% count agreement.",
+      "tags": [
+        "operations",
+        "testing"
+      ]
+    }
+  ]
+}
