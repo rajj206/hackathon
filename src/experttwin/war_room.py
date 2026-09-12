@@ -116,6 +116,24 @@ def _normalize_citation_ids(values: list[str], allowed: set[str]) -> list[str]:
     return normalized
 
 
+def _normalize_mentions(values: list[str]) -> list[str]:
+    normalized: list[str] = []
+    for value in values:
+        folded = value.casefold()
+        matches = sorted(
+            (name for name in AUTHORIZED_NAMES if name.casefold() in folded),
+            key=lambda name: folded.index(name.casefold()),
+        )
+        if not matches:
+            matches = [value]
+        for match in matches:
+            if match not in normalized:
+                normalized.append(match)
+            if len(normalized) == 5:
+                return normalized
+    return normalized
+
+
 def _citation(decision: DecisionRecord, expert_name: str) -> Citation:
     return Citation(
         source_id=decision.source_id,
@@ -252,6 +270,7 @@ class WarRoomService:
         for message in draft.messages:
             if message.speaker in trusted_roles:
                 message.role = trusted_roles[message.speaker]
+                message.mentions = _normalize_mentions(message.mentions)
                 allowed_citations = participant_citations[message.speaker]
                 message.citation_ids = _normalize_citation_ids(
                     message.citation_ids, allowed_citations

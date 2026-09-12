@@ -188,6 +188,11 @@ def test_war_room_uses_stable_roster_bounded_separate_evidence_and_one_call(runt
     decision_ids = _retrieved_decision_ids(database)
     payload = _valid_payload(decision_ids)
     payload["messages"][0]["role"] = "Engineering Manager"
+    payload["messages"][0]["mentions"] = [
+        "Amrita Shanbhag AI Clone) — Senior Software Engineer — Participant 2. "
+        "Rajendra Kalepu AI Clone) — Senior Data Engineer — Participant 8. "
+        "Unknown prompt text"
+    ]
     next(
         message for message in payload["messages"] if message["speaker"] == "Manish Patil"
     )["citation_ids"] = []
@@ -229,6 +234,7 @@ def test_war_room_uses_stable_roster_bounded_separate_evidence_and_one_call(runt
     assert next(
         message for message in response.messages if message.speaker == "Manish Patil"
     ).citation_ids
+    assert response.messages[0].mentions == ["Amrita Shanbhag", "Rajendra Kalepu"]
     assert len(response.final_decision.citation_ids) == 2
     assert all(message.ai_clone is True for message in response.messages)
     challenge = next(
