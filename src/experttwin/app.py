@@ -123,6 +123,10 @@ def create_app(
     @asynccontextmanager
     async def lifespan(_app: FastAPI):
         database.initialize()
+        if settings.seed_role_simulations:
+            from .role_simulations import seed
+
+            seed(settings.database_path, settings.role_simulations_corpus_dir)
         yield
 
     app = FastAPI(

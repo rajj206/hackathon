@@ -7,7 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY src ./src
-RUN pip install --no-cache-dir .
+COPY demo-data/role-simulations/northstar-mixed ./demo-data/role-simulations/northstar-mixed
+RUN pip install --no-cache-dir ".[azure]"
 
 RUN useradd --create-home appuser && mkdir -p /data && chown -R appuser:appuser /data
 USER appuser

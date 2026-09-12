@@ -241,6 +241,10 @@ The first mixed-corpus mutation backs up an existing database under `data\backup
 Reruns replace only `northstar-role-sim-mixed-v2`; the first run also removes the superseded
 `northstar-role-sim-v1` sources. Unrelated sources remain unchanged.
 
+For an ephemeral hosted demo, set `SEED_ROLE_SIMULATIONS=true`. Application startup then
+uses the same idempotent seeder and `ROLE_SIMULATIONS_CORPUS_DIR`; startup fails visibly
+instead of serving an empty roster if the packaged synthetic corpus is unavailable.
+
 `demo-data/atlas-audit` contains a fully fictional, internally consistent demonstration
 covering design review, threaded Word comments, chat, architecture review, an incident,
 a revised ADR, and a three-month outcome. Follow its README for exact upload order and

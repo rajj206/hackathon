@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "experttwin-dev-4449"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "sessionId": {
+      "value": "44495cad-2c2f-4e4f-b75b-6c5d60aeda42"
+    },
+    "deployedBy": {
+      "value": "rajendra kalepu"
+    },
+    "createdAt": {
+      "value": "2026-09-12T12:41:50.8099917Z"
+    },
+    "deployerObjectId": {
+      "value": "d99d3973-b322-4ec5-8074-f018101823d9"
+    },
+    "resourceGroupName": {
+      "value": "rg-experttwin-dev-4449"
+    },
+    "containerAppName": {
+      "value": "ca-experttwin-dev-4449"
+    },
+    "containerAppsEnvironmentName": {
+      "value": "cae-experttwin-dev-4449"
+    },
+    "containerRegistryName": {
+      "value": "crexperttwindev4449"
+    },
+    "logAnalyticsName": {
+      "value": "log-experttwin-dev-4449"
+    },
+    "applicationInsightsName": {
+      "value": "appi-experttwin-dev-4449"
+    },
+    "keyVaultName": {
+      "value": "kv-experttwin-dev-4449"
+    },
+    "existingOpenAISubscriptionId": {
+      "value": "c38f5047-f2db-4ed4-a415-c7eca00acbbe"
+    },
+    "existingOpenAIResourceGroupName": {
+      "value": "rg-experttwin-hackathon"
+    },
+    "existingOpenAIAccountName": {
+      "value": "experttwin-hackathon-2026"
+    }
+  }
+}

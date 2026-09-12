@@ -11,3 +11,4 @@ demo-data/.atlas-demo-runtime/
 dist/
 build/
 .coverage
+.copilot-azure/
