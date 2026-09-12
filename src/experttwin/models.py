@@ -152,7 +152,7 @@ class WarRoomMessage(BaseModel):
     speaker: str
     role: str
     ai_clone: Literal[True]
-    text: str = Field(min_length=1, max_length=800)
+    text: str = Field(min_length=1, max_length=360)
     message_type: Literal["frame", "position", "challenge", "response", "refinement"]
     responds_to: str | None
     mentions: list[str] = Field(max_length=5)
@@ -164,32 +164,32 @@ class WarRoomDissent(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     name: str
-    view: str = Field(min_length=1, max_length=500)
+    view: str = Field(min_length=1, max_length=280)
 
 
 class WarRoomRiskMitigation(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    risk: str = Field(min_length=1, max_length=400)
-    mitigation: str = Field(min_length=1, max_length=400)
+    risk: str = Field(min_length=1, max_length=240)
+    mitigation: str = Field(min_length=1, max_length=240)
 
 
 class WarRoomActionItem(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     owner: str
-    action: str = Field(min_length=1, max_length=400)
+    action: str = Field(min_length=1, max_length=240)
 
 
 class WarRoomFinalDecision(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     decision_owner: str
-    recommendation: str = Field(min_length=1, max_length=1000)
-    rationale_tradeoffs: list[str] = Field(min_length=1, max_length=6)
-    dissenting_views: list[WarRoomDissent] = Field(min_length=1, max_length=5)
-    risks_mitigations: list[WarRoomRiskMitigation] = Field(min_length=1, max_length=6)
-    action_items: list[WarRoomActionItem] = Field(min_length=1, max_length=8)
+    recommendation: str = Field(min_length=1, max_length=500)
+    rationale_tradeoffs: list[str] = Field(min_length=1, max_length=4)
+    dissenting_views: list[WarRoomDissent] = Field(min_length=1, max_length=3)
+    risks_mitigations: list[WarRoomRiskMitigation] = Field(min_length=1, max_length=4)
+    action_items: list[WarRoomActionItem] = Field(min_length=1, max_length=6)
     citation_ids: list[str] = Field(min_length=1, max_length=12)
 
 

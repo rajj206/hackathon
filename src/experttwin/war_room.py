@@ -27,6 +27,9 @@ Hrishikesh Mohile is the Engineering Manager, moderator, and final decision owne
 The final decision must contain a recommendation, rationale/trade-offs, at least one
 dissenting view, risks with mitigations, owned actions, and verified citation IDs.
 Keep every message concise and call the panel members AI Clones.
+Each participant message must be one sentence under 45 words. Keep every final
+decision field concise and include no more than four trade-offs, three dissenting
+views, four risks, and six actions.
 """.strip()
 
 
@@ -65,6 +68,9 @@ class AzureOpenAIWarRoomOrchestrator(WarRoomOrchestrator):
         try:
             response = self.client.chat.completions.create(
                 model=self.settings.azure_openai_chat_deployment,
+                max_completion_tokens=8000,
+                reasoning_effort="none",
+                verbosity="low",
                 response_format={
                     "type": "json_schema",
                     "json_schema": {
@@ -100,7 +106,9 @@ def _clip(value: str, limit: int) -> str:
     return " ".join(value.split())[:limit]
 
 
-def _normalize_citation_ids(values: list[str], allowed: set[str]) -> list[str]:
+def _normalize_citation_ids(
+    values: list[str], allowed: set[str], known: set[str] | None = None
+) -> list[str]:
     normalized: list[str] = []
     for value in values:
         matches = (
@@ -109,6 +117,8 @@ def _normalize_citation_ids(values: list[str], allowed: set[str]) -> list[str]:
             else sorted((item for item in allowed if item in value), key=value.index)
         )
         if not matches:
+            if known and any(item in value for item in known):
+                continue
             matches = [value]
         for match in matches:
             if match not in normalized:
@@ -132,6 +142,17 @@ def _normalize_mentions(values: list[str]) -> list[str]:
             if len(normalized) == 5:
                 return normalized
     return normalized
+
+
+def _normalize_authorized_name(value: str) -> str:
+    if value in AUTHORIZED_NAMES:
+        return value
+    folded = value.casefold()
+    matches = sorted(
+        (name for name in AUTHORIZED_NAMES if name.casefold() in folded),
+        key=lambda name: folded.index(name.casefold()),
+    )
+    return matches[0] if matches else value
 
 
 def _citation(decision: DecisionRecord, expert_name: str) -> Citation:
@@ -268,15 +289,23 @@ class WarRoomService:
             ) from exc
         trusted_roles = {profile.name: profile.role for profile in AUTHORIZED_ROSTER}
         for message in draft.messages:
+            message.speaker = _normalize_authorized_name(message.speaker)
             if message.speaker in trusted_roles:
                 message.role = trusted_roles[message.speaker]
                 message.mentions = _normalize_mentions(message.mentions)
                 allowed_citations = participant_citations[message.speaker]
                 message.citation_ids = _normalize_citation_ids(
-                    message.citation_ids, allowed_citations
+                    message.citation_ids, allowed_citations, set(citations)
                 )
                 if allowed_citations and not message.citation_ids:
                     message.citation_ids = [min(allowed_citations)]
+        draft.final_decision.decision_owner = _normalize_authorized_name(
+            draft.final_decision.decision_owner
+        )
+        for item in draft.final_decision.dissenting_views:
+            item.name = _normalize_authorized_name(item.name)
+        for item in draft.final_decision.action_items:
+            item.owner = _normalize_authorized_name(item.owner)
         draft.final_decision.citation_ids = _normalize_citation_ids(
             draft.final_decision.citation_ids, set(citations)
         )

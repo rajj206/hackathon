@@ -196,9 +196,15 @@ def test_war_room_uses_stable_roster_bounded_separate_evidence_and_one_call(runt
     next(
         message for message in payload["messages"] if message["speaker"] == "Manish Patil"
     )["citation_ids"] = []
+    next(
+        message for message in payload["messages"] if message["speaker"] == "Kumar Ritesh"
+    )["citation_ids"] = [decision_ids["Amrita Shanbhag"][0]]
     payload["final_decision"]["citation_ids"] = [
         "".join(payload["final_decision"]["citation_ids"])
     ]
+    payload["final_decision"]["action_items"][1]["owner"] = (
+        "Tulika and Rajendra Kalepu"
+    )
     orchestrator = RecordingOrchestrator(payload)
     service = WarRoomService(
         database,
@@ -234,6 +240,11 @@ def test_war_room_uses_stable_roster_bounded_separate_evidence_and_one_call(runt
     assert next(
         message for message in response.messages if message.speaker == "Manish Patil"
     ).citation_ids
+    assert set(
+        next(
+            message for message in response.messages if message.speaker == "Kumar Ritesh"
+        ).citation_ids
+    ) <= set(decision_ids["Kumar Ritesh"])
     assert response.messages[0].mentions == ["Amrita Shanbhag", "Rajendra Kalepu"]
     assert len(response.final_decision.citation_ids) == 2
     assert all(message.ai_clone is True for message in response.messages)
@@ -246,6 +257,7 @@ def test_war_room_uses_stable_roster_bounded_separate_evidence_and_one_call(runt
     assert refinement.responds_to == challenge.message_id
     assert response.moderator == MANAGER_NAME
     assert response.final_decision.decision_owner == MANAGER_NAME
+    assert response.final_decision.action_items[1].owner == "Tulika"
     assert response.citations
 
 
@@ -384,6 +396,9 @@ def test_azure_orchestrator_uses_strict_json_schema_without_temperature():
     assert requests[0]["model"] == "gpt-5.6-sol"
     assert requests[0]["response_format"]["type"] == "json_schema"
     assert requests[0]["response_format"]["json_schema"]["strict"] is True
+    assert requests[0]["max_completion_tokens"] == 8000
+    assert requests[0]["reasoning_effort"] == "none"
+    assert requests[0]["verbosity"] == "low"
     assert "temperature" not in requests[0]
 
 
