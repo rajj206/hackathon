@@ -41,6 +41,9 @@
     "keyVaultName": {
       "value": "kv-experttwin-dev-4449"
     },
+    "containerImage": {
+      "value": "crexperttwindev4449.azurecr.io/experttwin:minimal-portfolio-7b2d429"
+    },
     "existingOpenAISubscriptionId": {
       "value": "c38f5047-f2db-4ed4-a415-c7eca00acbbe"
     },
