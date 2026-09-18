@@ -75,6 +75,14 @@ function resetConversation() {
   $("evidenceStrength").textContent = "Evidence: waiting";
 }
 
+async function loadPortfolioSummary() {
+  const summary = await api("/api/portfolio-summary");
+  $("projectMetric").textContent = summary.projects.length;
+  $("sourceMetric").textContent = summary.source_count;
+  $("decisionMetric").textContent = summary.decision_count;
+  $("cloneMetric").textContent = summary.expert_count;
+}
+
 function citationMarkup(citations) {
   if (!citations.length) return "";
   return `
@@ -204,7 +212,7 @@ async function loadExperts(selectNewest = false) {
   }
   updateIdentity();
   resetConversation();
-  await refresh();
+  await Promise.all([refresh(), loadPortfolioSummary()]);
 }
 
 async function refresh() {
@@ -275,6 +283,16 @@ function activateView(viewId) {
   });
 }
 
+async function selectExpertByName(name) {
+  const expert = experts.find(item => item.name === name);
+  if (!expert || expert.id === expertId) return;
+  expertId = expert.id;
+  $("expertSelect").value = expertId;
+  updateIdentity();
+  resetConversation();
+  await refresh();
+}
+
 $("expertSelect").addEventListener("change", async event => {
   expertId = event.target.value || null;
   updateIdentity();
@@ -315,7 +333,7 @@ $("uploadForm").addEventListener("submit", async event => {
       const result = await api(`/api/experts/${expertId}/sources`, {method: "POST", body: data});
       event.currentTarget.reset();
       notice(`Ready: ${result.decisions.length} decisions extracted.`);
-      await refresh();
+      await Promise.all([refresh(), loadPortfolioSummary()]);
       activateView("sources");
     } catch (error) {
       notice(error.message, true);
@@ -369,6 +387,43 @@ $("warRoomForm").addEventListener("submit", async event => {
 
 document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => activateView(tab.dataset.tab));
+});
+
+document.querySelectorAll(".project-filter").forEach(filter => {
+  filter.setAttribute("aria-pressed", String(filter.classList.contains("active")));
+  filter.addEventListener("click", () => {
+    const project = filter.dataset.project;
+    document.querySelectorAll(".project-filter").forEach(item => {
+      const active = item === filter;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    document.querySelectorAll(".scenario-card").forEach(card => {
+      card.hidden = project !== "all"
+        && card.dataset.project !== project
+        && card.dataset.project !== "cross";
+    });
+  });
+});
+
+document.querySelectorAll(".scenario-card").forEach(card => {
+  card.addEventListener("click", async () => {
+    if (card.dataset.expert) await selectExpertByName(card.dataset.expert);
+    if (card.dataset.view === "warRoom") {
+      $("warRoomTopic").value = card.dataset.prompt;
+      activateView("warRoom");
+      $("warRoomTopic").focus();
+      return;
+    }
+    $("question").value = card.dataset.prompt;
+    activateView("chat");
+    $("question").focus();
+  });
+});
+
+$("overviewComposer").addEventListener("click", () => {
+  activateView("chat");
+  $("question").focus();
 });
 
 loadExperts().catch(error => notice(error.message, true));

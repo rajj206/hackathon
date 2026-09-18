@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ExpertTwin evidence-grounded engineering judgment simulation">
   <title>ExpertTwin · Engineering Team</title>
-  <link rel="stylesheet" href="/static/style.css?v=minimal-ui-20260918-1">
+  <link rel="stylesheet" href="/static/style.css?v=overview-ui-20260918-1">
 </head>
 <body>
   <main class="app-shell">
@@ -126,8 +126,10 @@
       </header>
 
       <nav class="tabs" role="tablist" aria-label="ExpertTwin views">
-        <button class="tab active" id="chatTab" data-tab="chat" role="tab"
-                aria-selected="true" aria-controls="chat">Chat</button>
+        <button class="tab active" id="overviewTab" data-tab="overview" role="tab"
+                aria-selected="true" aria-controls="overview">Overview</button>
+        <button class="tab" id="chatTab" data-tab="chat" role="tab"
+                aria-selected="false" aria-controls="chat">Chat</button>
         <button class="tab" id="warRoomTab" data-tab="warRoom" role="tab"
                 aria-selected="false" aria-controls="warRoom">War Room</button>
         <button class="tab" id="fingerprintTab" data-tab="fingerprint" role="tab"
@@ -136,7 +138,92 @@
                 aria-selected="false" aria-controls="sources">Sources & decisions</button>
       </nav>
 
-      <section id="chat" class="view chat-view" role="tabpanel" aria-labelledby="chatTab">
+      <section id="overview" class="view overview-view" role="tabpanel"
+               aria-labelledby="overviewTab">
+        <div class="overview-hero">
+          <div>
+            <p class="eyebrow">DECISION INTELLIGENCE</p>
+            <h2>Ask how the team <span>would decide.</span></h2>
+            <p>Explore demonstrated engineering judgment across fictional software,
+               data, and reliability projects.</p>
+          </div>
+          <dl class="portfolio-metrics" aria-label="Synthetic portfolio summary">
+            <div><dd id="projectMetric">—</dd><dt>projects</dt></div>
+            <div><dd id="sourceMetric">—</dd><dt>evidence sources</dt></div>
+            <div><dd id="decisionMetric">—</dd><dt>decisions</dt></div>
+            <div><dd id="cloneMetric">—</dd><dt>AI Clones</dt></div>
+          </dl>
+        </div>
+
+        <section class="scenario-section" aria-labelledby="scenarioTitle">
+          <div class="scenario-heading">
+            <h3 id="scenarioTitle">Explore a scenario</h3>
+            <div class="project-filters" role="group" aria-label="Filter scenarios by project">
+              <button type="button" class="project-filter active" data-project="all">All projects</button>
+              <button type="button" class="project-filter" data-project="atlas">Atlas Commerce</button>
+              <button type="button" class="project-filter" data-project="lakehouse">Lakehouse Guardian</button>
+              <button type="button" class="project-filter" data-project="release">Release Pulse</button>
+              <button type="button" class="project-filter" data-project="northstar">Northstar</button>
+            </div>
+          </div>
+
+          <div class="scenario-grid">
+            <button type="button" class="scenario-card data-scenario" data-project="lakehouse"
+                    data-view="chat" data-expert="Rajendra Kalepu"
+                    data-prompt="How should we replay a failed data pipeline without losing or duplicating records?">
+              <span class="scenario-category">Data engineering</span>
+              <strong>Replay a failed pipeline without duplicates</strong>
+              <small>Project Lakehouse Guardian</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card software-scenario" data-project="atlas"
+                    data-view="chat" data-expert="Amrita Shanbhag"
+                    data-prompt="How should checkout behave when inventory or payment dependencies are unavailable?">
+              <span class="scenario-category">Software engineering</span>
+              <strong>Keep checkout safe during dependency failure</strong>
+              <small>Project Atlas Commerce</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card reliability-scenario" data-project="release"
+                    data-view="chat" data-expert="Hrishikesh Mohile"
+                    data-prompt="What evidence should block a production release, and who should own the risks?">
+              <span class="scenario-category">Reliability</span>
+              <strong>Make an evidence-based release decision</strong>
+              <small>Project Release Pulse</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card northstar-scenario" data-project="northstar"
+                    data-view="chat" data-expert="Devarakonda Sathish"
+                    data-prompt="How should malformed events be handled without rejecting a healthy batch?">
+              <span class="scenario-category">Data quality</span>
+              <strong>Handle malformed events without losing good data</strong>
+              <small>Project Northstar</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card war-scenario" data-project="cross"
+                    data-view="warRoom"
+                    data-prompt="Should we prioritize synchronous simplicity or an asynchronous, replay-safe architecture for a high-volume engineering system?">
+              <span class="scenario-category">War Room</span>
+              <strong>Convene all 11 AI Clones for one architecture decision</strong>
+              <small>Cross-project deliberation</small><i aria-hidden="true">→</i>
+            </button>
+          </div>
+        </section>
+
+        <section class="answer-flow" aria-labelledby="answerFlowTitle">
+          <p class="eyebrow" id="answerFlowTitle">HOW EVERY ANSWER IS FORMED</p>
+          <ol>
+            <li><span>01</span><div><strong>Retrieve evidence</strong><small>Find relevant sources</small></div></li>
+            <li><span>02</span><div><strong>Apply decision patterns</strong><small>Compare rationale and outcomes</small></div></li>
+            <li><span>03</span><div><strong>Generate guidance</strong><small>Separate fact from inference</small></div></li>
+            <li><span>04</span><div><strong>Show proof</strong><small>Citations and uncertainty</small></div></li>
+          </ol>
+        </section>
+
+        <button type="button" class="overview-composer" id="overviewComposer">
+          <span><strong>Ask an engineering decision question…</strong>
+            <small>Answers cite exact evidence and state what is inferred.</small></span>
+          <b>Ask with evidence <i aria-hidden="true">→</i></b>
+        </button>
+      </section>
+
+      <section id="chat" class="view chat-view" role="tabpanel" aria-labelledby="chatTab" hidden>
         <div id="messages" class="messages" role="log" aria-live="polite"></div>
         <form id="chatForm" class="composer">
           <label for="question">Ask an engineering decision question</label>
@@ -191,6 +278,6 @@
       </section>
     </section>
   </main>
-  <script src="/static/app.js?v=minimal-ui-20260918-1"></script>
+  <script src="/static/app.js?v=overview-ui-20260918-1"></script>
 </body>
 </html>

@@ -40,12 +40,18 @@ def test_simple_two_column_workspace_has_critical_accessible_hooks(runtime_dir):
     assert "Evidence-grounded AI employees" in html
     assert "synthetic demo scenario is separate" in html
     assert "SYNTHETIC ROLE-BASED SIMULATION" not in html
-    assert "/static/style.css?v=minimal-ui-20260918-1" in html
-    assert "/static/app.js?v=minimal-ui-20260918-1" in html
+    assert "/static/style.css?v=overview-ui-20260918-1" in html
+    assert "/static/app.js?v=overview-ui-20260918-1" in html
     assert "app-rail" not in html
     assert "evidence-panel" not in html
     for hook in (
         'id="expertSelect"',
+        'id="overviewTab"',
+        'id="projectMetric"',
+        'id="sourceMetric"',
+        'id="decisionMetric"',
+        'id="cloneMetric"',
+        'id="overviewComposer"',
         'id="uploadForm"',
         'id="messages"',
         'id="chatForm"',
@@ -66,6 +72,8 @@ def test_simple_two_column_workspace_has_critical_accessible_hooks(runtime_dir):
     assert "@media (max-width: 900px)" in css.text
     assert "grid-template-columns: 296px minmax(0, 1fr)" in css.text
     assert "backdrop-filter" in css.text
+    assert ".scenario-grid" in css.text
+    assert "@keyframes reveal-up" in css.text
     assert "@media (prefers-reduced-motion: reduce)" in css.text
     assert "https://" not in css.text
 
@@ -82,3 +90,7 @@ def test_simple_two_column_workspace_has_critical_accessible_hooks(runtime_dir):
     assert "user-opening" in script.text
     assert "response.topic" in script.text
     assert "response.messages.map" in script.text
+    assert 'api("/api/portfolio-summary")' in script.text
+    assert "selectExpertByName" in script.text
+    assert 'activateView("warRoom")' in script.text
+    assert 'activateView("chat")' in script.text

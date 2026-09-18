@@ -295,6 +295,7 @@ def test_seeded_api_and_ui_keep_simulation_markers_internal(runtime_dir: Path):
         html = client.get("/").text
         experts = client.get("/api/experts").json()
         selected = next(expert for expert in experts if expert["name"] == "Tulika")
+        summary = client.get("/api/portfolio-summary").json()
         sources = client.get(f"/api/experts/{selected['id']}/sources").json()
         decisions = client.get(f"/api/experts/{selected['id']}/decisions").json()
 
@@ -302,6 +303,17 @@ def test_seeded_api_and_ui_keep_simulation_markers_internal(runtime_dir: Path):
     assert "SYNTHETIC ROLE-BASED SIMULATION" not in html
     assert {expert["name"] for expert in experts} == set(ROSTER)
     assert "Maya Rao" not in {expert["name"] for expert in experts}
+    assert summary == {
+        "expert_count": 11,
+        "source_count": 209,
+        "decision_count": 77,
+        "projects": [
+            "Project Atlas Commerce",
+            "Project Lakehouse Guardian",
+            "Project Northstar",
+            "Project Release Pulse",
+        ],
+    }
     assert len(sources) == 19
     assert all(source["simulation"] is True for source in sources)
     assert all(decision["simulation"] is True for decision in decisions)

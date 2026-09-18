@@ -19,6 +19,7 @@ from .models import (
     Expert,
     ExpertCreate,
     IngestionResult,
+    PortfolioSummary,
     Source,
     WarRoomRequest,
     WarRoomResponse,
@@ -155,6 +156,10 @@ def create_app(
     @app.get("/api/experts", response_model=list[Expert])
     def list_experts() -> list[Expert]:
         return database.list_experts()
+
+    @app.get("/api/portfolio-summary", response_model=PortfolioSummary)
+    def get_portfolio_summary() -> PortfolioSummary:
+        return database.get_portfolio_summary()
 
     @app.get("/api/experts/{expert_id}", response_model=Expert)
     def get_expert(expert_id: str) -> Expert:

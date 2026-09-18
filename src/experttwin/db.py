@@ -3,7 +3,7 @@ import sqlite3
 import uuid
 from pathlib import Path
 
-from .models import DecisionRecord, Expert, Source, utc_now
+from .models import DecisionRecord, Expert, PortfolioSummary, Source, utc_now
 
 
 class Database:
@@ -113,6 +113,34 @@ class Database:
         with self.connect() as connection:
             rows = connection.execute("SELECT * FROM experts ORDER BY created_at DESC").fetchall()
         return [Expert.model_validate(dict(row)) for row in rows]
+
+    def get_portfolio_summary(self) -> PortfolioSummary:
+        with self.connect() as connection:
+            counts = connection.execute(
+                """SELECT
+                       (SELECT COUNT(*) FROM experts) AS expert_count,
+                       (SELECT COUNT(*) FROM sources) AS source_count,
+                       (SELECT COUNT(*) FROM decisions) AS decision_count"""
+            ).fetchone()
+            source_titles = connection.execute(
+                """SELECT DISTINCT title
+                   FROM sources
+                   WHERE simulation=1
+                   ORDER BY title"""
+            ).fetchall()
+        projects = sorted(
+            {
+                row["title"].split(" — ", 1)[0]
+                for row in source_titles
+                if " — " in row["title"]
+            }
+        )
+        return PortfolioSummary(
+            expert_count=counts["expert_count"],
+            source_count=counts["source_count"],
+            decision_count=counts["decision_count"],
+            projects=projects,
+        )
 
     def create_source(
         self,

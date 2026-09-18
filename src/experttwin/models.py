@@ -20,6 +20,13 @@ class Expert(BaseModel):
     created_at: datetime
 
 
+class PortfolioSummary(BaseModel):
+    expert_count: int = Field(ge=0)
+    source_count: int = Field(ge=0)
+    decision_count: int = Field(ge=0)
+    projects: list[str]
+
+
 class Source(BaseModel):
     id: str
     expert_id: str

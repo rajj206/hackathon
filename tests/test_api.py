@@ -9,6 +9,14 @@ from experttwin.config import Settings
 def test_api_smoke_create_ingest_fingerprint_chat(runtime_dir: Path):
     app = create_app(Settings(data_dir=runtime_dir))
     with TestClient(app) as client:
+        empty_summary = client.get("/api/portfolio-summary")
+        assert empty_summary.status_code == 200
+        assert empty_summary.json() == {
+            "expert_count": 0,
+            "source_count": 0,
+            "decision_count": 0,
+            "projects": [],
+        }
         assert client.get("/health").json()["status"] == "ok"
         expert_response = client.post(
             "/api/experts",
@@ -34,6 +42,15 @@ def test_api_smoke_create_ingest_fingerprint_chat(runtime_dir: Path):
         )
         assert upload.status_code == 201, upload.text
         assert upload.json()["decisions"]
+
+        summary = client.get("/api/portfolio-summary")
+        assert summary.status_code == 200
+        assert summary.json() == {
+            "expert_count": 1,
+            "source_count": 1,
+            "decision_count": 1,
+            "projects": [],
+        }
 
         fingerprint = client.get(f"/api/experts/{expert_id}/fingerprint")
         assert fingerprint.status_code == 200
