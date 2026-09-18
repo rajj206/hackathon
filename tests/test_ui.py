@@ -37,11 +37,11 @@ def test_simple_two_column_workspace_has_critical_accessible_hooks(runtime_dir):
     ):
         assert fictional_person not in html
     assert "Hrishikesh Mohile (AI Clone)" in html
-    assert "Names and roles only" in html
+    assert "Evidence-grounded AI employees" in html
     assert "synthetic demo scenario is separate" in html
     assert "SYNTHETIC ROLE-BASED SIMULATION" not in html
-    assert "/static/style.css?v=team-ui-20260912-7" in html
-    assert "/static/app.js?v=team-ui-20260912-7" in html
+    assert "/static/style.css?v=minimal-ui-20260918-1" in html
+    assert "/static/app.js?v=minimal-ui-20260918-1" in html
     assert "app-rail" not in html
     assert "evidence-panel" not in html
     for hook in (
@@ -64,7 +64,9 @@ def test_simple_two_column_workspace_has_critical_accessible_hooks(runtime_dir):
     assert css.status_code == 200
     assert ":focus-visible" in css.text
     assert "@media (max-width: 900px)" in css.text
-    assert "grid-template-columns: 270px minmax(0, 1fr)" in css.text
+    assert "grid-template-columns: 296px minmax(0, 1fr)" in css.text
+    assert "backdrop-filter" in css.text
+    assert "@media (prefers-reduced-motion: reduce)" in css.text
     assert "https://" not in css.text
 
     assert script.status_code == 200
