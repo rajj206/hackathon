@@ -13,6 +13,7 @@ from experttwin.models import DecisionRecord
 from experttwin.parsers import parse_file
 from experttwin.role_simulations import (
     LEGACY_NAMESPACE,
+    LEGACY_NAMESPACES,
     ROSTER,
     SIMULATION_NAMESPACE,
     SIMULATION_NOTICE,
@@ -22,6 +23,12 @@ from experttwin.services import FingerprintService
 
 BASE_CORPUS = Path("demo-data/role-simulations")
 CORPUS = BASE_CORPUS / "northstar-mixed"
+PROJECT_DIRS = [
+    CORPUS,
+    BASE_CORPUS / "atlas-commerce",
+    BASE_CORPUS / "lakehouse-guardian",
+    BASE_CORPUS / "release-pulse",
+]
 TEXT_ARTIFACTS = [
     "02-group-chat.txt",
     "03-architecture-review-transcript.txt",
@@ -39,7 +46,11 @@ REQUIRED_ARTIFACTS = [
 
 
 def test_all_role_simulation_files_are_labeled_and_complete():
-    files = sorted(BASE_CORPUS.glob("*.json"))
+    files = sorted(
+        path
+        for path in BASE_CORPUS.glob("*.json")
+        if path.name != "portfolio-manifest.json"
+    )
     assert len(files) == 11
     records = [json.loads(path.read_text(encoding="utf-8")) for path in files]
     assert {record["evidence_author"] for record in records} == set(ROSTER)
@@ -50,8 +61,26 @@ def test_all_role_simulation_files_are_labeled_and_complete():
         assert SIMULATION_NOTICE in (CORPUS / name).read_text(encoding="utf-8")
     manifest = json.loads((CORPUS / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["notice"] == SIMULATION_NOTICE
-    assert manifest["simulation_namespace"] == SIMULATION_NAMESPACE
+    assert manifest["simulation_namespace"] == LEGACY_NAMESPACES[0]
     assert len(manifest["artifacts"]) == 7
+    portfolio = json.loads(
+        (BASE_CORPUS / "portfolio-manifest.json").read_text(encoding="utf-8")
+    )
+    assert portfolio["notice"] == SIMULATION_NOTICE
+    assert len(portfolio["projects"]) == 4
+    for project_dir in PROJECT_DIRS[1:]:
+        project_manifest = json.loads(
+            (project_dir / "manifest.json").read_text(encoding="utf-8")
+        )
+        assert project_manifest["notice"] == SIMULATION_NOTICE
+        assert len(project_manifest["artifacts"]) == 4
+        assert {
+            decision["evidence_author"]
+            for decision in project_manifest["decisions"]
+        } == set(ROSTER)
+        for artifact in project_manifest["artifacts"]:
+            content = (project_dir / artifact["filename"]).read_text(encoding="utf-8")
+            assert SIMULATION_NOTICE in content
 
     body = "\n".join(
         segment.text
@@ -143,9 +172,9 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
 
     first = seed(database_path)
     assert first.backup_path and first.backup_path.is_file()
-    assert first.source_count == 77
-    assert first.segment_count == 77
-    assert first.decision_count == 44
+    assert first.source_count == 209
+    assert first.segment_count == 209
+    assert first.decision_count == 77
 
     with sqlite3.connect(database_path) as connection:
         first_source_ids = {
@@ -236,14 +265,21 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
             for decision in seeded_database.list_decisions(expert.id)
             if decision.simulation_namespace == SIMULATION_NAMESPACE
         ]
-        assert len(sources) == 7
+        assert len(sources) == 19
         assert {source.source_type for source in sources} == {
             "document",
             "meeting-transcript",
             "meeting-recording",
         }
-        assert all(source.title.startswith("Project Northstar — ") for source in sources)
-        assert len(decisions) >= 3
+        assert {
+            source.title.split(" — ", 1)[0] for source in sources
+        } == {
+            "Project Northstar",
+            "Project Atlas Commerce",
+            "Project Lakehouse Guardian",
+            "Project Release Pulse",
+        }
+        assert len(decisions) == 7
         assert all(decision.evidence_author == name for decision in decisions)
         assert all(decision.simulation for decision in decisions)
         fingerprint = FingerprintService(seeded_database).derive(expert.id)
@@ -266,6 +302,6 @@ def test_seeded_api_and_ui_keep_simulation_markers_internal(runtime_dir: Path):
     assert "SYNTHETIC ROLE-BASED SIMULATION" not in html
     assert {expert["name"] for expert in experts} == set(ROSTER)
     assert "Maya Rao" not in {expert["name"] for expert in experts}
-    assert len(sources) == 7
+    assert len(sources) == 19
     assert all(source["simulation"] is True for source in sources)
     assert all(decision["simulation"] is True for decision in decisions)

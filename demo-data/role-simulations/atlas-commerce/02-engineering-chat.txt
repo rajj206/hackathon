@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Atlas Commerce — Timestamped engineering group chat
+
+A fictional software-engineering project modernizing checkout, inventory, payments, and customer-facing APIs.
+
+[2026-09-14 09:07] Amrita Shanbhag (Senior Software Engineer): Make payment submission idempotent. I prefer Require one idempotency key per checkout attempt rather than Trust clients not to retry. Constraint: Keys expire after 24 hours. Risk: Reused keys with changed payloads must be rejected. Measured outcome: Duplicate synthetic charges fell from 38 to 0.
+[2026-09-14 10:35] Nishikant Lambat (Software Engineer): Test checkout boundaries with executable examples. I prefer Cover zero quantity, stock race, duplicate payment, and timeout cases rather than Test only the happy path. Constraint: Tests run without external payment calls. Risk: Mocks may drift from provider behavior. Measured outcome: Checkout branch coverage increased from 68% to 93%.
+[2026-09-14 11:03] Tulika (Software Engineer II): Bound checkout worker concurrency. I prefer Process 16 reservations concurrently and expose queue age rather than Create an unbounded task per order. Constraint: Peak synthetic load is 5,000 orders per minute. Risk: A fixed value may underuse larger instances. Measured outcome: Memory remained below 420 MB during the peak replay.

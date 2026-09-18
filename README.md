@@ -226,20 +226,34 @@ Then ask: **Azure Data Explorer vs Synapse for telemetry?**
 The local response cites the uploaded source/location, separates extracted evidence from
 fingerprint inference, and qualifies uncertainty.
 
-## Synthetic hackathon scenario
+## Synthetic hackathon portfolio
 
 `demo-data/role-simulations/northstar-mixed` contains a DOCX with threaded review
 comments, group chat, architecture transcript, WAV rendition and script, incident report,
-revised ADR, outcome retrospective, and deterministic manifest. Seed the seven mixed
-source types per authorized profile without network or Azure provider calls:
+revised ADR, outcome retrospective, and deterministic manifest.
+
+The portfolio also includes three fictional projects with distinct software and data
+engineering scenarios:
+
+- **Project Atlas Commerce:** checkout, payments, inventory, API resilience, security,
+  accessibility, and customer-impact measures.
+- **Project Lakehouse Guardian:** telemetry ingestion, schema evolution, late data,
+  quality gates, lineage, reconciliation, compaction, and deterministic replay.
+- **Project Release Pulse:** progressive delivery, health probes, database migration,
+  fault injection, release metrics, rollback UX, worker draining, and latency budgets.
+
+Each added project contains design notes, a timestamped engineering chat, an architecture
+meeting transcript, and an incident/retrospective. All content is explicitly labeled as
+synthetic and supplies at least one attributable decision for every authorized AI Clone.
+Seed the complete 19-source-per-profile portfolio without network or Azure provider calls:
 
 ```powershell
 python scripts\seed_role_simulations.py --execute --database data\experttwin.db
 ```
 
-The first mixed-corpus mutation backs up an existing database under `data\backups`.
-Reruns replace only `northstar-role-sim-mixed-v2`; the first run also removes the superseded
-`northstar-role-sim-v1` sources. Unrelated sources remain unchanged.
+The first portfolio mutation backs up an existing database under `data\backups`.
+Reruns replace only `engineering-portfolio-role-sim-v3`; the first run also removes
+superseded Northstar namespaces. Unrelated sources remain unchanged.
 
 For an ephemeral hosted demo, set `SEED_ROLE_SIMULATIONS=true`. Application startup then
 uses the same idempotent seeder and `ROLE_SIMULATIONS_CORPUS_DIR`; startup fails visibly

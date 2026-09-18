@@ -97,7 +97,7 @@ resource containerApp 'Microsoft.App/containerApps@2026-01-01' = {
             }
             {
               name: 'ROLE_SIMULATIONS_CORPUS_DIR'
-              value: './demo-data/role-simulations/northstar-mixed'
+              value: './demo-data/role-simulations'
             }
             {
               name: 'WAR_ROOM_PROMPT_BUDGET'

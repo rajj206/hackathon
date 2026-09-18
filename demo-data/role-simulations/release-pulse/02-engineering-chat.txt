@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Release Pulse — Timestamped engineering group chat
+
+A fictional platform-engineering project improving safe deployments, observability, incident response, and engineering feedback loops.
+
+[2026-09-16 09:07] Amrita Shanbhag (Senior Software Engineer): Use progressive delivery for API changes. I prefer Route 5%, 25%, then 100% of traffic with automated health gates rather than Deploy to every instance immediately. Constraint: Each stage observes ten minutes. Risk: Low traffic may produce weak confidence. Measured outcome: Synthetic regression impact was limited to 4.7% of requests.
+[2026-09-16 10:35] Nishikant Lambat (Software Engineer): Add fault-injection release tests. I prefer Exercise timeout, dependency loss, stale configuration, and rollback rather than Test only successful deployment. Constraint: Tests must be deterministic. Risk: Mocks may not capture platform timing. Measured outcome: The release suite detected all 12 injected regressions.
+[2026-09-16 11:03] Tulika (Software Engineer II): Drain workers before deployment. I prefer Stop intake and drain for up to 15 seconds before checkpointing rather than Terminate workers immediately; Wait indefinitely. Constraint: Unfinished work remains replayable. Risk: Long requests may execute again. Measured outcome: Fifty synthetic rolling restarts lost no work.

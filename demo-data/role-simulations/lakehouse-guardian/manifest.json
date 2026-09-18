@@ -1,0 +1,337 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project Lakehouse Guardian",
+  "summary": "A fictional data-engineering project ingesting product telemetry into bronze, silver, and curated layers with quality, lineage, and replay controls.",
+  "artifacts": [
+    {
+      "filename": "01-design-notes.md",
+      "label": "Design proposal and review notes",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat.txt",
+      "label": "Timestamped engineering group chat",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture decision meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-incident-and-retrospective.md",
+      "label": "Incident review and measured retrospective",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: Define trust gates for curated telemetry. Choice: Block publication when freshness, completeness, or reconciliation misses its SLO. Rationale: Consumers need trustworthy data rather than green jobs. Outcome: Synthetic bad-data publication dropped from 11 cases to 0.",
+      "page_or_segment": "section at 2026-09-15 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-15 09:00",
+      "decision": "Define trust gates for curated telemetry",
+      "choice": "Block publication when freshness, completeness, or reconciliation misses its SLO",
+      "alternatives": [
+        "Publish whenever the pipeline reports success"
+      ],
+      "rationale": [
+        "Consumers need trustworthy data rather than green jobs"
+      ],
+      "constraints": [
+        "Critical dashboards refresh every 15 minutes"
+      ],
+      "risks": [
+        "Strict gates can delay partially useful data"
+      ],
+      "outcome": "Synthetic bad-data publication dropped from 11 cases to 0.",
+      "tags": [
+        "governance",
+        "data-quality"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: Separate ingestion validation from transformation. Choice: Validate the envelope before writing bronze and record reason codes. Rationale: One boundary produces consistent failures and simpler transforms. Outcome: Invalid synthetic records were classified with 100% reason coverage.",
+      "page_or_segment": "chat turn at 2026-09-15 09:07 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-15 09:07",
+      "decision": "Separate ingestion validation from transformation",
+      "choice": "Validate the envelope before writing bronze and record reason codes",
+      "alternatives": [
+        "Mix validation into every transformation"
+      ],
+      "rationale": [
+        "One boundary produces consistent failures and simpler transforms"
+      ],
+      "constraints": [
+        "Raw payload is retained for replay"
+      ],
+      "risks": [
+        "Overly strict rules may reject a new producer"
+      ],
+      "outcome": "Invalid synthetic records were classified with 100% reason coverage.",
+      "tags": [
+        "architecture",
+        "quality"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: Use event-time watermarks. Choice: Accept telemetry up to 20 minutes late and correct later arrivals separately. Rationale: A bounded watermark balances completeness and stable windows. Outcome: Synthetic window completeness improved from 89% to 99.3%.",
+      "page_or_segment": "meeting turn at 2026-09-15 09:14 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-15 09:14",
+      "decision": "Use event-time watermarks",
+      "choice": "Accept telemetry up to 20 minutes late and correct later arrivals separately",
+      "alternatives": [
+        "Aggregate only by processing time"
+      ],
+      "rationale": [
+        "A bounded watermark balances completeness and stable windows"
+      ],
+      "constraints": [
+        "Devices can be offline temporarily"
+      ],
+      "risks": [
+        "Very late data requires correction logic"
+      ],
+      "outcome": "Synthetic window completeness improved from 89% to 99.3%.",
+      "tags": [
+        "data-architecture",
+        "quality"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: Expose data-product health by dependency. Choice: Report source, bronze, silver, and serving readiness separately. Rationale: Layer-specific health makes partial degradation diagnosable. Outcome: All 14 injected layer failures were correctly localized.",
+      "page_or_segment": "section at 2026-09-15 09:21 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-15 09:21",
+      "decision": "Expose data-product health by dependency",
+      "choice": "Report source, bronze, silver, and serving readiness separately",
+      "alternatives": [
+        "Return one unconditional health result"
+      ],
+      "rationale": [
+        "Layer-specific health makes partial degradation diagnosable"
+      ],
+      "constraints": [
+        "Health queries must finish in 500 milliseconds"
+      ],
+      "risks": [
+        "Expensive checks can overload the warehouse"
+      ],
+      "outcome": "All 14 injected layer failures were correctly localized.",
+      "tags": [
+        "telemetry",
+        "reliability"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: Make schema migration backward compatible. Choice: Dual-read old and new product-category fields during one release window. Rationale: Compatible readers prevent producer and consumer lockstep. Outcome: The synthetic migration completed without failed consumer jobs.",
+      "page_or_segment": "section at 2026-09-15 10:28 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-15 10:28",
+      "decision": "Make schema migration backward compatible",
+      "choice": "Dual-read old and new product-category fields during one release window",
+      "alternatives": [
+        "Rename the field in one deployment"
+      ],
+      "rationale": [
+        "Compatible readers prevent producer and consumer lockstep"
+      ],
+      "constraints": [
+        "The transition lasts seven days"
+      ],
+      "risks": [
+        "Temporary dual fields increase complexity"
+      ],
+      "outcome": "The synthetic migration completed without failed consumer jobs.",
+      "tags": [
+        "data-contract",
+        "operations"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: Test every quality-rule boundary. Choice: Parameterize null, duplicate, stale, malformed, and late-event cases. Rationale: Table-driven tests make missing boundaries visible. Outcome: Quality-rule branch coverage reached 96%.",
+      "page_or_segment": "chat turn at 2026-09-15 10:35 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-15 10:35",
+      "decision": "Test every quality-rule boundary",
+      "choice": "Parameterize null, duplicate, stale, malformed, and late-event cases",
+      "alternatives": [
+        "Use one invalid sample"
+      ],
+      "rationale": [
+        "Table-driven tests make missing boundaries visible"
+      ],
+      "constraints": [
+        "Tests use a frozen event clock"
+      ],
+      "risks": [
+        "Overlapping rules may obscure the primary rejection reason"
+      ],
+      "outcome": "Quality-rule branch coverage reached 96%.",
+      "tags": [
+        "testing",
+        "data-quality"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: Use data-derived replay checkpoints. Choice: Checkpoint by source batch and maximum committed event sequence. Rationale: Data-derived positions make recovery deterministic. Outcome: A 3-million-event synthetic replay produced no omissions or duplicates.",
+      "page_or_segment": "meeting turn at 2026-09-15 10:42 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-15 10:42",
+      "decision": "Use data-derived replay checkpoints",
+      "choice": "Checkpoint by source batch and maximum committed event sequence",
+      "alternatives": [
+        "Checkpoint by worker wall clock"
+      ],
+      "rationale": [
+        "Data-derived positions make recovery deterministic"
+      ],
+      "constraints": [
+        "Sequences are monotonic within a source batch"
+      ],
+      "risks": [
+        "Malformed sequence gaps can halt progress"
+      ],
+      "outcome": "A 3-million-event synthetic replay produced no omissions or duplicates.",
+      "tags": [
+        "data-architecture",
+        "recovery"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: Show freshness and quality separately. Choice: Display last successful load, event freshness, and quality status. Rationale: Distinct signals prevent a recent but invalid dataset appearing healthy. Outcome: Synthetic users identified the failing dimension in 28 of 30 trials.",
+      "page_or_segment": "section at 2026-09-15 10:49 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-15 10:49",
+      "decision": "Show freshness and quality separately",
+      "choice": "Display last successful load, event freshness, and quality status",
+      "alternatives": [
+        "Show one green pipeline badge"
+      ],
+      "rationale": [
+        "Distinct signals prevent a recent but invalid dataset appearing healthy"
+      ],
+      "constraints": [
+        "The page must remain usable on mobile"
+      ],
+      "risks": [
+        "Additional indicators can overwhelm users"
+      ],
+      "outcome": "Synthetic users identified the failing dimension in 28 of 30 trials.",
+      "tags": [
+        "implementation",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: Distinguish missing metrics from zero. Choice: Render missing as unknown and zero as a measured value. Rationale: Unknown and zero lead to different operational decisions. Outcome: All 18 synthetic null-semantics tests passed.",
+      "page_or_segment": "section at 2026-09-15 11:56 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-15 11:56",
+      "decision": "Distinguish missing metrics from zero",
+      "choice": "Render missing as unknown and zero as a measured value",
+      "alternatives": [
+        "Coerce missing values to zero"
+      ],
+      "rationale": [
+        "Unknown and zero lead to different operational decisions"
+      ],
+      "constraints": [
+        "Aggregations preserve null semantics"
+      ],
+      "risks": [
+        "Downstream calculations need explicit handling"
+      ],
+      "outcome": "All 18 synthetic null-semantics tests passed.",
+      "tags": [
+        "clarification",
+        "testing"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: Compact small files on a bounded schedule. Choice: Compact only partitions above a file-count threshold. Rationale: Threshold-based work reduces compute without ignoring fragmentation. Outcome: Synthetic scan file count fell by 78% with 31% less compute.",
+      "page_or_segment": "chat turn at 2026-09-15 11:03 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-15 11:03",
+      "decision": "Compact small files on a bounded schedule",
+      "choice": "Compact only partitions above a file-count threshold",
+      "alternatives": [
+        "Compact every partition every hour"
+      ],
+      "rationale": [
+        "Threshold-based work reduces compute without ignoring fragmentation"
+      ],
+      "constraints": [
+        "Hot partitions must remain queryable"
+      ],
+      "risks": [
+        "Compaction can contend with ingestion"
+      ],
+      "outcome": "Synthetic scan file count fell by 78% with 31% less compute.",
+      "tags": [
+        "operations",
+        "performance"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: Separate storage contracts from compute engines. Choice: Use open table contracts and adapters for query engines. Rationale: A portable boundary keeps platform choices reversible. Outcome: Two synthetic query adapters passed the same 42 contract tests.",
+      "page_or_segment": "meeting turn at 2026-09-15 11:10 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-15 11:10",
+      "decision": "Separate storage contracts from compute engines",
+      "choice": "Use open table contracts and adapters for query engines",
+      "alternatives": [
+        "Embed one engine's APIs throughout transformations"
+      ],
+      "rationale": [
+        "A portable boundary keeps platform choices reversible"
+      ],
+      "constraints": [
+        "Performance-specific optimizations remain isolated"
+      ],
+      "risks": [
+        "Abstraction may hide useful engine features"
+      ],
+      "outcome": "Two synthetic query adapters passed the same 42 contract tests.",
+      "tags": [
+        "architecture",
+        "risk"
+      ]
+    }
+  ]
+}

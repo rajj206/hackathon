@@ -1,4 +1,4 @@
-"""Seed deterministic, offline-only Project Northstar role simulations."""
+"""Seed deterministic, offline-only multi-project role simulations."""
 
 import argparse
 import json
@@ -14,9 +14,13 @@ from experttwin.roster import AUTHORIZED_ROSTER
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DATABASE = ROOT / "data" / "experttwin.db"
-DEFAULT_CORPUS = ROOT / "demo-data" / "role-simulations" / "northstar-mixed"
-SIMULATION_NAMESPACE = "northstar-role-sim-mixed-v2"
-LEGACY_NAMESPACE = "northstar-role-sim-v1"
+DEFAULT_CORPUS = ROOT / "demo-data" / "role-simulations"
+SIMULATION_NAMESPACE = "engineering-portfolio-role-sim-v3"
+LEGACY_NAMESPACES = (
+    "northstar-role-sim-mixed-v2",
+    "northstar-role-sim-v1",
+)
+LEGACY_NAMESPACE = LEGACY_NAMESPACES[-1]
 SIMULATION_NOTICE = (
     "SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' "
     "ACTUAL BEHAVIOR OR WORK HISTORY."
@@ -85,23 +89,65 @@ def _backup_before_first_mutation(database_path: Path) -> Path | None:
 
 
 def _load_corpus(corpus_dir: Path) -> dict:
-    manifest_path = corpus_dir / "manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("notice") != SIMULATION_NOTICE:
-        raise ValueError("The mixed-corpus manifest is missing the required notice.")
-    if manifest.get("simulation_namespace") != SIMULATION_NAMESPACE:
-        raise ValueError("The mixed-corpus manifest has an unexpected namespace.")
+    portfolio_path = corpus_dir / "portfolio-manifest.json"
+    if portfolio_path.is_file():
+        portfolio = json.loads(portfolio_path.read_text(encoding="utf-8"))
+        if portfolio.get("notice") != SIMULATION_NOTICE:
+            raise ValueError("The portfolio manifest is missing the required notice.")
+        project_dirs = portfolio.get("projects", [])
+        if not project_dirs:
+            raise ValueError("The portfolio manifest contains no projects.")
+        artifacts: list[dict] = []
+        decisions: list[dict] = []
+        scenarios: set[str] = set()
+        for project_dir in project_dirs:
+            project_root = corpus_dir / project_dir
+            project = json.loads(
+                (project_root / "manifest.json").read_text(encoding="utf-8")
+            )
+            if project.get("notice") != SIMULATION_NOTICE:
+                raise ValueError(f"{project_dir}: project manifest is missing the notice.")
+            scenario = project.get("scenario")
+            if not scenario or scenario in scenarios:
+                raise ValueError(f"{project_dir}: scenario is missing or duplicated.")
+            scenarios.add(scenario)
+            for artifact in project.get("artifacts", []):
+                relative_path = str(Path(project_dir) / artifact["filename"])
+                path = corpus_dir / relative_path
+                if not path.is_file():
+                    raise ValueError(f"Missing portfolio artifact: {relative_path}")
+                artifacts.append(
+                    {**artifact, "project": scenario, "relative_path": relative_path}
+                )
+            for decision in project.get("decisions", []):
+                decisions.append({**decision, "project": scenario})
+        manifest = {"artifacts": artifacts, "decisions": decisions}
+    else:
+        manifest_path = corpus_dir / "manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest.get("notice") != SIMULATION_NOTICE:
+            raise ValueError("The corpus manifest is missing the required notice.")
+        scenario = manifest.get("scenario")
+        manifest["artifacts"] = [
+            {
+                **artifact,
+                "project": scenario,
+                "relative_path": artifact["filename"],
+            }
+            for artifact in manifest.get("artifacts", [])
+        ]
+        manifest["decisions"] = [
+            {**decision, "project": scenario}
+            for decision in manifest.get("decisions", [])
+        ]
+
     artifacts = manifest.get("artifacts", [])
-    if len(artifacts) != 7:
-        raise ValueError(f"Expected 7 mixed artifacts, found {len(artifacts)}.")
-    for artifact in artifacts:
-        path = corpus_dir / artifact["filename"]
-        if not path.is_file():
-            raise ValueError(f"Missing mixed artifact: {path.name}")
+    if not artifacts:
+        raise ValueError("The role-simulation corpus contains no artifacts.")
     decisions = manifest.get("decisions", [])
     names = {decision.get("evidence_author") for decision in decisions}
     if names != set(ROSTER):
-        raise ValueError("Mixed-corpus decisions do not match the authorized roster.")
+        raise ValueError("Portfolio decisions do not match the authorized roster.")
     for decision in decisions:
         name = decision["evidence_author"]
         if decision.get("evidence_role") != ROSTER[name]:
@@ -152,22 +198,26 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                     (expert_id, name, description, SEED_TIME.isoformat()),
                 )
 
+        namespaces = (SIMULATION_NAMESPACE, *LEGACY_NAMESPACES)
+        placeholders = ",".join("?" for _ in namespaces)
         connection.execute(
-            "DELETE FROM sources WHERE simulation_namespace IN (?,?)",
-            (SIMULATION_NAMESPACE, LEGACY_NAMESPACE),
+            f"DELETE FROM sources WHERE simulation_namespace IN ({placeholders})",
+            namespaces,
         )
 
-        decisions_by_artifact: dict[tuple[str, str], list[dict]] = {}
+        decisions_by_artifact: dict[tuple[str, str, str], list[dict]] = {}
         for item in manifest["decisions"]:
-            key = (item["evidence_author"], item["artifact"])
+            key = (item["evidence_author"], item["project"], item["artifact"])
             decisions_by_artifact.setdefault(key, []).append(item)
 
         for name, role in ROSTER.items():
             decision_count = 0
             for artifact in manifest["artifacts"]:
                 filename = artifact["filename"]
-                source_id = _stable_id("source", f"{name}:{filename}")
-                title = f"Project Northstar — {artifact['label']}"
+                project = artifact["project"]
+                relative_path = artifact["relative_path"]
+                source_id = _stable_id("source", f"{name}:{project}:{relative_path}")
+                title = f"{project} — {artifact['label']}"
                 connection.execute(
                     """INSERT INTO sources(
                            id,expert_id,title,filename,source_type,status,error,
@@ -177,7 +227,7 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                         source_id,
                         expert_ids[name],
                         title,
-                        filename,
+                        relative_path,
                         artifact["source_type"],
                         "ready",
                         None,
@@ -186,7 +236,7 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                         SEED_TIME.isoformat(),
                     ),
                 )
-                source_decisions = decisions_by_artifact.get((name, filename), [])
+                source_decisions = decisions_by_artifact.get((name, project, filename), [])
                 if not source_decisions:
                     connection.execute(
                         """INSERT INTO segments(
@@ -196,7 +246,7 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                         (
                             source_id,
                             (
-                                f"{SIMULATION_NOTICE} Project Northstar artifact context. "
+                                f"{SIMULATION_NOTICE} {project} artifact context. "
                                 "No statement from the selected profile is attributed in "
                                 "this artifact."
                             ),
@@ -232,7 +282,9 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                         ),
                     )
                     decision = DecisionRecord(
-                        id=_stable_id("decision", f"{name}:{filename}:{index}"),
+                        id=_stable_id(
+                            "decision", f"{name}:{project}:{relative_path}:{index}"
+                        ),
                         expert_id=expert_ids[name],
                         expert=name,
                         decision=item["decision"],

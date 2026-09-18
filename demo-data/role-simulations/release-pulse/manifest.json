@@ -1,0 +1,338 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project Release Pulse",
+  "summary": "A fictional platform-engineering project improving safe deployments, observability, incident response, and engineering feedback loops.",
+  "artifacts": [
+    {
+      "filename": "01-design-notes.md",
+      "label": "Design proposal and review notes",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat.txt",
+      "label": "Timestamped engineering group chat",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture decision meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-incident-and-retrospective.md",
+      "label": "Incident review and measured retrospective",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: Use evidence-based production go/no-go reviews. Choice: Require named owners for unresolved reliability and security risks. Rationale: Visible ownership prevents critical risks from becoming assumptions. Outcome: All 9 synthetic launch risks had owners and evidence.",
+      "page_or_segment": "section at 2026-09-16 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-16 09:00",
+      "decision": "Use evidence-based production go/no-go reviews",
+      "choice": "Require named owners for unresolved reliability and security risks",
+      "alternatives": [
+        "Approve through informal consensus"
+      ],
+      "rationale": [
+        "Visible ownership prevents critical risks from becoming assumptions"
+      ],
+      "constraints": [
+        "Emergency rollback remains available"
+      ],
+      "risks": [
+        "Review overhead can slow low-risk releases"
+      ],
+      "outcome": "All 9 synthetic launch risks had owners and evidence.",
+      "tags": [
+        "governance",
+        "risk"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: Use progressive delivery for API changes. Choice: Route 5%, 25%, then 100% of traffic with automated health gates. Rationale: Small exposure limits blast radius while preserving real signals. Outcome: Synthetic regression impact was limited to 4.7% of requests.",
+      "page_or_segment": "chat turn at 2026-09-16 09:07 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-16 09:07",
+      "decision": "Use progressive delivery for API changes",
+      "choice": "Route 5%, 25%, then 100% of traffic with automated health gates",
+      "alternatives": [
+        "Deploy to every instance immediately"
+      ],
+      "rationale": [
+        "Small exposure limits blast radius while preserving real signals"
+      ],
+      "constraints": [
+        "Each stage observes ten minutes"
+      ],
+      "risks": [
+        "Low traffic may produce weak confidence"
+      ],
+      "outcome": "Synthetic regression impact was limited to 4.7% of requests.",
+      "tags": [
+        "reliability",
+        "deployment"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: Version deployment telemetry contracts. Choice: Publish immutable deployment and rollback events with correlation IDs. Rationale: Structured events support reliable trend and incident analysis. Outcome: Synthetic release-event completeness reached 99.9%.",
+      "page_or_segment": "meeting turn at 2026-09-16 09:14 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-16 09:14",
+      "decision": "Version deployment telemetry contracts",
+      "choice": "Publish immutable deployment and rollback events with correlation IDs",
+      "alternatives": [
+        "Parse free-form pipeline logs"
+      ],
+      "rationale": [
+        "Structured events support reliable trend and incident analysis"
+      ],
+      "constraints": [
+        "No secret values enter telemetry"
+      ],
+      "risks": [
+        "Missing events can distort release metrics"
+      ],
+      "outcome": "Synthetic release-event completeness reached 99.9%.",
+      "tags": [
+        "data-contract",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: Separate liveness from readiness. Choice: Use liveness for process health and readiness for dependencies. Rationale: Dependency failures should remove traffic without causing restart loops. Outcome: All synthetic database outages drained traffic without restart storms.",
+      "page_or_segment": "section at 2026-09-16 09:21 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-16 09:21",
+      "decision": "Separate liveness from readiness",
+      "choice": "Use liveness for process health and readiness for dependencies",
+      "alternatives": [
+        "Restart on every dependency outage"
+      ],
+      "rationale": [
+        "Dependency failures should remove traffic without causing restart loops"
+      ],
+      "constraints": [
+        "Checks complete within 200 milliseconds"
+      ],
+      "risks": [
+        "Bad thresholds can flap instances"
+      ],
+      "outcome": "All synthetic database outages drained traffic without restart storms.",
+      "tags": [
+        "reliability",
+        "operations"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: Use expand-migrate-contract for database releases. Choice: Add, backfill, switch readers, then remove the old column. Rationale: Compatible schemas support rolling deployment and rollback. Outcome: A synthetic 20-million-row migration completed with zero downtime.",
+      "page_or_segment": "section at 2026-09-16 10:28 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-16 10:28",
+      "decision": "Use expand-migrate-contract for database releases",
+      "choice": "Add, backfill, switch readers, then remove the old column",
+      "alternatives": [
+        "Rename the column in one step"
+      ],
+      "rationale": [
+        "Compatible schemas support rolling deployment and rollback"
+      ],
+      "constraints": [
+        "Backfill must be resumable"
+      ],
+      "risks": [
+        "Dual-write defects can create divergence"
+      ],
+      "outcome": "A synthetic 20-million-row migration completed with zero downtime.",
+      "tags": [
+        "architecture",
+        "deployment"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: Add fault-injection release tests. Choice: Exercise timeout, dependency loss, stale configuration, and rollback. Rationale: Failure paths are the highest-risk release behavior. Outcome: The release suite detected all 12 injected regressions.",
+      "page_or_segment": "chat turn at 2026-09-16 10:35 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-16 10:35",
+      "decision": "Add fault-injection release tests",
+      "choice": "Exercise timeout, dependency loss, stale configuration, and rollback",
+      "alternatives": [
+        "Test only successful deployment"
+      ],
+      "rationale": [
+        "Failure paths are the highest-risk release behavior"
+      ],
+      "constraints": [
+        "Tests must be deterministic"
+      ],
+      "risks": [
+        "Mocks may not capture platform timing"
+      ],
+      "outcome": "The release suite detected all 12 injected regressions.",
+      "tags": [
+        "testing",
+        "reliability"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: Measure deployment quality beyond success rate. Choice: Track change failure, rollback, recovery time, and escaped defects. Rationale: A green pipeline does not prove a healthy release. Outcome: Synthetic escaped defects fell by 43% over six release cycles.",
+      "page_or_segment": "meeting turn at 2026-09-16 10:42 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-16 10:42",
+      "decision": "Measure deployment quality beyond success rate",
+      "choice": "Track change failure, rollback, recovery time, and escaped defects",
+      "alternatives": [
+        "Track successful pipeline runs only"
+      ],
+      "rationale": [
+        "A green pipeline does not prove a healthy release"
+      ],
+      "constraints": [
+        "Metrics are aggregated without personal performance scoring"
+      ],
+      "risks": [
+        "Definitions can vary across services"
+      ],
+      "outcome": "Synthetic escaped defects fell by 43% over six release cycles.",
+      "tags": [
+        "outcomes",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: Display deployment state explicitly. Choice: Model queued, deploying, verifying, healthy, rolling back, and failed. Rationale: Explicit states tell operators what action is safe. Outcome: All six synthetic states passed UI recovery tests.",
+      "page_or_segment": "section at 2026-09-16 10:49 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-16 10:49",
+      "decision": "Display deployment state explicitly",
+      "choice": "Model queued, deploying, verifying, healthy, rolling back, and failed",
+      "alternatives": [
+        "Use one progress spinner"
+      ],
+      "rationale": [
+        "Explicit states tell operators what action is safe"
+      ],
+      "constraints": [
+        "State comes from server events"
+      ],
+      "risks": [
+        "Out-of-order events can regress the display"
+      ],
+      "outcome": "All six synthetic states passed UI recovery tests.",
+      "tags": [
+        "implementation",
+        "operations"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: Make rollback controls accessible and safe. Choice: Use a labeled action, confirmation summary, and live status region. Rationale: Clear controls reduce mistakes during stressful incidents. Outcome: Synthetic accessibility checks reported no critical violations.",
+      "page_or_segment": "section at 2026-09-16 11:56 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-16 11:56",
+      "decision": "Make rollback controls accessible and safe",
+      "choice": "Use a labeled action, confirmation summary, and live status region",
+      "alternatives": [
+        "Use an unlabeled icon button"
+      ],
+      "rationale": [
+        "Clear controls reduce mistakes during stressful incidents"
+      ],
+      "constraints": [
+        "Keyboard-only operation is required"
+      ],
+      "risks": [
+        "Confirmation may slow an urgent rollback"
+      ],
+      "outcome": "Synthetic accessibility checks reported no critical violations.",
+      "tags": [
+        "testing",
+        "implementation"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: Drain workers before deployment. Choice: Stop intake and drain for up to 15 seconds before checkpointing. Rationale: Bounded draining reduces interrupted work without blocking rollout. Outcome: Fifty synthetic rolling restarts lost no work.",
+      "page_or_segment": "chat turn at 2026-09-16 11:03 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-16 11:03",
+      "decision": "Drain workers before deployment",
+      "choice": "Stop intake and drain for up to 15 seconds before checkpointing",
+      "alternatives": [
+        "Terminate workers immediately",
+        "Wait indefinitely"
+      ],
+      "rationale": [
+        "Bounded draining reduces interrupted work without blocking rollout"
+      ],
+      "constraints": [
+        "Unfinished work remains replayable"
+      ],
+      "risks": [
+        "Long requests may execute again"
+      ],
+      "outcome": "Fifty synthetic rolling restarts lost no work.",
+      "tags": [
+        "operations",
+        "recovery"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: Allocate the latency budget by component. Choice: Budget ingress, application, dependency, and queue latency separately. Rationale: Component budgets localize regressions before the SLO is breached. Outcome: Synthetic API p95 improved from 1.4 seconds to 690 milliseconds.",
+      "page_or_segment": "meeting turn at 2026-09-16 11:10 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-16 11:10",
+      "decision": "Allocate the latency budget by component",
+      "choice": "Budget ingress, application, dependency, and queue latency separately",
+      "alternatives": [
+        "Optimize only after total latency fails"
+      ],
+      "rationale": [
+        "Component budgets localize regressions before the SLO is breached"
+      ],
+      "constraints": [
+        "End-to-end p95 target is 800 milliseconds"
+      ],
+      "risks": [
+        "Local optimization may miss the critical path"
+      ],
+      "outcome": "Synthetic API p95 improved from 1.4 seconds to 690 milliseconds.",
+      "tags": [
+        "architecture",
+        "performance"
+      ]
+    }
+  ]
+}

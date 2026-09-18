@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     war_room_prompt_budget: int = Field(default=24000, ge=8000, le=60000)
     seed_role_simulations: bool = False
     role_simulations_corpus_dir: Path = Path(
-        "./demo-data/role-simulations/northstar-mixed"
+        "./demo-data/role-simulations"
     )
 
     azure_openai_endpoint: str | None = None

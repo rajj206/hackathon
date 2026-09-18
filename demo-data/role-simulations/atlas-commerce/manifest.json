@@ -1,0 +1,337 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project Atlas Commerce",
+  "summary": "A fictional software-engineering project modernizing checkout, inventory, payments, and customer-facing APIs.",
+  "artifacts": [
+    {
+      "filename": "01-design-notes.md",
+      "label": "Design proposal and review notes",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat.txt",
+      "label": "Timestamped engineering group chat",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture decision meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-incident-and-retrospective.md",
+      "label": "Incident review and measured retrospective",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: Gate the checkout migration on customer outcomes. Choice: Release only after conversion, error-rate, and rollback rehearsals pass. Rationale: Outcome gates keep the program focused on safe customer value. Outcome: Synthetic checkout failures fell from 3.2% to 0.4%.",
+      "page_or_segment": "section at 2026-09-14 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-14 09:00",
+      "decision": "Gate the checkout migration on customer outcomes",
+      "choice": "Release only after conversion, error-rate, and rollback rehearsals pass",
+      "alternatives": [
+        "Release by feature completion alone"
+      ],
+      "rationale": [
+        "Outcome gates keep the program focused on safe customer value"
+      ],
+      "constraints": [
+        "Migration must remain reversible"
+      ],
+      "risks": [
+        "Schedule pressure could bypass a weak gate"
+      ],
+      "outcome": "Synthetic checkout failures fell from 3.2% to 0.4%.",
+      "tags": [
+        "governance",
+        "outcomes"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: Make payment submission idempotent. Choice: Require one idempotency key per checkout attempt. Rationale: Network retries must not create duplicate charges. Outcome: Duplicate synthetic charges fell from 38 to 0.",
+      "page_or_segment": "chat turn at 2026-09-14 09:07 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-14 09:07",
+      "decision": "Make payment submission idempotent",
+      "choice": "Require one idempotency key per checkout attempt",
+      "alternatives": [
+        "Trust clients not to retry"
+      ],
+      "rationale": [
+        "Network retries must not create duplicate charges"
+      ],
+      "constraints": [
+        "Keys expire after 24 hours"
+      ],
+      "risks": [
+        "Reused keys with changed payloads must be rejected"
+      ],
+      "outcome": "Duplicate synthetic charges fell from 38 to 0.",
+      "tags": [
+        "architecture",
+        "reliability"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: Publish versioned order events. Choice: Use an immutable event envelope with schema version and event ID. Rationale: Explicit contracts support replay and independent consumers. Outcome: All 54 incompatible synthetic events were quarantined.",
+      "page_or_segment": "meeting turn at 2026-09-14 09:14 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-14 09:14",
+      "decision": "Publish versioned order events",
+      "choice": "Use an immutable event envelope with schema version and event ID",
+      "alternatives": [
+        "Infer event shape from optional fields"
+      ],
+      "rationale": [
+        "Explicit contracts support replay and independent consumers"
+      ],
+      "constraints": [
+        "Two schema versions must coexist"
+      ],
+      "risks": [
+        "Unknown versions can block consumers"
+      ],
+      "outcome": "All 54 incompatible synthetic events were quarantined.",
+      "tags": [
+        "data-contract",
+        "quality"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: Isolate inventory from checkout latency. Choice: Reserve stock through an asynchronous command with a visible pending state. Rationale: A bounded asynchronous boundary prevents one dependency from stalling checkout. Outcome: Synthetic checkout p95 improved from 4.1 seconds to 1.2 seconds.",
+      "page_or_segment": "section at 2026-09-14 09:21 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-14 09:21",
+      "decision": "Isolate inventory from checkout latency",
+      "choice": "Reserve stock through an asynchronous command with a visible pending state",
+      "alternatives": [
+        "Call inventory synchronously in the checkout request"
+      ],
+      "rationale": [
+        "A bounded asynchronous boundary prevents one dependency from stalling checkout"
+      ],
+      "constraints": [
+        "Reservation response target is two seconds"
+      ],
+      "risks": [
+        "Customers may briefly see a pending order"
+      ],
+      "outcome": "Synthetic checkout p95 improved from 4.1 seconds to 1.2 seconds.",
+      "tags": [
+        "architecture",
+        "performance"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: Use a circuit breaker for the tax provider. Choice: Open after five failures and return an explicit retryable response. Rationale: Fast failure protects threads and makes degradation visible. Outcome: Synthetic provider outages no longer exhausted the request pool.",
+      "page_or_segment": "section at 2026-09-14 10:28 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-14 10:28",
+      "decision": "Use a circuit breaker for the tax provider",
+      "choice": "Open after five failures and return an explicit retryable response",
+      "alternatives": [
+        "Retry every request indefinitely"
+      ],
+      "rationale": [
+        "Fast failure protects threads and makes degradation visible"
+      ],
+      "constraints": [
+        "Tax must never be silently estimated"
+      ],
+      "risks": [
+        "A sensitive threshold could reject recoverable calls"
+      ],
+      "outcome": "Synthetic provider outages no longer exhausted the request pool.",
+      "tags": [
+        "reliability",
+        "operations"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: Test checkout boundaries with executable examples. Choice: Cover zero quantity, stock race, duplicate payment, and timeout cases. Rationale: Concrete boundary cases clarify behavior before implementation. Outcome: Checkout branch coverage increased from 68% to 93%.",
+      "page_or_segment": "chat turn at 2026-09-14 10:35 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-14 10:35",
+      "decision": "Test checkout boundaries with executable examples",
+      "choice": "Cover zero quantity, stock race, duplicate payment, and timeout cases",
+      "alternatives": [
+        "Test only the happy path"
+      ],
+      "rationale": [
+        "Concrete boundary cases clarify behavior before implementation"
+      ],
+      "constraints": [
+        "Tests run without external payment calls"
+      ],
+      "risks": [
+        "Mocks may drift from provider behavior"
+      ],
+      "outcome": "Checkout branch coverage increased from 68% to 93%.",
+      "tags": [
+        "testing",
+        "clarification"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: Reconcile orders, payments, and fulfillment daily. Choice: Compare counts and amounts by order date and source batch. Rationale: Fine-grained reconciliation localizes loss and duplication. Outcome: Unexplained synthetic revenue variance dropped to zero.",
+      "page_or_segment": "meeting turn at 2026-09-14 10:42 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-14 10:42",
+      "decision": "Reconcile orders, payments, and fulfillment daily",
+      "choice": "Compare counts and amounts by order date and source batch",
+      "alternatives": [
+        "Compare only monthly finance totals"
+      ],
+      "rationale": [
+        "Fine-grained reconciliation localizes loss and duplication"
+      ],
+      "constraints": [
+        "Late refunds remain separately pending"
+      ],
+      "risks": [
+        "Currency conversion can create expected variance"
+      ],
+      "outcome": "Unexplained synthetic revenue variance dropped to zero.",
+      "tags": [
+        "data-quality",
+        "lineage"
+      ]
+    },
+    {
+      "artifact": "04-incident-and-retrospective.md",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: Model checkout UI states explicitly. Choice: Represent validating, reserving, paying, confirmed, and failed states. Rationale: Explicit states prevent ambiguous customer messaging. Outcome: All five synthetic states passed accessibility and recovery tests.",
+      "page_or_segment": "section at 2026-09-14 10:49 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-14 10:49",
+      "decision": "Model checkout UI states explicitly",
+      "choice": "Represent validating, reserving, paying, confirmed, and failed states",
+      "alternatives": [
+        "Use one loading flag"
+      ],
+      "rationale": [
+        "Explicit states prevent ambiguous customer messaging"
+      ],
+      "constraints": [
+        "Refresh must restore the server state"
+      ],
+      "risks": [
+        "More states require broader tests"
+      ],
+      "outcome": "All five synthetic states passed accessibility and recovery tests.",
+      "tags": [
+        "implementation",
+        "testing"
+      ]
+    },
+    {
+      "artifact": "01-design-notes.md",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: Protect customer notes from markup injection. Choice: Render delivery notes as text and validate length at input. Rationale: Text rendering removes an avoidable script-injection path. Outcome: All 30 synthetic hostile-note cases were blocked.",
+      "page_or_segment": "section at 2026-09-14 11:56 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-14 11:56",
+      "decision": "Protect customer notes from markup injection",
+      "choice": "Render delivery notes as text and validate length at input",
+      "alternatives": [
+        "Allow arbitrary rich HTML"
+      ],
+      "rationale": [
+        "Text rendering removes an avoidable script-injection path"
+      ],
+      "constraints": [
+        "Line breaks remain supported"
+      ],
+      "risks": [
+        "Customers lose rich formatting"
+      ],
+      "outcome": "All 30 synthetic hostile-note cases were blocked.",
+      "tags": [
+        "security",
+        "testing"
+      ]
+    },
+    {
+      "artifact": "02-engineering-chat.txt",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: Bound checkout worker concurrency. Choice: Process 16 reservations concurrently and expose queue age. Rationale: A fixed limit protects memory during demand spikes. Outcome: Memory remained below 420 MB during the peak replay.",
+      "page_or_segment": "chat turn at 2026-09-14 11:03 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-14 11:03",
+      "decision": "Bound checkout worker concurrency",
+      "choice": "Process 16 reservations concurrently and expose queue age",
+      "alternatives": [
+        "Create an unbounded task per order"
+      ],
+      "rationale": [
+        "A fixed limit protects memory during demand spikes"
+      ],
+      "constraints": [
+        "Peak synthetic load is 5,000 orders per minute"
+      ],
+      "risks": [
+        "A fixed value may underuse larger instances"
+      ],
+      "outcome": "Memory remained below 420 MB during the peak replay.",
+      "tags": [
+        "operations",
+        "performance"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: Keep commerce domain logic provider-neutral. Choice: Place payment, tax, and inventory clients behind domain ports. Rationale: Ports preserve testability and make provider replacement reversible. Outcome: Offline integration coverage reached 91%.",
+      "page_or_segment": "meeting turn at 2026-09-14 11:10 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-14 11:10",
+      "decision": "Keep commerce domain logic provider-neutral",
+      "choice": "Place payment, tax, and inventory clients behind domain ports",
+      "alternatives": [
+        "Use vendor SDK types in checkout handlers"
+      ],
+      "rationale": [
+        "Ports preserve testability and make provider replacement reversible"
+      ],
+      "constraints": [
+        "The first release supports one provider per port"
+      ],
+      "risks": [
+        "Too many abstractions can slow delivery"
+      ],
+      "outcome": "Offline integration coverage reached 91%.",
+      "tags": [
+        "architecture",
+        "testing"
+      ]
+    }
+  ]
+}

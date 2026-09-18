@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Lakehouse Guardian — Architecture decision meeting transcript
+
+A fictional data-engineering project ingesting product telemetry into bronze, silver, and curated layers with quality, lineage, and replay controls.
+
+[2026-09-15 09:14] Devarakonda Sathish (Data Engineer): Use event-time watermarks. I prefer Accept telemetry up to 20 minutes late and correct later arrivals separately rather than Aggregate only by processing time. Constraint: Devices can be offline temporarily. Risk: Very late data requires correction logic. Measured outcome: Synthetic window completeness improved from 89% to 99.3%.
+[2026-09-15 10:42] Rajendra Kalepu (Senior Data Engineer): Use data-derived replay checkpoints. I prefer Checkpoint by source batch and maximum committed event sequence rather than Checkpoint by worker wall clock. Constraint: Sequences are monotonic within a source batch. Risk: Malformed sequence gaps can halt progress. Measured outcome: A 3-million-event synthetic replay produced no omissions or duplicates.
+[2026-09-15 11:10] Vishwas Srivastava (Principal Software Engineer): Separate storage contracts from compute engines. I prefer Use open table contracts and adapters for query engines rather than Embed one engine's APIs throughout transformations. Constraint: Performance-specific optimizations remain isolated. Risk: Abstraction may hide useful engine features. Measured outcome: Two synthetic query adapters passed the same 42 contract tests.

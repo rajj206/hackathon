@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Release Pulse — Architecture decision meeting transcript
+
+A fictional platform-engineering project improving safe deployments, observability, incident response, and engineering feedback loops.
+
+[2026-09-16 09:14] Devarakonda Sathish (Data Engineer): Version deployment telemetry contracts. I prefer Publish immutable deployment and rollback events with correlation IDs rather than Parse free-form pipeline logs. Constraint: No secret values enter telemetry. Risk: Missing events can distort release metrics. Measured outcome: Synthetic release-event completeness reached 99.9%.
+[2026-09-16 10:42] Rajendra Kalepu (Senior Data Engineer): Measure deployment quality beyond success rate. I prefer Track change failure, rollback, recovery time, and escaped defects rather than Track successful pipeline runs only. Constraint: Metrics are aggregated without personal performance scoring. Risk: Definitions can vary across services. Measured outcome: Synthetic escaped defects fell by 43% over six release cycles.
+[2026-09-16 11:10] Vishwas Srivastava (Principal Software Engineer): Allocate the latency budget by component. I prefer Budget ingress, application, dependency, and queue latency separately rather than Optimize only after total latency fails. Constraint: End-to-end p95 target is 800 milliseconds. Risk: Local optimization may miss the critical path. Measured outcome: Synthetic API p95 improved from 1.4 seconds to 690 milliseconds.

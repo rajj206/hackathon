@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Atlas Commerce — Architecture decision meeting transcript
+
+A fictional software-engineering project modernizing checkout, inventory, payments, and customer-facing APIs.
+
+[2026-09-14 09:14] Devarakonda Sathish (Data Engineer): Publish versioned order events. I prefer Use an immutable event envelope with schema version and event ID rather than Infer event shape from optional fields. Constraint: Two schema versions must coexist. Risk: Unknown versions can block consumers. Measured outcome: All 54 incompatible synthetic events were quarantined.
+[2026-09-14 10:42] Rajendra Kalepu (Senior Data Engineer): Reconcile orders, payments, and fulfillment daily. I prefer Compare counts and amounts by order date and source batch rather than Compare only monthly finance totals. Constraint: Late refunds remain separately pending. Risk: Currency conversion can create expected variance. Measured outcome: Unexplained synthetic revenue variance dropped to zero.
+[2026-09-14 11:10] Vishwas Srivastava (Principal Software Engineer): Keep commerce domain logic provider-neutral. I prefer Place payment, tax, and inventory clients behind domain ports rather than Use vendor SDK types in checkout handlers. Constraint: The first release supports one provider per port. Risk: Too many abstractions can slow delivery. Measured outcome: Offline integration coverage reached 91%.

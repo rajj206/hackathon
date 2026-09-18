@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Lakehouse Guardian — Timestamped engineering group chat
+
+A fictional data-engineering project ingesting product telemetry into bronze, silver, and curated layers with quality, lineage, and replay controls.
+
+[2026-09-15 09:07] Amrita Shanbhag (Senior Software Engineer): Separate ingestion validation from transformation. I prefer Validate the envelope before writing bronze and record reason codes rather than Mix validation into every transformation. Constraint: Raw payload is retained for replay. Risk: Overly strict rules may reject a new producer. Measured outcome: Invalid synthetic records were classified with 100% reason coverage.
+[2026-09-15 10:35] Nishikant Lambat (Software Engineer): Test every quality-rule boundary. I prefer Parameterize null, duplicate, stale, malformed, and late-event cases rather than Use one invalid sample. Constraint: Tests use a frozen event clock. Risk: Overlapping rules may obscure the primary rejection reason. Measured outcome: Quality-rule branch coverage reached 96%.
+[2026-09-15 11:03] Tulika (Software Engineer II): Compact small files on a bounded schedule. I prefer Compact only partitions above a file-count threshold rather than Compact every partition every hour. Constraint: Hot partitions must remain queryable. Risk: Compaction can contend with ingestion. Measured outcome: Synthetic scan file count fell by 78% with 31% less compute.
