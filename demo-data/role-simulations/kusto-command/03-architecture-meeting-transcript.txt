@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Kusto Command — Architecture meeting transcript
+
+A fictional observability program using Kusto for telemetry, incident investigation, operational dashboards, and governed retention.
+
+[2026-09-21 10:20] Manish Patil (Senior Software Engineer): We should standardize Kusto dashboards, alerts, retention, and diagnostic settings through IaC. Demonstrated technologies: kusto. This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.
+[2026-09-21 11:45] Tulika (Software Engineer II): We should standardize Kusto dashboards, alerts, retention, and diagnostic settings through IaC. Demonstrated technologies: event-hubs, kusto. This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.

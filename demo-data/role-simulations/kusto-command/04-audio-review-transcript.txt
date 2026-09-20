@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Kusto Command — Audio architecture review transcript
+
+Synthetic transcript from a fictional audio architecture review.
+
+[2026-09-21 09:00] Hrishikesh Mohile (Principal Software Engineering Manager): We should define service health around customer impact and named diagnostic ownership. This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a management perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.
+[2026-09-21 10:25] Nishikant Lambat (Software Engineer): We should validate missing signals, alert thresholds, KQL results, and incident timelines. Demonstrated technologies: kql. This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a quality perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.
+[2026-09-21 11:50] Vishwas Srivastava (Principal Software Engineer): We should separate operational Kusto workloads from governed analytical data products. Demonstrated technologies: event-hubs, kusto. This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a architecture perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.

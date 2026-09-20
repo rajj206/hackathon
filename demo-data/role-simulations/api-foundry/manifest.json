@@ -1,0 +1,364 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project API Foundry",
+  "summary": "A fictional C# and .NET modernization program for versioned REST APIs on Azure App Service with Cosmos DB and managed identity.",
+  "artifacts": [
+    {
+      "filename": "01-design-review-comments.md",
+      "label": "Threaded design review comments",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat-transcript.txt",
+      "label": "Engineering chat transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-audio-review-transcript.txt",
+      "label": "Audio architecture review transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "05-incident-retrospective.md",
+      "label": "Incident retrospective and outcomes",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: In Project API Foundry, I recommend we gate API releases on compatibility, reliability, and accountable risk owners. Demonstrated technologies: risk. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a management perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Threaded design review comments at 2026-09-18 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-18 09:00",
+      "decision": "Gate api releases on compatibility, reliability, and accountable risk owners for Project API Foundry",
+      "choice": "Gate api releases on compatibility, reliability, and accountable risk owners",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a management perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "management",
+        "risk"
+      ],
+      "comment_id": "API-01",
+      "anchor_text": "modernize customer APIs without breaking clients or weakening reliability",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional C# and .NET modernization program for versioned REST APIs on Azure App Service with Cosmos DB and managed identity."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: In Project API Foundry, I recommend we use versioned C# REST API contracts, idempotent commands, and explicit failure responses. Demonstrated technologies: app-service, c#, dotnet, rest-api. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-18 09:05 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-18 09:05",
+      "decision": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses for Project API Foundry",
+      "choice": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "app-service",
+        "application",
+        "c#",
+        "dotnet",
+        "rest-api"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: In Project API Foundry, I recommend we choose Cosmos DB partition keys from access patterns and validate change-feed replay. Demonstrated technologies: cosmos-db. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-18 09:10 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-18 09:10",
+      "decision": "Choose cosmos db partition keys from access patterns and validate change-feed replay for Project API Foundry",
+      "choice": "Choose cosmos db partition keys from access patterns and validate change-feed replay",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "cosmos-db",
+        "data"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: In Project API Foundry, I recommend we use versioned C# REST API contracts, idempotent commands, and explicit failure responses. Demonstrated technologies: c#, cosmos-db, rest-api. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-18 09:15 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-18 09:15",
+      "decision": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses for Project API Foundry",
+      "choice": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "application",
+        "c#",
+        "cosmos-db",
+        "rest-api"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: In Project API Foundry, I recommend we deploy through App Service slots with managed identity and automated rollback. Demonstrated technologies: app-service. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-18 10:20 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-18 10:20",
+      "decision": "Deploy through app service slots with managed identity and automated rollback for Project API Foundry",
+      "choice": "Deploy through app service slots with managed identity and automated rollback",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "app-service",
+        "platform"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: In Project API Foundry, I recommend we run consumer contract, authorization, concurrency, and failure-path tests. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Threaded design review comments at 2026-09-18 10:25 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-18 10:25",
+      "decision": "Run consumer contract, authorization, concurrency, and failure-path tests for Project API Foundry",
+      "choice": "Run consumer contract, authorization, concurrency, and failure-path tests",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "quality"
+      ],
+      "comment_id": "API-06",
+      "anchor_text": "modernize customer APIs without breaking clients or weakening reliability",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional C# and .NET modernization program for versioned REST APIs on Azure App Service with Cosmos DB and managed identity."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: In Project API Foundry, I recommend we choose Cosmos DB partition keys from access patterns and validate change-feed replay. Demonstrated technologies: cosmos-db, replay. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-18 10:30 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-18 10:30",
+      "decision": "Choose cosmos db partition keys from access patterns and validate change-feed replay for Project API Foundry",
+      "choice": "Choose cosmos db partition keys from access patterns and validate change-feed replay",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "cosmos-db",
+        "data",
+        "replay"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: In Project API Foundry, I recommend we use versioned C# REST API contracts, idempotent commands, and explicit failure responses. Demonstrated technologies: c#, rest-api. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-18 10:35 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-18 10:35",
+      "decision": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses for Project API Foundry",
+      "choice": "Use versioned c# rest api contracts, idempotent commands, and explicit failure responses",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "application",
+        "c#",
+        "rest-api"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: In Project API Foundry, I recommend we run consumer contract, authorization, concurrency, and failure-path tests. Demonstrated technologies: cosmos-db, rest-api. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-18 11:40 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-18 11:40",
+      "decision": "Run consumer contract, authorization, concurrency, and failure-path tests for Project API Foundry",
+      "choice": "Run consumer contract, authorization, concurrency, and failure-path tests",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "cosmos-db",
+        "quality",
+        "rest-api"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: In Project API Foundry, I recommend we deploy through App Service slots with managed identity and automated rollback. Demonstrated technologies: app-service. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-18 11:45 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-18 11:45",
+      "decision": "Deploy through app service slots with managed identity and automated rollback for Project API Foundry",
+      "choice": "Deploy through app service slots with managed identity and automated rollback",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "app-service",
+        "platform"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: In Project API Foundry, I recommend we keep domain behavior independent from HTTP, persistence, and Azure SDK types. Demonstrated technologies: cosmos-db. Rationale: This addresses how to modernize customer APIs without breaking clients or weakening reliability from a architecture perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "page_or_segment": "Threaded design review comments at 2026-09-18 11:50 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-18 11:50",
+      "decision": "Keep domain behavior independent from http, persistence, and azure sdk types for Project API Foundry",
+      "choice": "Keep domain behavior independent from http, persistence, and azure sdk types",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to modernize customer APIs without breaking clients or weakening reliability from a architecture perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic API p95 fell 41% while all contract and rollback checks passed.",
+      "tags": [
+        "architecture",
+        "cosmos-db"
+      ],
+      "comment_id": "API-11",
+      "anchor_text": "modernize customer APIs without breaking clients or weakening reliability",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional C# and .NET modernization program for versioned REST APIs on Azure App Service with Cosmos DB and managed identity."
+    }
+  ]
+}

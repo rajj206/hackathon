@@ -1,0 +1,356 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project Kusto Command",
+  "summary": "A fictional observability program using Kusto for telemetry, incident investigation, operational dashboards, and governed retention.",
+  "artifacts": [
+    {
+      "filename": "01-design-review-comments.md",
+      "label": "Threaded design review comments",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat-transcript.txt",
+      "label": "Engineering chat transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-audio-review-transcript.txt",
+      "label": "Audio architecture review transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "05-incident-retrospective.md",
+      "label": "Incident retrospective and outcomes",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: In Project Kusto Command, I recommend we define service health around customer impact and named diagnostic ownership. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a management perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-21 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-21 09:00",
+      "decision": "Define service health around customer impact and named diagnostic ownership for Project Kusto Command",
+      "choice": "Define service health around customer impact and named diagnostic ownership",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a management perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "management"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: In Project Kusto Command, I recommend we emit correlated structured telemetry with stable dimensions and safe cardinality. Demonstrated technologies: telemetry. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-21 09:05 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-21 09:05",
+      "decision": "Emit correlated structured telemetry with stable dimensions and safe cardinality for Project Kusto Command",
+      "choice": "Emit correlated structured telemetry with stable dimensions and safe cardinality",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "application",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: In Project Kusto Command, I recommend we ingest Event Hub telemetry into Kusto with update policies and reconciliation checks. Demonstrated technologies: event-hubs, kusto, telemetry. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Threaded design review comments at 2026-09-21 09:10 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-21 09:10",
+      "decision": "Ingest event hub telemetry into kusto with update policies and reconciliation checks for Project Kusto Command",
+      "choice": "Ingest event hub telemetry into kusto with update policies and reconciliation checks",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "data",
+        "event-hubs",
+        "kusto",
+        "telemetry"
+      ],
+      "comment_id": "KUS-03",
+      "anchor_text": "turn application and pipeline telemetry into fast, trustworthy diagnosis",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional observability program using Kusto for telemetry, incident investigation, operational dashboards, and governed retention."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: In Project Kusto Command, I recommend we emit correlated structured telemetry with stable dimensions and safe cardinality. Demonstrated technologies: telemetry. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-21 09:15 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-21 09:15",
+      "decision": "Emit correlated structured telemetry with stable dimensions and safe cardinality for Project Kusto Command",
+      "choice": "Emit correlated structured telemetry with stable dimensions and safe cardinality",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "application",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: In Project Kusto Command, I recommend we standardize Kusto dashboards, alerts, retention, and diagnostic settings through IaC. Demonstrated technologies: kusto. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-21 10:20 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-21 10:20",
+      "decision": "Standardize kusto dashboards, alerts, retention, and diagnostic settings through iac for Project Kusto Command",
+      "choice": "Standardize kusto dashboards, alerts, retention, and diagnostic settings through iac",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "kusto",
+        "platform"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: In Project Kusto Command, I recommend we validate missing signals, alert thresholds, KQL results, and incident timelines. Demonstrated technologies: kql. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-21 10:25 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-21 10:25",
+      "decision": "Validate missing signals, alert thresholds, kql results, and incident timelines for Project Kusto Command",
+      "choice": "Validate missing signals, alert thresholds, kql results, and incident timelines",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "kql",
+        "quality"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: In Project Kusto Command, I recommend we ingest Event Hub telemetry into Kusto with update policies and reconciliation checks. Demonstrated technologies: kusto, telemetry. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-21 10:30 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-21 10:30",
+      "decision": "Ingest event hub telemetry into kusto with update policies and reconciliation checks for Project Kusto Command",
+      "choice": "Ingest event hub telemetry into kusto with update policies and reconciliation checks",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "data",
+        "kusto",
+        "telemetry"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: In Project Kusto Command, I recommend we emit correlated structured telemetry with stable dimensions and safe cardinality. Demonstrated technologies: telemetry. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Threaded design review comments at 2026-09-21 10:35 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-21 10:35",
+      "decision": "Emit correlated structured telemetry with stable dimensions and safe cardinality for Project Kusto Command",
+      "choice": "Emit correlated structured telemetry with stable dimensions and safe cardinality",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "application",
+        "telemetry"
+      ],
+      "comment_id": "KUS-08",
+      "anchor_text": "turn application and pipeline telemetry into fast, trustworthy diagnosis",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional observability program using Kusto for telemetry, incident investigation, operational dashboards, and governed retention."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: In Project Kusto Command, I recommend we validate missing signals, alert thresholds, KQL results, and incident timelines. Demonstrated technologies: kql. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-21 11:40 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-21 11:40",
+      "decision": "Validate missing signals, alert thresholds, kql results, and incident timelines for Project Kusto Command",
+      "choice": "Validate missing signals, alert thresholds, kql results, and incident timelines",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "kql",
+        "quality"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: In Project Kusto Command, I recommend we standardize Kusto dashboards, alerts, retention, and diagnostic settings through IaC. Demonstrated technologies: event-hubs, kusto. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-21 11:45 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-21 11:45",
+      "decision": "Standardize kusto dashboards, alerts, retention, and diagnostic settings through iac for Project Kusto Command",
+      "choice": "Standardize kusto dashboards, alerts, retention, and diagnostic settings through iac",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "event-hubs",
+        "kusto",
+        "platform"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: In Project Kusto Command, I recommend we separate operational Kusto workloads from governed analytical data products. Demonstrated technologies: event-hubs, kusto. Rationale: This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a architecture perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-21 11:50 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-21 11:50",
+      "decision": "Separate operational kusto workloads from governed analytical data products for Project Kusto Command",
+      "choice": "Separate operational kusto workloads from governed analytical data products",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to turn application and pipeline telemetry into fast, trustworthy diagnosis from a architecture perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Synthetic mean time to isolate a failure dropped from 47 to 9 minutes.",
+      "tags": [
+        "architecture",
+        "event-hubs",
+        "kusto"
+      ]
+    }
+  ]
+}

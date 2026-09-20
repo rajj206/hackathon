@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Cloud Foundation — Architecture meeting transcript
+
+A fictional Azure platform program spanning App Service, virtual machines, networking, identity, infrastructure as code, and disaster recovery.
+
+[2026-09-22 09:15] Kumar Ritesh (Senior Software Engineer): We should externalize configuration and use managed identity across App Service workloads. Demonstrated technologies: app-service, identity. This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.
+[2026-09-22 11:40] Siya Sharma (Software Engineer): We should test identity loss, network isolation, VM restart, backup restore, and regional failover. Demonstrated technologies: identity, vm. This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.

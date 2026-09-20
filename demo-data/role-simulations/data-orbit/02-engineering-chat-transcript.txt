@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Data Orbit — Engineering chat transcript
+
+A fictional ETL platform using Azure Data Factory, Synapse, ADLS Gen2, and governed medallion-style data products.
+
+[2026-09-19 09:00] Hrishikesh Mohile (Principal Software Engineering Manager): We should publish data only after freshness, ownership, quality, and cost gates pass. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a management perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.
+[2026-09-19 10:25] Nishikant Lambat (Software Engineer): We should test late, duplicate, malformed, missing, and schema-evolution boundaries. Demonstrated technologies: data-quality. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a quality perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.
+[2026-09-19 11:50] Vishwas Srivastava (Principal Software Engineer): We should separate storage contracts, orchestration, and compute so each remains replaceable. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a architecture perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.

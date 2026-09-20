@@ -9,6 +9,8 @@ from .models import (
     Citation,
     DecisionRecord,
     EngineeringDecisionFingerprint,
+    ExpertFinderResponse,
+    ExpertMatch,
     FingerprintPattern,
     IngestionResult,
 )
@@ -58,7 +60,14 @@ STOP_WORDS = {
 
 
 def tokens(text: str) -> list[str]:
-    return [t.lower() for t in TOKEN_RE.findall(text) if t.lower() not in STOP_WORDS]
+    found = [term.lower() for term in TOKEN_RE.findall(text)]
+    expanded = [
+        part
+        for term in found
+        for part in (term, *re.split(r"[-.]", term))
+        if part and part not in STOP_WORDS
+    ]
+    return expanded
 
 
 def is_expert_attributed(decision: DecisionRecord, expert_name: str) -> bool:
@@ -189,6 +198,58 @@ class FingerprintService:
         )
 
 
+def _rank_documents(
+    documents: list[DecisionRecord], query: str, top_k: int
+) -> list[tuple[DecisionRecord, float]]:
+    if not documents:
+        return []
+    query_terms = tokens(query)
+    if not query_terms:
+        return []
+    document_terms = [
+        tokens(
+            " ".join(
+                [
+                    d.decision,
+                    d.choice,
+                    " ".join(d.alternatives),
+                    " ".join(d.rationale),
+                    " ".join(d.constraints),
+                    " ".join(d.risks),
+                    d.outcome or "",
+                    d.evidence_text,
+                    " ".join(d.tags),
+                ]
+            )
+        )
+        for d in documents
+    ]
+    document_frequency = Counter(term for terms in document_terms for term in set(terms))
+    count = len(documents)
+
+    def vector(terms: list[str]) -> dict[str, float]:
+        frequencies = Counter(terms)
+        return {
+            term: frequency * (math.log((count + 1) / (document_frequency.get(term, 0) + 1)) + 1)
+            for term, frequency in frequencies.items()
+        }
+
+    query_vector = vector(query_terms)
+    scored = []
+    for decision, terms in zip(documents, document_terms, strict=True):
+        doc_vector = vector(terms)
+        dot = sum(query_vector.get(term, 0) * doc_vector.get(term, 0) for term in query_vector)
+        norm_q = math.sqrt(sum(value * value for value in query_vector.values()))
+        norm_d = math.sqrt(sum(value * value for value in doc_vector.values()))
+        semantic = dot / (norm_q * norm_d) if norm_q and norm_d else 0
+        lexical = len(set(query_terms) & set(terms)) / len(set(query_terms))
+        phrase_bonus = 0.15 if query.lower() in decision.evidence_text.lower() else 0
+        score = 0.6 * semantic + 0.4 * lexical + phrase_bonus
+        if score > 0:
+            scored.append((decision, score))
+    return sorted(scored, key=lambda item: item[1], reverse=True)[:top_k]
+
+
 class RetrievalService:
     def __init__(self, db: Database):
         self.db = db
@@ -199,54 +260,121 @@ class RetrievalService:
         documents = self.db.list_decisions(expert_id)
         simulated_documents = [decision for decision in documents if decision.simulation]
         documents = simulated_documents or documents
-        if not documents:
-            return []
-        query_terms = tokens(query)
-        if not query_terms:
-            return []
-        document_terms = [
-            tokens(
-                " ".join(
-                    [
-                        d.decision,
-                        d.choice,
-                        " ".join(d.alternatives),
-                        " ".join(d.rationale),
-                        " ".join(d.constraints),
-                        " ".join(d.risks),
-                        d.outcome or "",
-                        d.evidence_text,
-                        " ".join(d.tags),
-                    ]
+        return _rank_documents(documents, query, top_k)
+
+
+def _citation(decision: DecisionRecord, expert_name: str) -> Citation:
+    return Citation(
+        source_id=decision.source_id,
+        source_title=decision.source_title,
+        page_or_segment=decision.page_or_segment,
+        decision_id=decision.id,
+        excerpt=decision.evidence_text[:260],
+        evidence_type=decision.evidence_type,
+        evidence_author=decision.evidence_author,
+        evidence_role=decision.evidence_role,
+        comment_id=decision.comment_id,
+        anchor_text=decision.anchor_text,
+        parent_comment_id=decision.parent_comment_id,
+        parent_author=decision.parent_author,
+        attribution_status=(
+            "expert_attributed" if is_expert_attributed(decision, expert_name) else "contextual"
+        ),
+        decision_confidence=decision.confidence,
+        simulation=decision.simulation,
+        simulation_namespace=decision.simulation_namespace,
+    )
+
+
+class ExpertFinderService:
+    def __init__(self, db: Database):
+        self.db = db
+
+    def find(self, question: str, top_k: int = 5) -> ExpertFinderResponse:
+        query_terms = set(tokens(question))
+        ranked: list[tuple[float, ExpertMatch]] = []
+        experts = self.db.list_experts()
+        experts_by_id = {expert.id: expert for expert in experts}
+        documents = []
+        for expert in experts:
+            expert_documents = self.db.list_decisions(expert.id)
+            simulated = [decision for decision in expert_documents if decision.simulation]
+            documents.extend(
+                decision
+                for decision in (simulated or expert_documents)
+                if is_expert_attributed(decision, expert.name)
+            )
+        globally_ranked = _rank_documents(documents, question, len(documents))
+        matches_by_expert: dict[str, list[tuple[DecisionRecord, float]]] = defaultdict(list)
+        for item in globally_ranked:
+            matches_by_expert[item[0].expert_id].append(item)
+
+        for expert_id, matches in matches_by_expert.items():
+            expert = experts_by_id[expert_id]
+            matches = matches[:4]
+            if not matches:
+                continue
+            evidence_terms = set(
+                tokens(
+                    " ".join(
+                        " ".join(
+                            (
+                                decision.decision,
+                                decision.choice,
+                                decision.evidence_text,
+                                " ".join(decision.tags),
+                            )
+                        )
+                        for decision, _score in matches
+                    )
                 )
             )
-            for d in documents
-        ]
-        document_frequency = Counter(term for terms in document_terms for term in set(terms))
-        count = len(documents)
-
-        def vector(terms: list[str]) -> dict[str, float]:
-            frequencies = Counter(terms)
-            return {
-                term: frequency
-                * (math.log((count + 1) / (document_frequency.get(term, 0) + 1)) + 1)
-                for term, frequency in frequencies.items()
+            matched_terms = sorted(query_terms & evidence_terms)
+            coverage = len(matched_terms) / max(len(query_terms), 1)
+            top_score = matches[0][1]
+            evidence_score = min(len(matches) / 3, 1)
+            score = min(0.98, 0.55 * top_score + 0.25 * coverage + 0.20 * evidence_score)
+            if score < 0.12:
+                continue
+            decisions = [decision for decision, _score in matches[:3]]
+            projects = {
+                decision.source_title.split(" — ", 1)[0]
+                for decision in decisions
+                if " — " in decision.source_title
             }
-
-        query_vector = vector(query_terms)
-        scored = []
-        for decision, terms in zip(documents, document_terms, strict=True):
-            doc_vector = vector(terms)
-            dot = sum(query_vector.get(term, 0) * doc_vector.get(term, 0) for term in query_vector)
-            norm_q = math.sqrt(sum(value * value for value in query_vector.values()))
-            norm_d = math.sqrt(sum(value * value for value in doc_vector.values()))
-            semantic = dot / (norm_q * norm_d) if norm_q and norm_d else 0
-            lexical = len(set(query_terms) & set(terms)) / len(set(query_terms))
-            phrase_bonus = 0.15 if query.lower() in decision.evidence_text.lower() else 0
-            score = 0.6 * semantic + 0.4 * lexical + phrase_bonus
-            if score > 0:
-                scored.append((decision, score))
-        return sorted(scored, key=lambda item: item[1], reverse=True)[:top_k]
+            terms_text = ", ".join(matched_terms[:6]) or "the requested engineering area"
+            scope = (
+                f"{len(projects)} project{'s' if len(projects) != 1 else ''}"
+                if projects
+                else f"{len(decisions)} evidence source{'s' if len(decisions) != 1 else ''}"
+            )
+            explanation = (
+                f"{len(decisions)} attributed decisions across {scope} match {terms_text}."
+            )
+            ranked.append(
+                (
+                    score,
+                    ExpertMatch(
+                        expert_id=expert.id,
+                        expert_name=expert.name,
+                        role=expert.description,
+                        score=round(score, 3),
+                        confidence=(
+                            "strong" if len(decisions) >= 2 and score >= 0.35 else "limited"
+                        ),
+                        evidence_count=len(decisions),
+                        project_count=len(projects),
+                        matched_terms=matched_terms[:8],
+                        explanation=explanation,
+                        citations=[_citation(decision, expert.name) for decision in decisions],
+                    ),
+                )
+            )
+        ranked.sort(key=lambda item: (-item[0], item[1].expert_name))
+        return ExpertFinderResponse(
+            question=question,
+            matches=[match for _score, match in ranked[:top_k]],
+        )
 
 
 class ChatService:
@@ -268,31 +396,7 @@ class ChatService:
             item for item in matches if is_expert_attributed(item[0], expert_name)
         ]
         contextual_match_count = len(matches) - len(attributed_matches)
-        citations = [
-            Citation(
-                source_id=decision.source_id,
-                source_title=decision.source_title,
-                page_or_segment=decision.page_or_segment,
-                decision_id=decision.id,
-                excerpt=decision.evidence_text[:260],
-                evidence_type=decision.evidence_type,
-                evidence_author=decision.evidence_author,
-                evidence_role=decision.evidence_role,
-                comment_id=decision.comment_id,
-                anchor_text=decision.anchor_text,
-                parent_comment_id=decision.parent_comment_id,
-                parent_author=decision.parent_author,
-                attribution_status=(
-                    "expert_attributed"
-                    if is_expert_attributed(decision, expert_name)
-                    else "contextual"
-                ),
-                decision_confidence=decision.confidence,
-                simulation=decision.simulation,
-                simulation_namespace=decision.simulation_namespace,
-            )
-            for decision, _score in matches
-        ]
+        citations = [_citation(decision, expert_name) for decision, _score in matches]
         if not matches:
             return ChatResponse(
                 answer=(

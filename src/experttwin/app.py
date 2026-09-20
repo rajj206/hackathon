@@ -18,6 +18,8 @@ from .models import (
     EngineeringDecisionFingerprint,
     Expert,
     ExpertCreate,
+    ExpertFinderRequest,
+    ExpertFinderResponse,
     IngestionResult,
     PortfolioSummary,
     Source,
@@ -33,7 +35,13 @@ from .providers import (
     LocalUnavailableTranscriber,
     Transcriber,
 )
-from .services import ChatService, FingerprintService, IngestionService, RetrievalService
+from .services import (
+    ChatService,
+    ExpertFinderService,
+    FingerprintService,
+    IngestionService,
+    RetrievalService,
+)
 from .war_room import (
     AzureOpenAIWarRoomOrchestrator,
     WarRoomGenerationError,
@@ -113,6 +121,7 @@ def create_app(
     fingerprints = FingerprintService(database)
     retrieval = RetrievalService(database)
     chat = ChatService(retrieval, fingerprints, answerer)
+    expert_finder = ExpertFinderService(database)
     war_room = WarRoomService(
         database,
         retrieval,
@@ -160,6 +169,10 @@ def create_app(
     @app.get("/api/portfolio-summary", response_model=PortfolioSummary)
     def get_portfolio_summary() -> PortfolioSummary:
         return database.get_portfolio_summary()
+
+    @app.post("/api/expert-finder", response_model=ExpertFinderResponse)
+    def find_experts(payload: ExpertFinderRequest) -> ExpertFinderResponse:
+        return expert_finder.find(payload.question, payload.top_k)
 
     @app.get("/api/experts/{expert_id}", response_model=Expert)
     def get_expert(expert_id: str) -> Expert:

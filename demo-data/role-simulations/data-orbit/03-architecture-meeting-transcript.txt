@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Data Orbit — Architecture meeting transcript
+
+A fictional ETL platform using Azure Data Factory, Synapse, ADLS Gen2, and governed medallion-style data products.
+
+[2026-09-19 09:05] Amrita Shanbhag (Senior Software Engineer): We should expose pipeline state through stable APIs without coupling clients to ADF internals. Demonstrated technologies: adf. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a application perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.
+[2026-09-19 10:30] Rajendra Kalepu (Senior Data Engineer): We should checkpoint ADF by source data, preserve bronze in ADLS Gen2, and reconcile Synapse outputs. Demonstrated technologies: adf, adls-gen2, etl, synapse. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a data perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.

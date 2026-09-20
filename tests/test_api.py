@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 
 from experttwin.app import create_app
 from experttwin.config import Settings
+from experttwin.models import DecisionRecord
 
 
 def test_api_smoke_create_ingest_fingerprint_chat(runtime_dir: Path):
@@ -17,6 +18,12 @@ def test_api_smoke_create_ingest_fingerprint_chat(runtime_dir: Path):
             "decision_count": 0,
             "projects": [],
         }
+        empty_finder = client.post(
+            "/api/expert-finder",
+            json={"question": "Who knows Event Hubs and Kusto?"},
+        )
+        assert empty_finder.status_code == 200
+        assert empty_finder.json()["matches"] == []
         assert client.get("/health").json()["status"] == "ok"
         expert_response = client.post(
             "/api/experts",
@@ -72,6 +79,46 @@ def test_api_smoke_create_ingest_fingerprint_chat(runtime_dir: Path):
         assert payload["contextual_citation_count"] >= 1
         assert payload["simulation_notice"] == "AI Clone"
         assert payload["evidence_strength"] == "limited"
+
+        finder = client.post(
+            "/api/expert-finder",
+            json={"question": "Who knows Kusto telemetry?"},
+        )
+        assert finder.status_code == 200
+        assert finder.json()["matches"] == []
+
+        attributed_source = app.state.database.create_source(
+            expert_id,
+            "Telemetry ADR",
+            "telemetry-adr.txt",
+            "document",
+        )
+        app.state.database.store_decisions(
+            [
+                DecisionRecord(
+                    id="attributed-kusto-decision",
+                    expert_id=expert_id,
+                    expert="Asha",
+                    decision="Use Kusto for operational telemetry",
+                    choice="Ingest structured telemetry into Kusto",
+                    source_id=attributed_source.id,
+                    source_title=attributed_source.title,
+                    evidence_text="Asha chose Kusto for fast incident diagnostics.",
+                    page_or_segment="ADR section 2",
+                    evidence_author="Asha",
+                    evidence_role="Telemetry architect",
+                    tags=["kusto", "telemetry"],
+                    confidence=0.95,
+                )
+            ]
+        )
+        attributed_finder = client.post(
+            "/api/expert-finder",
+            json={"question": "Who knows Kusto incident telemetry?"},
+        )
+        assert attributed_finder.status_code == 200
+        assert attributed_finder.json()["matches"][0]["expert_name"] == "Asha"
+        assert attributed_finder.json()["matches"][0]["project_count"] == 0
 
 
 def test_local_recording_error_is_actionable(runtime_dir: Path):

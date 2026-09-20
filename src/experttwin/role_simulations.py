@@ -15,8 +15,9 @@ from experttwin.roster import AUTHORIZED_ROSTER
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DATABASE = ROOT / "data" / "experttwin.db"
 DEFAULT_CORPUS = ROOT / "demo-data" / "role-simulations"
-SIMULATION_NAMESPACE = "engineering-portfolio-role-sim-v3"
+SIMULATION_NAMESPACE = "engineering-portfolio-role-sim-v4"
 LEGACY_NAMESPACES = (
+    "engineering-portfolio-role-sim-v3",
     "northstar-role-sim-mixed-v2",
     "northstar-role-sim-v1",
 )
@@ -57,9 +58,7 @@ def _has_seeded_namespace(database_path: Path) -> bool:
         }
         if "sources" not in tables:
             return False
-        columns = {
-            row[1] for row in connection.execute("PRAGMA table_info(sources)").fetchall()
-        }
+        columns = {row[1] for row in connection.execute("PRAGMA table_info(sources)").fetchall()}
         if "simulation_namespace" not in columns:
             return False
         return bool(
@@ -102,9 +101,7 @@ def _load_corpus(corpus_dir: Path) -> dict:
         scenarios: set[str] = set()
         for project_dir in project_dirs:
             project_root = corpus_dir / project_dir
-            project = json.loads(
-                (project_root / "manifest.json").read_text(encoding="utf-8")
-            )
+            project = json.loads((project_root / "manifest.json").read_text(encoding="utf-8"))
             if project.get("notice") != SIMULATION_NOTICE:
                 raise ValueError(f"{project_dir}: project manifest is missing the notice.")
             scenario = project.get("scenario")
@@ -116,9 +113,7 @@ def _load_corpus(corpus_dir: Path) -> dict:
                 path = corpus_dir / relative_path
                 if not path.is_file():
                     raise ValueError(f"Missing portfolio artifact: {relative_path}")
-                artifacts.append(
-                    {**artifact, "project": scenario, "relative_path": relative_path}
-                )
+                artifacts.append({**artifact, "project": scenario, "relative_path": relative_path})
             for decision in project.get("decisions", []):
                 decisions.append({**decision, "project": scenario})
         manifest = {"artifacts": artifacts, "decisions": decisions}
@@ -137,8 +132,7 @@ def _load_corpus(corpus_dir: Path) -> dict:
             for artifact in manifest.get("artifacts", [])
         ]
         manifest["decisions"] = [
-            {**decision, "project": scenario}
-            for decision in manifest.get("decisions", [])
+            {**decision, "project": scenario} for decision in manifest.get("decisions", [])
         ]
 
     artifacts = manifest.get("artifacts", [])
@@ -171,9 +165,7 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
     expert_rows = database.list_experts()
     experts = {expert.name: expert for expert in expert_rows}
     duplicate_names = {
-        name
-        for name in ROSTER
-        if sum(expert.name == name for expert in expert_rows) > 1
+        name for name in ROSTER if sum(expert.name == name for expert in expert_rows) > 1
     }
     if duplicate_names:
         raise ValueError(f"Duplicate authorized profiles found: {sorted(duplicate_names)}")
@@ -282,9 +274,7 @@ def seed(database_path: Path, corpus_dir: Path = DEFAULT_CORPUS) -> SeedReport:
                         ),
                     )
                     decision = DecisionRecord(
-                        id=_stable_id(
-                            "decision", f"{name}:{project}:{relative_path}:{index}"
-                        ),
+                        id=_stable_id("decision", f"{name}:{project}:{relative_path}:{index}"),
                         expert_id=expert_ids[name],
                         expert=name,
                         decision=item["decision"],

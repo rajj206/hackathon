@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ExpertTwin evidence-grounded engineering judgment simulation">
   <title>ExpertTwin · Engineering Team</title>
-  <link rel="stylesheet" href="/static/style.css?v=overview-ui-20260918-1">
+  <link rel="stylesheet" href="/static/style.css?v=expert-finder-ui-20260920-1">
 </head>
 <body>
   <main class="app-shell">
@@ -128,6 +128,8 @@
       <nav class="tabs" role="tablist" aria-label="ExpertTwin views">
         <button class="tab active" id="overviewTab" data-tab="overview" role="tab"
                 aria-selected="true" aria-controls="overview">Overview</button>
+        <button class="tab" id="expertFinderTab" data-tab="expertFinder" role="tab"
+                aria-selected="false" aria-controls="expertFinder">Find an expert</button>
         <button class="tab" id="chatTab" data-tab="chat" role="tab"
                 aria-selected="false" aria-controls="chat">Chat</button>
         <button class="tab" id="warRoomTab" data-tab="warRoom" role="tab"
@@ -164,6 +166,11 @@
               <button type="button" class="project-filter" data-project="lakehouse">Lakehouse Guardian</button>
               <button type="button" class="project-filter" data-project="release">Release Pulse</button>
               <button type="button" class="project-filter" data-project="northstar">Northstar</button>
+              <button type="button" class="project-filter" data-project="api">API Foundry</button>
+              <button type="button" class="project-filter" data-project="data-orbit">Data Orbit</button>
+              <button type="button" class="project-filter" data-project="events">Event Mesh</button>
+              <button type="button" class="project-filter" data-project="kusto">Kusto Command</button>
+              <button type="button" class="project-filter" data-project="cloud">Cloud Foundation</button>
             </div>
           </div>
 
@@ -196,6 +203,41 @@
               <strong>Handle malformed events without losing good data</strong>
               <small>Project Northstar</small><i aria-hidden="true">→</i>
             </button>
+            <button type="button" class="scenario-card software-scenario" data-project="api"
+                    data-view="chat" data-expert="Amrita Shanbhag"
+                    data-prompt="How should we modernize a C# REST API on App Service without breaking clients?">
+              <span class="scenario-category">C# and REST APIs</span>
+              <strong>Modernize an API without breaking clients</strong>
+              <small>Project API Foundry</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card data-scenario" data-project="data-orbit"
+                    data-view="chat" data-expert="Rajendra Kalepu"
+                    data-prompt="How should ADF, Synapse, and ADLS Gen2 support a replay-safe ETL platform?">
+              <span class="scenario-category">Azure data engineering</span>
+              <strong>Design replay-safe ADF and Synapse ETL</strong>
+              <small>Project Data Orbit</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card event-scenario" data-project="events"
+                    data-view="chat" data-expert="Vishwas Srivastava"
+                    data-prompt="When should we use Event Grid versus Event Hubs, and how should consumers replay safely?">
+              <span class="scenario-category">Event architecture</span>
+              <strong>Choose Event Grid or Event Hubs</strong>
+              <small>Project Event Mesh</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card kusto-scenario" data-project="kusto"
+                    data-view="chat" data-expert="Devarakonda Sathish"
+                    data-prompt="How should Event Hub telemetry be modeled and monitored in Kusto?">
+              <span class="scenario-category">Kusto and observability</span>
+              <strong>Turn telemetry into fast diagnosis</strong>
+              <small>Project Kusto Command</small><i aria-hidden="true">→</i>
+            </button>
+            <button type="button" class="scenario-card reliability-scenario" data-project="cloud"
+                    data-view="chat" data-expert="Manish Patil"
+                    data-prompt="How should DevOps, Bicep, App Service, and VM recovery work together?">
+              <span class="scenario-category">Azure platform</span>
+              <strong>Standardize cloud delivery and recovery</strong>
+              <small>Project Cloud Foundation</small><i aria-hidden="true">→</i>
+            </button>
             <button type="button" class="scenario-card war-scenario" data-project="cross"
                     data-view="warRoom"
                     data-prompt="Should we prioritize synchronous simplicity or an asynchronous, replay-safe architecture for a high-volume engineering system?">
@@ -221,6 +263,34 @@
             <small>Answers cite exact evidence and state what is inferred.</small></span>
           <b>Ask with evidence <i aria-hidden="true">→</i></b>
         </button>
+      </section>
+
+      <section id="expertFinder" class="view content-view expert-finder-view" role="tabpanel"
+               aria-labelledby="expertFinderTab" hidden>
+        <header class="expert-finder-hero">
+          <p class="eyebrow">TEAM CAPABILITY MAP</p>
+          <h2>Who has evidence for <span>this problem?</span></h2>
+          <p>Describe the technology, architecture question, incident, or delivery challenge.
+             ExpertTwin ranks every AI Clone using attributable synthetic decisions and outcomes.</p>
+        </header>
+        <form id="expertFinderForm" class="expert-finder-form">
+          <label for="expertFinderQuestion">What do you need help with?</label>
+          <div>
+            <textarea id="expertFinderQuestion" required minlength="2" maxlength="2000"
+                      placeholder="Example: Who can help design Event Hub ingestion into Kusto with replay through ADLS Gen2?"></textarea>
+            <button type="submit">Find with evidence</button>
+          </div>
+        </form>
+        <div class="expert-finder-suggestions" aria-label="Suggested expert searches">
+          <button type="button" data-expert-query="Who knows C#, REST API design, App Service, and Cosmos DB?">C# and REST APIs</button>
+          <button type="button" data-expert-query="Who has evidence for ADF, Synapse, ETL, and ADLS Gen2 replay?">ADF and Synapse ETL</button>
+          <button type="button" data-expert-query="Who can advise on Event Grid, Event Hubs, ordering, and replay?">Event-driven systems</button>
+          <button type="button" data-expert-query="Who has evidence for Kusto telemetry and incident diagnostics?">Kusto and observability</button>
+          <button type="button" data-expert-query="Who can help with DevOps, Bicep, App Service, and VM recovery?">DevOps and Azure platform</button>
+        </div>
+        <div id="expertFinderResult" class="expert-finder-result" aria-live="polite">
+          <div class="empty-state">Ask a question to see the strongest evidence-backed matches across all 11 AI Clones.</div>
+        </div>
       </section>
 
       <section id="chat" class="view chat-view" role="tabpanel" aria-labelledby="chatTab" hidden>
@@ -278,6 +348,6 @@
       </section>
     </section>
   </main>
-  <script src="/static/app.js?v=overview-ui-20260918-1"></script>
+  <script src="/static/app.js?v=expert-finder-ui-20260920-1"></script>
 </body>
 </html>

@@ -13,7 +13,6 @@ from experttwin.models import DecisionRecord
 from experttwin.parsers import parse_file
 from experttwin.role_simulations import (
     LEGACY_NAMESPACE,
-    LEGACY_NAMESPACES,
     ROSTER,
     SIMULATION_NAMESPACE,
     SIMULATION_NOTICE,
@@ -28,6 +27,11 @@ PROJECT_DIRS = [
     BASE_CORPUS / "atlas-commerce",
     BASE_CORPUS / "lakehouse-guardian",
     BASE_CORPUS / "release-pulse",
+    BASE_CORPUS / "api-foundry",
+    BASE_CORPUS / "data-orbit",
+    BASE_CORPUS / "event-mesh",
+    BASE_CORPUS / "kusto-command",
+    BASE_CORPUS / "cloud-foundation",
 ]
 TEXT_ARTIFACTS = [
     "02-group-chat.txt",
@@ -47,9 +51,7 @@ REQUIRED_ARTIFACTS = [
 
 def test_all_role_simulation_files_are_labeled_and_complete():
     files = sorted(
-        path
-        for path in BASE_CORPUS.glob("*.json")
-        if path.name != "portfolio-manifest.json"
+        path for path in BASE_CORPUS.glob("*.json") if path.name != "portfolio-manifest.json"
     )
     assert len(files) == 11
     records = [json.loads(path.read_text(encoding="utf-8")) for path in files]
@@ -61,26 +63,50 @@ def test_all_role_simulation_files_are_labeled_and_complete():
         assert SIMULATION_NOTICE in (CORPUS / name).read_text(encoding="utf-8")
     manifest = json.loads((CORPUS / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["notice"] == SIMULATION_NOTICE
-    assert manifest["simulation_namespace"] == LEGACY_NAMESPACES[0]
+    assert manifest["simulation_namespace"] == "northstar-role-sim-mixed-v2"
     assert len(manifest["artifacts"]) == 7
-    portfolio = json.loads(
-        (BASE_CORPUS / "portfolio-manifest.json").read_text(encoding="utf-8")
-    )
+    portfolio = json.loads((BASE_CORPUS / "portfolio-manifest.json").read_text(encoding="utf-8"))
     assert portfolio["notice"] == SIMULATION_NOTICE
-    assert len(portfolio["projects"]) == 4
+    assert len(portfolio["projects"]) == 9
     for project_dir in PROJECT_DIRS[1:]:
-        project_manifest = json.loads(
-            (project_dir / "manifest.json").read_text(encoding="utf-8")
-        )
+        project_manifest = json.loads((project_dir / "manifest.json").read_text(encoding="utf-8"))
         assert project_manifest["notice"] == SIMULATION_NOTICE
-        assert len(project_manifest["artifacts"]) == 4
-        assert {
-            decision["evidence_author"]
-            for decision in project_manifest["decisions"]
-        } == set(ROSTER)
+        expected_artifacts = (
+            4
+            if project_dir.name
+            in {
+                "atlas-commerce",
+                "lakehouse-guardian",
+                "release-pulse",
+            }
+            else 5
+        )
+        assert len(project_manifest["artifacts"]) == expected_artifacts
+        assert {decision["evidence_author"] for decision in project_manifest["decisions"]} == set(
+            ROSTER
+        )
         for artifact in project_manifest["artifacts"]:
             content = (project_dir / artifact["filename"]).read_text(encoding="utf-8")
             assert SIMULATION_NOTICE in content
+    expanded_decisions = [
+        decision
+        for project_dir in PROJECT_DIRS[4:]
+        for decision in json.loads((project_dir / "manifest.json").read_text(encoding="utf-8"))[
+            "decisions"
+        ]
+    ]
+    assert {decision["evidence_type"] for decision in expanded_decisions} == {
+        "document",
+        "review_comment",
+        "transcript_turn",
+    }
+    assert {
+        artifact["source_type"]
+        for project_dir in PROJECT_DIRS[4:]
+        for artifact in json.loads((project_dir / "manifest.json").read_text(encoding="utf-8"))[
+            "artifacts"
+        ]
+    } == {"document", "meeting-transcript"}
 
     body = "\n".join(
         segment.text
@@ -100,9 +126,7 @@ def test_mixed_docx_has_threaded_attribution_for_all_profiles():
     for name in ROSTER:
         selected = [
             segment
-            for segment in parse_file(
-                CORPUS / "01-initial-design-review.docx", reviewer_name=name
-            )
+            for segment in parse_file(CORPUS / "01-initial-design-review.docx", reviewer_name=name)
             if segment.comment_id
         ]
         assert selected
@@ -111,9 +135,7 @@ def test_mixed_docx_has_threaded_attribution_for_all_profiles():
 
 def test_mixed_transcripts_cover_all_speakers_and_wav_is_valid():
     for filename in ("02-group-chat.txt", "03-architecture-review-transcript.txt"):
-        turns = [
-            segment for segment in parse_file(CORPUS / filename) if segment.author
-        ]
+        turns = [segment for segment in parse_file(CORPUS / filename) if segment.author]
         assert {turn.author for turn in turns} == set(ROSTER)
         assert all(turn.speaker_role == ROSTER[turn.author] for turn in turns)
         assert all(SIMULATION_NOTICE in turn.text for turn in turns)
@@ -123,9 +145,7 @@ def test_mixed_transcripts_cover_all_speakers_and_wav_is_valid():
     for decision_word in ("Accepted:", "Rejected:", "Refined:"):
         assert decision_word in architecture_text
 
-    script = (CORPUS / "04-architecture-review-audio-script.txt").read_text(
-        encoding="utf-8"
-    )
+    script = (CORPUS / "04-architecture-review-audio-script.txt").read_text(encoding="utf-8")
     assert all(name in script for name in ROSTER)
     with wave.open(str(CORPUS / "04-architecture-review.wav"), "rb") as recording:
         assert recording.getnchannels() == 1
@@ -141,9 +161,7 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
     database = Database(database_path)
     database.initialize()
     existing = database.create_expert("Existing Approved Expert", "Approved evidence")
-    approved = database.create_source(
-        existing.id, "Approved source", "approved.txt", "document"
-    )
+    approved = database.create_source(existing.id, "Approved source", "approved.txt", "document")
     database.update_source(approved.id, "ready")
     legacy = database.create_source(
         existing.id,
@@ -172,9 +190,9 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
 
     first = seed(database_path)
     assert first.backup_path and first.backup_path.is_file()
-    assert first.source_count == 209
-    assert first.segment_count == 209
-    assert first.decision_count == 77
+    assert first.source_count == 484
+    assert first.segment_count == 484
+    assert first.decision_count == 132
 
     with sqlite3.connect(database_path) as connection:
         first_source_ids = {
@@ -201,13 +219,19 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
     assert second.decision_count == first.decision_count
 
     with sqlite3.connect(database_path) as connection:
-        assert connection.execute(
-            "SELECT COUNT(*) FROM sources WHERE id=?", (approved.id,)
-        ).fetchone()[0] == 1
-        assert connection.execute(
-            "SELECT COUNT(*) FROM sources WHERE simulation_namespace=?",
-            (LEGACY_NAMESPACE,),
-        ).fetchone()[0] == 0
+        assert (
+            connection.execute(
+                "SELECT COUNT(*) FROM sources WHERE id=?", (approved.id,)
+            ).fetchone()[0]
+            == 1
+        )
+        assert (
+            connection.execute(
+                "SELECT COUNT(*) FROM sources WHERE simulation_namespace=?",
+                (LEGACY_NAMESPACE,),
+            ).fetchone()[0]
+            == 0
+        )
         assert {
             row[0]
             for row in connection.execute(
@@ -265,21 +289,24 @@ def test_seeder_is_idempotent_attributable_offline_and_preserves_other_sources(
             for decision in seeded_database.list_decisions(expert.id)
             if decision.simulation_namespace == SIMULATION_NAMESPACE
         ]
-        assert len(sources) == 19
+        assert len(sources) == 44
         assert {source.source_type for source in sources} == {
             "document",
             "meeting-transcript",
             "meeting-recording",
         }
-        assert {
-            source.title.split(" — ", 1)[0] for source in sources
-        } == {
+        assert {source.title.split(" — ", 1)[0] for source in sources} == {
+            "Project API Foundry",
+            "Project Cloud Foundation",
+            "Project Data Orbit",
+            "Project Event Mesh",
+            "Project Kusto Command",
             "Project Northstar",
             "Project Atlas Commerce",
             "Project Lakehouse Guardian",
             "Project Release Pulse",
         }
-        assert len(decisions) == 7
+        assert len(decisions) == 12
         assert all(decision.evidence_author == name for decision in decisions)
         assert all(decision.simulation for decision in decisions)
         fingerprint = FingerprintService(seeded_database).derive(expert.id)
@@ -298,6 +325,13 @@ def test_seeded_api_and_ui_keep_simulation_markers_internal(runtime_dir: Path):
         summary = client.get("/api/portfolio-summary").json()
         sources = client.get(f"/api/experts/{selected['id']}/sources").json()
         decisions = client.get(f"/api/experts/{selected['id']}/decisions").json()
+        finder = client.post(
+            "/api/expert-finder",
+            json={
+                "question": "Who has evidence for ADF Synapse ETL ADLS Gen2 replay?",
+                "top_k": 5,
+            },
+        ).json()
 
     assert "AI Clone" in html
     assert "SYNTHETIC ROLE-BASED SIMULATION" not in html
@@ -305,15 +339,27 @@ def test_seeded_api_and_ui_keep_simulation_markers_internal(runtime_dir: Path):
     assert "Maya Rao" not in {expert["name"] for expert in experts}
     assert summary == {
         "expert_count": 11,
-        "source_count": 209,
-        "decision_count": 77,
+        "source_count": 484,
+        "decision_count": 132,
         "projects": [
+            "Project API Foundry",
             "Project Atlas Commerce",
+            "Project Cloud Foundation",
+            "Project Data Orbit",
+            "Project Event Mesh",
+            "Project Kusto Command",
             "Project Lakehouse Guardian",
             "Project Northstar",
             "Project Release Pulse",
         ],
     }
-    assert len(sources) == 19
+    assert len(sources) == 44
     assert all(source["simulation"] is True for source in sources)
     assert all(decision["simulation"] is True for decision in decisions)
+    assert finder["matches"]
+    assert finder["matches"][0]["expert_name"] in {
+        "Devarakonda Sathish",
+        "Rajendra Kalepu",
+    }
+    assert all(match["citations"] for match in finder["matches"])
+    assert "synthetic demo evidence" in finder["simulation_notice"].lower()

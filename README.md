@@ -29,6 +29,8 @@ fictional role-archetype evidence, not real behavior or unsupported impersonatio
   expert. Unattributed body-derived records remain searchable grounding context and are
   visibly labeled as context, never as the expert's own view.
 - Combine lexical overlap with a local TF-IDF/cosine semantic score.
+- Rank the strongest evidence-backed AI Clones for a technology or engineering problem
+  using one cross-team relevance scale and attributable citations.
 - Answer with source-backed evidence separated from inferred patterns, citations, and an
   insufficient-evidence response when retrieval has no support.
 - Run fully offline with SQLite and deterministic extraction.
@@ -47,6 +49,7 @@ Browser / REST API
        ├── SQLite decision/evidence store
        ├── FingerprintService (decision records only)
        ├── RetrievalService (lexical + local TF-IDF cosine)
+       ├── ExpertFinderService (cross-team evidence ranking)
        ├── Answerer (local | Azure OpenAI)
        └── Transcriber (actionable local error | Azure Speech)
 ```
@@ -142,6 +145,8 @@ exactly one strict-JSON Azure OpenAI generation call for the complete 11-person 
 |---|---|---|
 | `POST` | `/api/experts` | Create an expert |
 | `GET` | `/api/experts` | List experts |
+| `GET` | `/api/portfolio-summary` | Summarize projects, sources, decisions, and AI Clones |
+| `POST` | `/api/expert-finder` | Rank AI Clones using attributable evidence |
 | `POST` | `/api/experts/{id}/sources` | Upload and synchronously ingest a source |
 | `GET` | `/api/experts/{id}/sources` | List ingestion status |
 | `GET` | `/api/experts/{id}/decisions` | List structured decision records |
@@ -232,8 +237,8 @@ fingerprint inference, and qualifies uncertainty.
 comments, group chat, architecture transcript, WAV rendition and script, incident report,
 revised ADR, outcome retrospective, and deterministic manifest.
 
-The portfolio also includes three fictional projects with distinct software and data
-engineering scenarios:
+The portfolio also includes eight fictional projects with distinct software, data,
+event-driven, observability, and platform-engineering scenarios:
 
 - **Project Atlas Commerce:** checkout, payments, inventory, API resilience, security,
   accessibility, and customer-impact measures.
@@ -241,18 +246,29 @@ engineering scenarios:
   quality gates, lineage, reconciliation, compaction, and deterministic replay.
 - **Project Release Pulse:** progressive delivery, health probes, database migration,
   fault injection, release metrics, rollback UX, worker draining, and latency budgets.
+- **Project API Foundry:** C#, .NET, REST APIs, App Service, Cosmos DB, compatibility,
+  managed identity, deployment slots, and contract testing.
+- **Project Data Orbit:** ADF, Synapse, ETL, ADLS Gen2, data quality, lineage, replay,
+  environment promotion, and governed publication.
+- **Project Event Mesh:** Event Grid, Event Hubs, Cosmos DB, idempotent consumers,
+  ordering, dead-letter recovery, scaling, and replay.
+- **Project Kusto Command:** Kusto, KQL, Event Hub telemetry, observability, alerting,
+  retention, diagnostic correlation, and incident investigation.
+- **Project Cloud Foundation:** App Service, VMs, Bicep, networking, managed identity,
+  CI/CD, backup restoration, regional recovery, and operational governance.
 
-Each added project contains design notes, a timestamped engineering chat, an architecture
-meeting transcript, and an incident/retrospective. All content is explicitly labeled as
-synthetic and supplies at least one attributable decision for every authorized AI Clone.
-Seed the complete 19-source-per-profile portfolio without network or Azure provider calls:
+The expanded projects contain threaded review comments, engineering chats, architecture
+meeting transcripts, transcripts from fictional audio reviews, incidents, retrospectives,
+and measured outcomes. All content is explicitly labeled as synthetic and supplies at
+least one attributable decision for every authorized AI Clone. Seed the complete
+44-source and 12-decision-per-profile portfolio without network or Azure provider calls:
 
 ```powershell
 python scripts\seed_role_simulations.py --execute --database data\experttwin.db
 ```
 
 The first portfolio mutation backs up an existing database under `data\backups`.
-Reruns replace only `engineering-portfolio-role-sim-v3`; the first run also removes
+Reruns replace only `engineering-portfolio-role-sim-v4`; the first run also removes
 superseded Northstar namespaces. Unrelated sources remain unchanged.
 
 For an ephemeral hosted demo, set `SEED_ROLE_SIMULATIONS=true`. Application startup then

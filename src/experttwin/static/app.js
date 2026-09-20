@@ -113,6 +113,40 @@ function citationMarkup(citations) {
     </details>`;
 }
 
+function renderExpertMatches(response) {
+  if (!response.matches.length) {
+    $("expertFinderResult").innerHTML = `
+      <div class="empty-state">No attributable evidence matched this question. Try naming a technology, architecture decision, incident, or delivery concern.</div>`;
+    return;
+  }
+  $("expertFinderResult").innerHTML = `
+    <div class="expert-match-summary">
+      <strong>${response.matches.length} evidence-backed matches</strong>
+      <span>${escapeHtml(response.simulation_notice)}</span>
+    </div>
+    <div class="expert-match-list">${response.matches.map((match, index) => `
+      <article class="expert-match">
+        <div class="expert-match-rank">${String(index + 1).padStart(2, "0")}</div>
+        <span class="avatar" style="--avatar-hue:${avatarHue(match.expert_name)}"
+              aria-hidden="true">${escapeHtml(initials(match.expert_name))}</span>
+        <div class="expert-match-body">
+          <div class="expert-match-heading">
+            <div><h3>${escapeHtml(match.expert_name)} <small>(AI Clone)</small></h3>
+              <p>${escapeHtml(match.role)}</p></div>
+            <span class="match-score ${escapeHtml(match.confidence)}">${Math.round(match.score * 100)}% match</span>
+          </div>
+          <p>${escapeHtml(match.explanation)}</p>
+          <div class="matched-terms">${match.matched_terms.map(term =>
+            `<span>${escapeHtml(term)}</span>`).join("")}</div>
+          <div class="expert-match-meta">${match.evidence_count} cited decisions ·
+            ${match.project_count} synthetic project${match.project_count === 1 ? "" : "s"}</div>
+          ${citationMarkup(match.citations)}
+          <button type="button" class="ask-matched-expert"
+                  data-expert-name="${escapeHtml(match.expert_name)}">Ask this AI Clone →</button>
+        </div>
+      </article>`).join("")}</div>`;
+}
+
 function citationRefs(citationIds) {
   if (!citationIds?.length) return '<span class="muted">No supporting citation</span>';
   return `<span class="muted">Evidence: ${citationIds.map(id =>
@@ -382,6 +416,43 @@ $("warRoomForm").addEventListener("submit", async event => {
       $("warRoomResult").innerHTML =
         `<div class="empty-state war-room-error">${escapeHtml(error.message)}</div>`;
     }
+  });
+});
+
+$("expertFinderForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const question = $("expertFinderQuestion").value.trim();
+  if (!question) return;
+  $("expertFinderResult").innerHTML =
+    '<div class="empty-state">Comparing attributable decisions across all AI Clones…</div>';
+  await withBusy(event.currentTarget, "Ranking evidence…", async () => {
+    try {
+      const response = await api("/api/expert-finder", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question, top_k: 5})
+      });
+      renderExpertMatches(response);
+    } catch (error) {
+      $("expertFinderResult").innerHTML =
+        `<div class="empty-state expert-finder-error">${escapeHtml(error.message)}</div>`;
+    }
+  });
+});
+
+$("expertFinderResult").addEventListener("click", async event => {
+  const button = event.target.closest(".ask-matched-expert");
+  if (!button) return;
+  await selectExpertByName(button.dataset.expertName);
+  $("question").value = $("expertFinderQuestion").value.trim();
+  activateView("chat");
+  $("question").focus();
+});
+
+document.querySelectorAll("[data-expert-query]").forEach(button => {
+  button.addEventListener("click", () => {
+    $("expertFinderQuestion").value = button.dataset.expertQuery;
+    $("expertFinderForm").requestSubmit();
   });
 });
 

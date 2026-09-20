@@ -4,6 +4,11 @@
     "northstar-mixed",
     "atlas-commerce",
     "lakehouse-guardian",
-    "release-pulse"
+    "release-pulse",
+    "api-foundry",
+    "data-orbit",
+    "event-mesh",
+    "kusto-command",
+    "cloud-foundation"
   ]
 }

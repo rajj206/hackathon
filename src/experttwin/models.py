@@ -27,6 +27,33 @@ class PortfolioSummary(BaseModel):
     projects: list[str]
 
 
+class ExpertFinderRequest(BaseModel):
+    question: str = Field(min_length=2, max_length=2000)
+    top_k: int = Field(default=5, ge=1, le=11)
+
+
+class ExpertMatch(BaseModel):
+    expert_id: str
+    expert_name: str
+    role: str
+    score: float = Field(ge=0.0, le=1.0)
+    confidence: Literal["strong", "limited"]
+    evidence_count: int = Field(ge=1)
+    project_count: int = Field(ge=0)
+    matched_terms: list[str]
+    explanation: str
+    citations: list["Citation"]
+
+
+class ExpertFinderResponse(BaseModel):
+    question: str
+    matches: list[ExpertMatch]
+    simulation_notice: str = (
+        "Ranked from synthetic demo evidence only; this is not an assessment of "
+        "actual employee expertise."
+    )
+
+
 class Source(BaseModel):
     id: str
     expert_id: str

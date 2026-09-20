@@ -1,0 +1,9 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Cloud Foundation — Incident retrospective and outcomes
+
+A fictional Azure platform program spanning App Service, virtual machines, networking, identity, infrastructure as code, and disaster recovery.
+
+[2026-09-22 09:00] Hrishikesh Mohile (Principal Software Engineering Manager): We should require workload owners, recovery objectives, cost bounds, and exception expiry. Demonstrated technologies: azure. This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a management perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.
+[2026-09-22 10:25] Nishikant Lambat (Software Engineer): We should test identity loss, network isolation, VM restart, backup restore, and regional failover. Demonstrated technologies: identity, vm. This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.
+[2026-09-22 11:50] Vishwas Srivastava (Principal Software Engineer): We should prefer managed Azure services while isolating justified VM dependencies. Demonstrated technologies: azure, vm. This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a architecture perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.

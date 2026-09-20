@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Event Mesh — Engineering chat transcript
+
+A fictional event-driven platform combining Event Grid, Event Hubs, Cosmos DB, dead-letter handling, and replay-safe consumers.
+
+[2026-09-20 10:20] Manish Patil (Senior Software Engineer): We should scale Event Hubs consumers from lag while bounding partitions and retry pressure. Demonstrated technologies: event-hubs. This addresses how to route high-volume events reliably while preserving ordering and replay from a platform perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: All 6 million synthetic events were recovered without loss after a consumer outage.
+[2026-09-20 11:45] Tulika (Software Engineer II): We should scale Event Hubs consumers from lag while bounding partitions and retry pressure. Demonstrated technologies: event-hubs. This addresses how to route high-volume events reliably while preserving ordering and replay from a platform perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: All 6 million synthetic events were recovered without loss after a consumer outage.

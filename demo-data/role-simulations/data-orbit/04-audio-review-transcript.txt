@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Data Orbit — Audio architecture review transcript
+
+Synthetic transcript from a fictional audio architecture review.
+
+[2026-09-19 09:10] Devarakonda Sathish (Data Engineer): We should checkpoint ADF by source data, preserve bronze in ADLS Gen2, and reconcile Synapse outputs. Demonstrated technologies: adf, adls-gen2, etl, synapse. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a data perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.
+[2026-09-19 10:35] Satyajit Sahu (Software Engineering): We should expose pipeline state through stable APIs without coupling clients to ADF internals. Demonstrated technologies: adf. This addresses how to make high-volume ETL observable, replayable, and trustworthy from a application perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: A synthetic 18-terabyte replay completed with zero unexplained variance.

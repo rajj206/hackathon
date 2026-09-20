@@ -1,0 +1,362 @@
+{
+  "notice": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.",
+  "scenario": "Project Cloud Foundation",
+  "summary": "A fictional Azure platform program spanning App Service, virtual machines, networking, identity, infrastructure as code, and disaster recovery.",
+  "artifacts": [
+    {
+      "filename": "01-design-review-comments.md",
+      "label": "Threaded design review comments",
+      "source_type": "document"
+    },
+    {
+      "filename": "02-engineering-chat-transcript.txt",
+      "label": "Engineering chat transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "03-architecture-meeting-transcript.txt",
+      "label": "Architecture meeting transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "04-audio-review-transcript.txt",
+      "label": "Audio architecture review transcript",
+      "source_type": "meeting-transcript"
+    },
+    {
+      "filename": "05-incident-retrospective.md",
+      "label": "Incident retrospective and outcomes",
+      "source_type": "document"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Hrishikesh Mohile",
+      "evidence_role": "Principal Software Engineering Manager",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nHrishikesh Mohile: In Project Cloud Foundation, I recommend we require workload owners, recovery objectives, cost bounds, and exception expiry. Demonstrated technologies: azure. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a management perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-22 09:00 \u2014 Hrishikesh Mohile (Principal Software Engineering Manager)",
+      "timestamp": "2026-09-22 09:00",
+      "decision": "Require workload owners, recovery objectives, cost bounds, and exception expiry for Project Cloud Foundation",
+      "choice": "Require workload owners, recovery objectives, cost bounds, and exception expiry",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a management perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "azure",
+        "management"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Amrita Shanbhag",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nAmrita Shanbhag: In Project Cloud Foundation, I recommend we externalize configuration and use managed identity across App Service workloads. Demonstrated technologies: app-service, identity. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Threaded design review comments at 2026-09-22 09:05 \u2014 Amrita Shanbhag (Senior Software Engineer)",
+      "timestamp": "2026-09-22 09:05",
+      "decision": "Externalize configuration and use managed identity across app service workloads for Project Cloud Foundation",
+      "choice": "Externalize configuration and use managed identity across app service workloads",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "app-service",
+        "application",
+        "identity"
+      ],
+      "comment_id": "CLO-02",
+      "anchor_text": "operate mixed PaaS and VM workloads with secure, repeatable recovery",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional Azure platform program spanning App Service, virtual machines, networking, identity, infrastructure as code, and disaster recovery."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Devarakonda Sathish",
+      "evidence_role": "Data Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nDevarakonda Sathish: In Project Cloud Foundation, I recommend we protect state with tested backups, immutable checkpoints, and recovery reconciliation. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-22 09:10 \u2014 Devarakonda Sathish (Data Engineer)",
+      "timestamp": "2026-09-22 09:10",
+      "decision": "Protect state with tested backups, immutable checkpoints, and recovery reconciliation for Project Cloud Foundation",
+      "choice": "Protect state with tested backups, immutable checkpoints, and recovery reconciliation",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Kumar Ritesh",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nKumar Ritesh: In Project Cloud Foundation, I recommend we externalize configuration and use managed identity across App Service workloads. Demonstrated technologies: app-service, identity. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-22 09:15 \u2014 Kumar Ritesh (Senior Software Engineer)",
+      "timestamp": "2026-09-22 09:15",
+      "decision": "Externalize configuration and use managed identity across app service workloads for Project Cloud Foundation",
+      "choice": "Externalize configuration and use managed identity across app service workloads",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "app-service",
+        "application",
+        "identity"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Manish Patil",
+      "evidence_role": "Senior Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nManish Patil: In Project Cloud Foundation, I recommend we provision App Service, VMs, networking, monitoring, and RBAC through reviewed Bicep. Demonstrated technologies: app-service, bicep, devops, vm. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-22 10:20 \u2014 Manish Patil (Senior Software Engineer)",
+      "timestamp": "2026-09-22 10:20",
+      "decision": "Provision app service, vms, networking, monitoring, and rbac through reviewed bicep for Project Cloud Foundation",
+      "choice": "Provision app service, vms, networking, monitoring, and rbac through reviewed bicep",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "app-service",
+        "bicep",
+        "devops",
+        "platform",
+        "vm"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Nishikant Lambat",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nNishikant Lambat: In Project Cloud Foundation, I recommend we test identity loss, network isolation, VM restart, backup restore, and regional failover. Demonstrated technologies: identity, vm. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-22 10:25 \u2014 Nishikant Lambat (Software Engineer)",
+      "timestamp": "2026-09-22 10:25",
+      "decision": "Test identity loss, network isolation, vm restart, backup restore, and regional failover for Project Cloud Foundation",
+      "choice": "Test identity loss, network isolation, vm restart, backup restore, and regional failover",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "identity",
+        "quality",
+        "vm"
+      ]
+    },
+    {
+      "artifact": "01-design-review-comments.md",
+      "evidence_author": "Rajendra Kalepu",
+      "evidence_role": "Senior Data Engineer",
+      "evidence_type": "review_comment",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nRajendra Kalepu: In Project Cloud Foundation, I recommend we protect state with tested backups, immutable checkpoints, and recovery reconciliation. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a data perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Threaded design review comments at 2026-09-22 10:30 \u2014 Rajendra Kalepu (Senior Data Engineer)",
+      "timestamp": "2026-09-22 10:30",
+      "decision": "Protect state with tested backups, immutable checkpoints, and recovery reconciliation for Project Cloud Foundation",
+      "choice": "Protect state with tested backups, immutable checkpoints, and recovery reconciliation",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a data perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "data"
+      ],
+      "comment_id": "CLO-07",
+      "anchor_text": "operate mixed PaaS and VM workloads with secure, repeatable recovery",
+      "parent_comment_id": "ARCH-ROOT",
+      "parent_author": "Architecture proposal",
+      "parent_text": "A fictional Azure platform program spanning App Service, virtual machines, networking, identity, infrastructure as code, and disaster recovery."
+    },
+    {
+      "artifact": "02-engineering-chat-transcript.txt",
+      "evidence_author": "Satyajit Sahu",
+      "evidence_role": "Software Engineering",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSatyajit Sahu: In Project Cloud Foundation, I recommend we externalize configuration and use managed identity across App Service workloads. Demonstrated technologies: app-service, identity. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Engineering chat transcript at 2026-09-22 10:35 \u2014 Satyajit Sahu (Software Engineering)",
+      "timestamp": "2026-09-22 10:35",
+      "decision": "Externalize configuration and use managed identity across app service workloads for Project Cloud Foundation",
+      "choice": "Externalize configuration and use managed identity across app service workloads",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a application perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "app-service",
+        "application",
+        "identity"
+      ]
+    },
+    {
+      "artifact": "03-architecture-meeting-transcript.txt",
+      "evidence_author": "Siya Sharma",
+      "evidence_role": "Software Engineer",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nSiya Sharma: In Project Cloud Foundation, I recommend we test identity loss, network isolation, VM restart, backup restore, and regional failover. Demonstrated technologies: identity, vm. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Architecture meeting transcript at 2026-09-22 11:40 \u2014 Siya Sharma (Software Engineer)",
+      "timestamp": "2026-09-22 11:40",
+      "decision": "Test identity loss, network isolation, vm restart, backup restore, and regional failover for Project Cloud Foundation",
+      "choice": "Test identity loss, network isolation, vm restart, backup restore, and regional failover",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a quality perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "identity",
+        "quality",
+        "vm"
+      ]
+    },
+    {
+      "artifact": "04-audio-review-transcript.txt",
+      "evidence_author": "Tulika",
+      "evidence_role": "Software Engineer II",
+      "evidence_type": "transcript_turn",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nTulika: In Project Cloud Foundation, I recommend we provision App Service, VMs, networking, monitoring, and RBAC through reviewed Bicep. Demonstrated technologies: app-service, bicep, devops, vm. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a platform perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Audio architecture review transcript at 2026-09-22 11:45 \u2014 Tulika (Software Engineer II)",
+      "timestamp": "2026-09-22 11:45",
+      "decision": "Provision app service, vms, networking, monitoring, and rbac through reviewed bicep for Project Cloud Foundation",
+      "choice": "Provision app service, vms, networking, monitoring, and rbac through reviewed bicep",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a platform perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "app-service",
+        "bicep",
+        "devops",
+        "platform",
+        "vm"
+      ]
+    },
+    {
+      "artifact": "05-incident-retrospective.md",
+      "evidence_author": "Vishwas Srivastava",
+      "evidence_role": "Principal Software Engineer",
+      "evidence_type": "document",
+      "evidence_text": "SYNTHETIC ROLE-BASED SIMULATION \u2014 NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.\nVishwas Srivastava: In Project Cloud Foundation, I recommend we prefer managed Azure services while isolating justified VM dependencies. Demonstrated technologies: azure, vm. Rationale: This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a architecture perspective. Constraint: The design must remain testable, observable, least-privilege, and reversible. Outcome: Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "page_or_segment": "Incident retrospective and outcomes at 2026-09-22 11:50 \u2014 Vishwas Srivastava (Principal Software Engineer)",
+      "timestamp": "2026-09-22 11:50",
+      "decision": "Prefer managed azure services while isolating justified vm dependencies for Project Cloud Foundation",
+      "choice": "Prefer managed azure services while isolating justified vm dependencies",
+      "alternatives": [
+        "Adopt the platform defaults without an evidence or recovery gate"
+      ],
+      "rationale": [
+        "This addresses how to operate mixed PaaS and VM workloads with secure, repeatable recovery from a architecture perspective."
+      ],
+      "constraints": [
+        "The design must remain testable, observable, least-privilege, and reversible."
+      ],
+      "risks": [
+        "A narrow implementation could optimize one component while hiding end-to-end failure."
+      ],
+      "outcome": "Every synthetic regional and VM recovery exercise met its stated recovery target.",
+      "tags": [
+        "architecture",
+        "azure",
+        "vm"
+      ]
+    }
+  ]
+}

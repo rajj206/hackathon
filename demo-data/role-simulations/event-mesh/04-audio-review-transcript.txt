@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project Event Mesh — Audio architecture review transcript
+
+Synthetic transcript from a fictional audio architecture review.
+
+[2026-09-20 09:05] Amrita Shanbhag (Senior Software Engineer): We should make consumers idempotent and persist processing state separately from delivery. This addresses how to route high-volume events reliably while preserving ordering and replay from a application perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: All 6 million synthetic events were recovered without loss after a consumer outage.
+[2026-09-20 10:30] Rajendra Kalepu (Senior Data Engineer): We should retain immutable event envelopes with sequence, schema, and lineage metadata. Demonstrated technologies: replay. This addresses how to route high-volume events reliably while preserving ordering and replay from a data perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: All 6 million synthetic events were recovered without loss after a consumer outage.

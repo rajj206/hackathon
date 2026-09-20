@@ -1,0 +1,8 @@
+SYNTHETIC ROLE-BASED SIMULATION — NOT BASED ON THESE EMPLOYEES' ACTUAL BEHAVIOR OR WORK HISTORY.
+
+# Project API Foundry — Architecture meeting transcript
+
+A fictional C# and .NET modernization program for versioned REST APIs on Azure App Service with Cosmos DB and managed identity.
+
+[2026-09-18 09:10] Devarakonda Sathish (Data Engineer): We should choose Cosmos DB partition keys from access patterns and validate change-feed replay. Demonstrated technologies: cosmos-db. This addresses how to modernize customer APIs without breaking clients or weakening reliability from a data perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.
+[2026-09-18 10:35] Satyajit Sahu (Software Engineering): We should use versioned C# REST API contracts, idempotent commands, and explicit failure responses. Demonstrated technologies: c#, rest-api. This addresses how to modernize customer APIs without breaking clients or weakening reliability from a application perspective. Risk: A narrow implementation could optimize one component while hiding end-to-end failure. Measured outcome: Synthetic API p95 fell 41% while all contract and rollback checks passed.
