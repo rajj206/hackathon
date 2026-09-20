@@ -2,14 +2,14 @@
 
 > **Status:** Deployed
 
-Generated: 2026-09-18T22:13:55+05:30
+Generated: 2026-09-20T18:07:06+05:30
 
 ---
 
 ## 1. Project Overview
 
-**Goal:** Deploy the ExpertTwin portfolio Overview with live metrics, project-filtered
-scenario prompts, evidence-flow visualization, and direct Chat/War Room routing.
+**Goal:** Deploy evidence-backed expert discovery and the expanded nine-project synthetic
+engineering portfolio for all 11 authorized AI Clones.
 
 **Path:** Modify existing deployment
 
@@ -87,7 +87,7 @@ replica, CPU, memory, or SKU limits.
 
 - [x] Retain existing infrastructure and managed identity
 - [x] Verify application behavior locally
-- [x] Select immutable image tag `experttwin:overview-c482ea3`
+- [x] Select immutable image tag `experttwin:expert-finder-051a73e`
 - [x] Compile existing Bicep successfully
 - [x] Mark plan `Ready for Validation`
 
@@ -107,7 +107,7 @@ replica, CPU, memory, or SKU limits.
 - [x] Invoke azure-deploy
 - [x] Build image in existing ACR
 - [x] Update existing Container App revision
-- [x] Verify health, Overview UI, portfolio metrics, and scenario routing
+- [x] Verify health, Expert Finder ranking, portfolio counts, and UI assets
 - [x] Confirm existing RBAC assignments
 - [x] Set status to `Deployed`
 
@@ -115,22 +115,22 @@ replica, CPU, memory, or SKU limits.
 
 - **Status:** Verified locally
 - **Backend:** Full 35-test suite passed
-- **UI:** Overview HTML, CSS, JavaScript syntax, API, and accessibility-hook tests passed
-- **Data:** Portfolio seeding verified as idempotent with 209 sources and 77 decisions
+- **UI:** Expert Finder HTML, CSS, JavaScript syntax, API, and accessibility tests passed
+- **Data:** Portfolio seeding verified as idempotent with 484 sources and 132 decisions
 
 ## 9. Validation Proof
 
 | Check | Command run | Result | Timestamp |
 |-------|-------------|--------|-----------|
-| Full application suite | `python -m pytest -q` | Pass: 35 tests | 2026-09-18T22:10:00+05:30 |
-| Python build | `python -m compileall -q src` | Pass | 2026-09-18T22:17:31+05:30 |
-| Lint | `ruff check` on changed Python and tests | Pass | 2026-09-18T22:10:00+05:30 |
-| JavaScript syntax | `node --check src/experttwin/static/app.js` | Pass | 2026-09-18T22:10:00+05:30 |
-| Bicep core validation | `validate-deployment.ps1 -Scope sub -Location eastus -Subscription c38f5047-f2db-4ed4-a415-c7eca00acbbe` | Pass: CLI, auth, compile, ARM validation, and what-if | 2026-09-18T22:17:31+05:30 |
-| Resource-level what-if review | `az deployment sub what-if ... --result-format ResourceIdOnly` | Pass: zero resource deletions; API-default property noise reviewed | 2026-09-18T22:17:31+05:30 |
-| Bicep lint | `az bicep lint --file infra/main.bicep` | Pass with known non-blocking API type warnings | 2026-09-18T22:17:31+05:30 |
-| Azure Policy | `az policy assignment list`; `az policy state list --resource <container-app-id>` | Pass: one assignment; zero Container App noncompliant states | 2026-09-18T22:17:31+05:30 |
-| Static RBAC | Review `role-assignments.bicep`, `openai-role-assignment.bicep`, and app credential usage | Pass: resource-scoped AcrPull, Key Vault Secrets User, Cognitive Services OpenAI User | 2026-09-18T22:17:31+05:30 |
+| Full application suite | `python -m pytest -q` | Pass: 35 tests | 2026-09-20T18:10:17+05:30 |
+| Python build | `python -m compileall -q src scripts/build_capability_portfolio.py` | Pass | 2026-09-20T18:10:17+05:30 |
+| Lint | `ruff check` on changed Python and tests | Pass | 2026-09-20T18:10:17+05:30 |
+| JavaScript syntax | `node --check src/experttwin/static/app.js` | Pass | 2026-09-20T18:10:17+05:30 |
+| Bicep core validation | `validate-deployment.ps1 -Scope sub -Location eastus -Subscription c38f5047-f2db-4ed4-a415-c7eca00acbbe` | Pass: CLI, auth, compile, ARM validation, and what-if | 2026-09-20T18:10:17+05:30 |
+| Resource-level what-if review | `az deployment sub what-if ... --result-format ResourceIdOnly --no-pretty-print` | Pass: zero resource deletions; 8 deploy updates and 3 known unsupported RBAC analyses | 2026-09-20T18:10:17+05:30 |
+| Bicep lint | `az bicep lint --file infra/main.bicep` | Pass with known non-blocking API type warnings | 2026-09-20T18:10:17+05:30 |
+| Azure Policy | `az policy assignment list`; `az policy state list --resource <container-app-id>` | Pass: one assignment; zero Container App noncompliant states | 2026-09-20T18:10:17+05:30 |
+| Static RBAC | Confirmed no changes to role assignment modules | Pass: resource-scoped AcrPull, Key Vault Secrets User, Cognitive Services OpenAI User | 2026-09-20T18:10:17+05:30 |
 
 **Validated by:** azure-validate workflow
 
@@ -146,19 +146,20 @@ replica, CPU, memory, or SKU limits.
 ## 11. Rollback
 
 If health or data verification fails, reactivate the current healthy Container App
-revision `ca-experttwin-dev-4449--0000009`. No data migration or destructive operation
+revision `ca-experttwin-dev-4449--0000010`. No data migration or destructive operation
 is part of this deployment.
 
 ## 12. Deployment Verification
 
 | Check | Result |
 |-------|--------|
-| ACR build | `caa` succeeded; digest `sha256:124c05f05de2bc0a1eb04395014c93205f88e468323ca2161e148617a83cf74c` |
-| Container revision | `ca-experttwin-dev-4449--0000010` is healthy and receives 100% traffic |
+| ACR build | `cab` succeeded; digest `sha256:9f2f60f70eaef2aa5e1795e1b81cbb41fd3648f35c2953aa2c5c4fcfd5d0e4c4` |
+| Container revision | `ca-experttwin-dev-4449--0000011` is healthy and receives 100% traffic |
 | Health | `/health` returned `ok` in `azure-openai` mode |
-| UI | `overview-ui-20260918-1` assets, Overview tab, scenario cards, and routing logic are live |
-| Roster and portfolio | 11 AI Clones, 4 projects, 209 sources, and 77 decisions |
-| Scenario routing | Live JavaScript includes expert selection and Chat/War Room routing; cited chat returned 6 citations |
+| UI | `expert-finder-ui-20260920-1` assets, finder tab, nine project filters, and match routing are live |
+| Roster and portfolio | 11 AI Clones, 9 projects, 484 sources, and 132 decisions |
+| Expert Finder | Five domain queries returned ranked matches with three attributable citations each |
+| Rich evidence | Verified 44 sources and 12 decisions for one profile, including review comments and transcript turns |
 | ACR role | `AcrPull` confirmed at registry scope |
 | Key Vault role | `Key Vault Secrets User` confirmed at vault scope |
 | Azure OpenAI role | `Cognitive Services OpenAI User` confirmed at account scope |
